@@ -1,4 +1,4 @@
-package com.assignment2.api;
+package main.com.assignment2.api;
 
 public class ComputeEnginePrototype {
 

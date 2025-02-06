@@ -1,6 +1,6 @@
 package main.com.assignment2.api;
 
-import java.io.*;
+//import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -28,13 +28,13 @@ public class ComputeEnginePrototype implements ComputeEngineAPI {
     @Override
     public void processData(DataStorageAPI storage, String inputSource, String outputSource, String[] delimiters) {
     	// Read input data using the storage API
-        String rawData = storage.readData(inputSource);
+        //String rawData = storage.readData(inputSource);
 
         // Process data using delimiters
-        String processedData = process(rawData, delimiters);
+        //String processedData = process(rawData, delimiters);
 
         // Write processed data to the output destination
-        storage.writeData(outputSource, processedData);
+        //storage.writeData(outputSource, processedData);
     }
     
     private String process(String data, String[] delimiters) {

@@ -1,5 +1,7 @@
 package main.com.assignment2.api;
 
+import java.util.*;
+
 import project.annotations.NetworkAPIPrototype;
 
 /**
@@ -32,9 +34,9 @@ public class ComputeEnginePrototype implements ComputeEngineAPI {
     }
     
     private String process(String data, String[] delimiters) {
-        // If delimiters are not provided, use default delimiters (e.g., whitespace and comma)
+        // If delimiters are not provided, use default delimiters
         if (delimiters == null || delimiters.length == 0) {
-            delimiters = new String[]{" ", ","};
+            delimiters = DEFAULT_DELIMITERS;
         }
 
         // Replace each delimiter with a standard delimiter (e.g., a single space)

@@ -1,3 +1,5 @@
+//UserComputeEngineAPI.java
+
 package main.com.assignment2.api;
 
 import project.annotations.NetworkAPI;
@@ -7,7 +9,7 @@ import project.annotations.NetworkAPI;
  * and writes it to a specified destination.
  */
 @NetworkAPI
-public interface ComputeEngineAPI {
+public interface UserComputeEngineAPI {
     /**
      * Processes data from the specified input source and writes it to the given destination.
      *
@@ -15,6 +17,5 @@ public interface ComputeEngineAPI {
      * @param destination The output destination
      * @param delimiters Custom delimiters for processing the output, null for defaults
      */
-    void processData(DataStorageAPI storage, String inputSource, String outputSource, String[] delimiters);
+    void processData(String inputSource, String outputSource, String[] delimiters);
 }
-    

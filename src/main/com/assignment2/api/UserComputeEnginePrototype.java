@@ -1,3 +1,5 @@
+// UserComputeEnginePrototype.java
+
 package main.com.assignment2.api;
 
 import project.annotations.NetworkAPIPrototype;
@@ -5,7 +7,7 @@ import project.annotations.NetworkAPIPrototype;
 /**
  * Prototype implementation of ComputeEngineAPI.
  */
-public class ComputeEnginePrototype implements ComputeEngineAPI {
+public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     // Default delimiters
     private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
@@ -20,15 +22,25 @@ public class ComputeEnginePrototype implements ComputeEngineAPI {
 
     @NetworkAPIPrototype
     @Override
-    public void processData(DataStorageAPI storage, String inputSource, String outputSource, String[] delimiters) {
-    	// Read input data using the storage API
-        //String rawData = storage.readData(inputSource);
+    public void processData(String inputSource, String outputSource, String[] delimiters) {
+    	// Read input data
+        String rawData = readData(inputSource);
 
         // Process data using delimiters
-        //String processedData = process(rawData, delimiters);
+        String processedData = process(rawData, delimiters);
 
         // Write processed data to the output destination
-        //storage.writeData(outputSource, processedData);
+        writeData(outputSource, processedData);
+    }
+    
+    private String readData(String source) {
+        // Placeholder for reading data logic
+        return "Sample data from " + source;
+    }
+
+    private void writeData(String destination, String data) {
+        // Placeholder for writing data logic
+        System.out.println("Writing to " + destination + ": " + data);
     }
     
     private String process(String data, String[] delimiters) {

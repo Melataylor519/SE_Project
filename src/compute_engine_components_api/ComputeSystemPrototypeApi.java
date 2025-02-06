@@ -1,5 +1,5 @@
 package compute_engine_components_api;
-import project.annotations.ConceptualAPIPrototype:
+import project.annotations.ConceptualAPIPrototype;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

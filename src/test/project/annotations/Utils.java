@@ -1,4 +1,4 @@
-package project.annotations;
+package test.project.annotations;
 
 import java.io.File;
 import java.util.ArrayList;

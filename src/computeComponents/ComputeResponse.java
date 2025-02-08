@@ -1,4 +1,4 @@
-package compute_engine_components_api;
+package computeComponents;
 
 public interface ComputeResponse {
 

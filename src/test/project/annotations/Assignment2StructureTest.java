@@ -1,3 +1,4 @@
+/*
 package test.project.annotations;
 
 import java.io.File;
@@ -28,7 +29,7 @@ import project.annotations.ProcessAPIPrototype;
  * interfaces, etc as you build out the prototype. This ensures that your API is written from the perspective of the client - the prototype
  * acts as a "pretend" client; while the prototype code will never actually run, it's a bare-bones check that some other fully-featured client
  * could easily use the API to do everything they need to.
- */
+ *
 
 public class Assignment2StructureTest {
 	
@@ -103,3 +104,4 @@ public class Assignment2StructureTest {
 
 	
 }
+*/

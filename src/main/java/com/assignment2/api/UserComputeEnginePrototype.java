@@ -1,8 +1,8 @@
 // UserComputeEnginePrototype.java
 
-package main.com.assignment2.api;
+package main.java.com.assignment2.api;
 
-import project.annotations.NetworkAPIPrototype;
+import main.java.project.annotations.NetworkAPIPrototype;
 
 /**
  * Prototype implementation of ComputeEngineAPI.

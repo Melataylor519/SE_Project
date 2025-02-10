@@ -19,7 +19,7 @@ sourceSets {
 	}
 	test {
 	  java {
-	     srcDirs = ['src/test/project/annotations']
+	     srcDirs = ['src/test/java']
 	  }
     }
 }
@@ -54,10 +54,9 @@ dependencies {
 
     testImplementation('junit:junit:4.12')
     testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testImplementation ('org.junit.jupiter:junit-jupiter-params:5.8.2')
 	testImplementation('org.mockito:mockito-core:5.10.0')
     
-
 }
 
 protobuf {

@@ -1,8 +1,8 @@
 //UserComputeEngineAPI.java
 
-package main.com.assignment2.api;
+package main.java.com.assignment2.api;
 
-import project.annotations.NetworkAPI;
+import main.java.project.annotations.NetworkAPI;
 
 /**
  * API interface for a compute engine that processes data from a source

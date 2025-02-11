@@ -9,7 +9,6 @@ import java.lang.annotation.RetentionPolicy;
 @Target(ElementType.TYPE)
 public @interface ProcessAPI {
 	// Marker annotation, should be applied to an interface type
-	String description() default "API for processing "
-			+ "data between storage and compute engine";
+	String description() default "API for processing data between storage and compute engine";
 }
 

@@ -17,7 +17,6 @@ public class ReadDataResponse implements DataProcessingResponse {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
 	public String getData() {
 		return data;
 	}

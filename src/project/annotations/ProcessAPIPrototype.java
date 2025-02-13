@@ -1,3 +1,4 @@
+
 package project.annotations;
 
 import java.lang.annotation.ElementType;
@@ -20,3 +21,4 @@ public @interface ProcessAPIPrototype {
 	 */
 	String description() default "Prototype method for processing data";
 }
+

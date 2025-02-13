@@ -8,7 +8,7 @@ import project.annotations.ConceptualAPIPrototype;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
-public class ComputeSystemPrototypeApi {
+public class ComputeSystemApi {
 	public void prototype(ComputeSystem computeSystem) {
 		
 		//user component will handle initialization, reading, and writing for the job

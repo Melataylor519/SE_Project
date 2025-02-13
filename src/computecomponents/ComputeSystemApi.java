@@ -11,6 +11,8 @@ import java.lang.annotation.Target;
 public class ComputeSystemPrototypeApi {
 	public void prototype(ComputeSystem computeSystem) {
 		
+		//user component will handle initialization, reading, and writing for the job
+		
 		//start computation
 		ComputeResponse computeResponse = computeSystem.compute(new ComputeRequest());
 		

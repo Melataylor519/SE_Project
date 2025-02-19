@@ -1,5 +1,8 @@
 package project.annotations;
 
-public interface InputConfig {
+import java.util.List;
 
+public interface InputConfig {
+	List<Integer> getInputData();
 }
+

@@ -3,8 +3,8 @@ package computecomponents;
 public class ComputeSystemImpl implements ComputeSystem{
 
 	@Override
-	public ComputeResponse compute(ComputeRequest computeRequest) {
-		return null;
+	public ComputeResponse compute(ComputeRequest request) {
+		return ComputeResponse.SUCCESS;
 	}
 
 }

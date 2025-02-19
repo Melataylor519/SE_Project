@@ -1,4 +1,3 @@
-
 package project.annotations;
 
 import java.lang.annotation.ElementType;
@@ -8,4 +7,3 @@ import java.lang.annotation.Target;
 public @interface NetworkAPI {
   // Marker annotation, should be applied to an interface type
 }
-

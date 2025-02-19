@@ -1,4 +1,4 @@
-package project.annotation;
+package project.annotations;
 
 class ReadResultImp implements ReadResult {
 	private final Status status;

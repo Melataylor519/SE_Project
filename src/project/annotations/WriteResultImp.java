@@ -1,14 +1,15 @@
 package project.annotations;
 
 class WriteResultImp implements WriteResult {
-	private final WriteResultStatus status; 
+	private WriteResultStatus status; 
+	private String message;
 	
-	/**
-	 * Constructor for WriteResultImp.
-	 * @param status the status of the write operation
-	 */
 	public WriteResultImp(WriteResultStatus status) {
 		this.status = status;
+	}
+	
+	public WriteResultImp(String message) {
+		this.message = message;
 	}
 	
 	@Override

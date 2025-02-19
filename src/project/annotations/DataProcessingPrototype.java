@@ -13,7 +13,9 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 	}
 	
 	public void prototype(DataProcessingAPI apiCall) {
-		InputConfig inputConfig = new InputConfig(); 
+		InputConfig inputConfig = new InputConfig() {
+			
+		}; 
 		OutputConfig outputConfig = null;
 
 		ReadResult dataStoreReadResult = apiCall.read(inputConfig);

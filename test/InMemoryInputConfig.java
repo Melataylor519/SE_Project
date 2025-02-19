@@ -6,7 +6,7 @@ public class InMemoryInputConfig implements InputConfig {
 	
 	
 	public InMemoryInputConfig(List<Integer> input) {
-		this.inputs.addAll(input)
+		this.inputs.addAll(input);
 	}
 	
 	public List<Integer> getInput() {

@@ -1,5 +1,8 @@
 package project.annotations;
 
+import java.util.List;
+import java.util.Arrays;
+
 public class DataProcessingPrototype implements DataProcessingAPI {
 
 	@Override
@@ -14,7 +17,10 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 	
 	public void prototype(DataProcessingAPI apiCall) {
 		InputConfig inputConfig = new InputConfig() {
-			
+			@Override
+			public List<Integer> getInputData(){
+				return Arrays.asList(1,2,3,4,5);
+			}
 		}; 
 		OutputConfig outputConfig = null;
 
@@ -34,3 +40,4 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 		}
 	}
 }
+

@@ -2,20 +2,20 @@ package project.annotations;
 
 import java.util.Arrays;
 
-import computecomponents.InputConfig;  // computecomponents.InputConfig 사용
-import computecomponents.OutputConfig;  // computecomponents.OutputConfig 사용
+import computecomponents.InputConfig;  
+
 
 public class DataProcessingPrototype implements DataProcessingAPI {
 
     @Override
     public ReadResult read(InputConfig input) {
-        // 실제 read 구현
+        // 'read' implement
         String inputData = input.getInputData();
         if (inputData == null || inputData.isEmpty()) {
             return new ReadResultImp(ReadResult.Status.FAILURE, null);
         }
         
-        // 데이터를 처리하여 성공적인 결과 반환
+        // process data, return result
         Iterable<Integer> processedData = processInputData(inputData);
         return new ReadResultImp(ReadResult.Status.SUCCESS, processedData);
     }
@@ -26,8 +26,8 @@ public class DataProcessingPrototype implements DataProcessingAPI {
             return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
         }
         
-        // OutputConfig의 형식에 맞춰서 결과를 저장하는 처리
-        String formattedResult = output.formatOutput(result);  // OutputConfig의 formatOutput 사용
+        // save result format: OutputConfig
+        String formattedResult = output.formatOutput(result);  // use formatOutput of OutputConfig
         boolean writeSuccess = writeResultToStorage(formattedResult, delimiter);
         
         if (writeSuccess) {
@@ -39,22 +39,22 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 
     // Helper method to process input data (example)
     private Iterable<Integer> processInputData(String inputData) {
-        // 예시로 입력 데이터를 숫자로 처리하는 로직 (여기에 실제 로직 구현)
-        return Arrays.asList(1, 2, 3);  // 임시 반환 값
+        // Logic for processing input data as numbers (actual logic implemented here)
+        return Arrays.asList(1, 2, 3);  // Temporary return value
     }
 
     // Helper method to simulate writing the result (example)
     private boolean writeResultToStorage(String result, char delimiter) {
-        // 실제 저장 로직 구현 (예: 파일이나 DB에 저장)
+        // Implement actual save logic (e.g. save to a file or DB)
         System.out.println("Result saved: " + result);
-        return true;  // 성공적으로 저장했다고 가정
+        return true;  // Assuming it was saved successfully
     }
 
     public void prototype(DataProcessingAPI apiCall) {
         InputConfig inputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return "Sample input data";  // 예시 데이터 반환
+                return "Sample input data";  // return example data
             }
         };
 

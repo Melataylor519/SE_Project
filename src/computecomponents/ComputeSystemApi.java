@@ -13,9 +13,20 @@ public class ComputeSystemApi {
 		
 
 		//initialize input and output configurations
-		//null until fully implemented
-		InputConfig inputConfig = null;
-		OutputConfig outputConfig = null;
+		
+		InputConfig inputConfig = new InputConfig() {
+            @Override
+            public String getInputData() {
+                return "13195";  // input example
+            }
+        };
+        
+		OutputConfig outputConfig = new OutputConfig() {
+            @Override
+            public String formatOutput(String result) {
+                return "Prime factors: " + result;  // formatted output
+            }
+        };
 				
 		//initialize request
 		ComputeRequest request = new ComputeRequest(inputConfig, outputConfig, ',');
@@ -26,8 +37,12 @@ public class ComputeSystemApi {
 		//print response status
 		if (response.getStatus().isSuccess()) {
 			System.out.println("Operation Successful.");
-			}
-		}
+			System.out.println("Result: " + response.getResult());  // 결과 출력
+        } else {
+            System.out.println("Computation failed: " + response.getFailureMessage());
+        }
+			
+	}
 	@Target(ElementType.METHOD)
 	public @interface ConceptualAPIPrototype {
 	  // Marker annotation, should be applied to a method within a prototype class

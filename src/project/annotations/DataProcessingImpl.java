@@ -3,7 +3,7 @@ package project.annotations;
 /**
  * Implementation of DataProcessingAPI interface.
  */
-public class DataProcessingImp implements DataProcessingAPI {
+public class DataProcessingImpl implements DataProcessingAPI {
 	private final DataProcessingAPI dataProcessAPI;
 	// Field to store API instance 
 	
@@ -11,7 +11,7 @@ public class DataProcessingImp implements DataProcessingAPI {
 	 * Constructor for DataProcessingImp.
 	 * @param dataProcessAPI The API instance to be used
 	 */
-	public DataProcessingImp(DataProcessingAPI dataProcessAPI) {
+	public DataProcessingImpl(DataProcessingAPI dataProcessAPI) {
 		this.dataProcessAPI = dataProcessAPI;
 	}
 	

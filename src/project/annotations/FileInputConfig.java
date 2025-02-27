@@ -7,6 +7,7 @@ public class FileInputConfig implements InputConfig {
         this.filePath = filePath;
     }
 
+    @Override
     public String getFilePath() {
         return filePath;
     }

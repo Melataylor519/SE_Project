@@ -5,7 +5,7 @@ import project.annotations.DataProcessingAPI;
 import project.annotations.ReadResult;
 import project.annotations.WriteResult;
 import project.annotations.InputConfig; 
-
+import project.annotations.OutputConfig; 
 
 
 /**

@@ -1,5 +1,9 @@
 package computecomponents;
 
+import main.java.com.assignment2.api.UserComputeEngineAPI;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+
 public class ComputeRequest {
 	
 	private static final char DEFAULT_DELIMITER = ';';

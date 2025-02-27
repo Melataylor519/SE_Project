@@ -4,27 +4,33 @@ public interface ComputeResponse {
 	static ComputeResponse SUCCESS = new ComputeResponse() {
         
         @Override
-        public ComputeReponseStatus getStatus() {
-            return ComputeReponseStatus.SUCCESS;
+        public ComputeResponseStatus getStatus() {
+            return ComputeResponseStatus.SUCCESS;
         }
         
         @Override
         public String getFailureMessage() {
             return "";
         }
+        
+        @Override
+        public String getResult() {
+            return "";
+        }
     };
 
-    ComputeReponseStatus getStatus();
+    ComputeResponseStatus getStatus();
 	String getFailureMessage();
+	String getResult(); // return result
 	
-	public static enum ComputeReponseStatus {
+	public static enum ComputeResponseStatus {
 		SUCCESS(true),
 		INVALID_REQUEST(false),
 		FAILURE(false);
 		
 		private final boolean success;
 		
-		private ComputeReponseStatus(boolean success) {
+		private ComputeResponseStatus(boolean success) {
 			this.success = success;
 		}
 		

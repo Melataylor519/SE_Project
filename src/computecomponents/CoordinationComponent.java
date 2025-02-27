@@ -59,6 +59,9 @@ public class CoordinationComponent {
         // Compute result
         OutputConfig computeOutputConfig = new OutputConfig() {
             @Override
+            public String getFilePath() {
+                return "";
+            }
             public String formatOutput(String result) {
                 return result;
             }

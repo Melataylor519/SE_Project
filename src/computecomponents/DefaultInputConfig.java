@@ -1,5 +1,7 @@
 package computecomponents;
 
+import project.annotations.InputConfig;
+
 public class DefaultInputConfig implements InputConfig {
     private final String inputData;
 

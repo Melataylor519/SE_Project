@@ -1,7 +1,6 @@
 // This file is to handle reading from and writing to files based on the provided configurations.
 package project.annotations;
 
-// FileDataProcessing.java
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,9 +19,14 @@ public class FileDataProcessing implements DataProcessingAPI {
 
         String filePath = input.getFilePath();
         try {
+            // Read all lines from the file as strings.
             List<String> lines = Files.readAllLines(Paths.get(filePath));
-            return new ReadResultImp(ReadResult.Status.SUCCESS, lines);
-        } catch (IOException e) {
+            // Convert each line (String) to an Integer.
+            List<Integer> data = lines.stream()
+                                      .map(Integer::parseInt)
+                                      .collect(Collectors.toList());
+            return new ReadResultImp(ReadResult.Status.SUCCESS, data);
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
             return new ReadResultImp(ReadResult.Status.FAILURE, null);
         }
@@ -31,16 +35,19 @@ public class FileDataProcessing implements DataProcessingAPI {
     @Override
     public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
         if (!(output instanceof FileOutputConfig)) {
-            return new WriteResultImp(WriteResult.Status.FAILURE);
+            return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
         }
 
         String filePath = output.getFilePath();
         try {
-            Files.write(Paths.get(filePath), (result + delimiter).getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-            return new WriteResultImp(WriteResult.Status.SUCCESS);
+            Files.write(Paths.get(filePath),
+                        (result + delimiter).getBytes(),
+                        StandardOpenOption.APPEND,
+                        StandardOpenOption.CREATE);
+            return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
         } catch (IOException e) {
             e.printStackTrace();
-            return new WriteResultImp(WriteResult.Status.FAILURE);
+            return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
         }
     }
 }

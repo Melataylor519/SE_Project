@@ -11,4 +11,9 @@ public class FileOutputConfig implements OutputConfig {
     public String getFilePath() {
         return filePath;
     }
+
+    
+    public String formatOutput(String input) {
+        return input;
+    }
 }

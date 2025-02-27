@@ -25,7 +25,7 @@ public class CoordinationComponent {
     public String handleComputation(String inputSource, String outputSource) {
         // Read input data from storage
     	// 초기 InputConfig 객체 생성
-    	InputConfig inputConfig = new DefaultInputConfig(""); 
+    	InputConfig inputConfig = (InputConfig) new DefaultInputConfig(""); 
 
     	// 데이터 읽기
     	ReadResult readResult = dataStorage.read(inputConfig);

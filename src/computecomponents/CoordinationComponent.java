@@ -75,6 +75,11 @@ public class CoordinationComponent {
             public String formatOutput(String result) {
                 return result;
             }
+            @Override
+            public String getFilePath() {
+                return System.getProperty("user.dir"); // return current dir
+            }
+
         };
         
         WriteResult writeResult = dataStorage.appendSingleResult(annotationOutputConfig, response.getResult(), ',');

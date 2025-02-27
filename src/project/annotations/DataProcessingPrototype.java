@@ -83,15 +83,8 @@ public class DataProcessingPrototype implements DataProcessingAPI {
     }
 }
 
-	@Override
-	public ReadResult read(InputConfig input) {
-		return null;
-	}
 
-	@Override
-	public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
-		return null;
-	}
+
 	
 	public void prototype(DataProcessingAPI apiCall) {
 		InputConfig inputConfig = new InputConfig(){

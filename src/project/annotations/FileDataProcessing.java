@@ -1,4 +1,6 @@
 // This file is to handle reading from and writing to files based on the provided configurations.
+package project.annotations;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

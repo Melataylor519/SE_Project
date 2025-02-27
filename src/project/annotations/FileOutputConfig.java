@@ -1,3 +1,5 @@
+package project.annotations;
+
 public class FileOutputConfig implements OutputConfig {
     private final String filePath;
 

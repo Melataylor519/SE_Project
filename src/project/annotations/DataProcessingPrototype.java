@@ -64,6 +64,11 @@ public class DataProcessingPrototype implements DataProcessingAPI {
             public String formatOutput(String result) {
                 return "Formatted: " + result;
             }
+            @Override
+            public String getFilePath() {
+                return System.getProperty("user.dir"); // reuturn current dir
+            }
+
         };
 
         ReadResult dataStoreReadResult = apiCall.read(inputConfig);

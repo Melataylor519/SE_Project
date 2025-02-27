@@ -16,6 +16,10 @@ public class ComputeSystemApi {
 		
 	    InputConfig inputConfig = new InputConfig() {
             @Override
+	    public String getFilePath() {
+		    return "";
+	    }    
+		    
             public String getInputData() {
                 return "13195";  // input example
             }
@@ -26,6 +30,9 @@ public class ComputeSystemApi {
             public String formatOutput(String result) {
                 return "Prime factors: " + result;  // formatted output
             }
+	    public String getFilePath(){
+		    return "";
+	    }
         };
 				
 		//initialize request

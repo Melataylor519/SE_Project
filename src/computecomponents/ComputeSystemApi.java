@@ -3,6 +3,8 @@ package computecomponents;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
 
 public class ComputeSystemApi {
 	public void prototype(ComputeSystem computeSystem) {
@@ -12,7 +14,7 @@ public class ComputeSystemApi {
 
 		//initialize input and output configurations
 		
-		InputConfig inputConfig = new InputConfig() {
+	    InputConfig inputConfig = new InputConfig() {
             @Override
             public String getInputData() {
                 return "13195";  // input example

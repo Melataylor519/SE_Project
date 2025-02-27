@@ -13,4 +13,8 @@ public class DefaultInputConfig implements InputConfig {
     public String getInputData() {
         return inputData;
     }
+
+    public String getFilePath() {
+        return "";
+    }
 }

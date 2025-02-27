@@ -1,5 +1,8 @@
 package computecomponents;
 
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+
 public class ComputeSystemImpl implements ComputeSystem{
 
 	@Override

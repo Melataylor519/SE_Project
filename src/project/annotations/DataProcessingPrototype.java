@@ -13,8 +13,11 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 	}
 	
 	public void prototype(DataProcessingAPI apiCall) {
-		InputConfig inputConfig = new InputConfig() {
-			
+		InputConfig inputConfig = new InputConfig(){
+			@Override
+    			public String getFilePath() {
+        			return "";  // replace with the actual file path
+    			}
 		}; 
 		OutputConfig outputConfig = null;
 

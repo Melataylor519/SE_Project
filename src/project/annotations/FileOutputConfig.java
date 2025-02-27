@@ -12,7 +12,7 @@ public class FileOutputConfig implements OutputConfig {
         return filePath;
     }
 
-    @Override
+    
     public String formatOutput(String input) {
         return input;
     }

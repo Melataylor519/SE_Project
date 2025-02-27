@@ -8,6 +8,10 @@ public class FileInputConfig implements InputConfig {
     }
 
     @Override
+    public String getInputData() {
+        return "";
+    }
+    
     public String getFilePath() {
         return filePath;
     }

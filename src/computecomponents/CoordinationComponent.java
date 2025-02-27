@@ -4,6 +4,7 @@ import main.java.com.assignment2.api.UserComputeEngineAPI;
 import project.annotations.DataProcessingAPI;
 import project.annotations.ReadResult;
 import project.annotations.WriteResult;
+import project.annotations.InputConfig; 
 
 
 
@@ -72,7 +73,6 @@ public class CoordinationComponent {
 
         // Write result to storage
         project.annotations.OutputConfig annotationOutputConfig = new project.annotations.OutputConfig() {
-            @Override
             public String formatOutput(String result) {
                 return result;
             }

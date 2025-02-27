@@ -2,7 +2,7 @@ package computecomponents;
 
 public class ComputeResponseImpl implements ComputeResponse{
 	
-	private final ComputeResponseStatus status;
+    private final ComputeResponseStatus status;
     private final String result;
 
     // Initialize status and result

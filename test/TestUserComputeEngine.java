@@ -1,8 +1,14 @@
 // TestUserComputeEngine.java
 
-package test.java.com.assignment2.api;
+
 
 import main.java.com.assignment2.api.UserComputeEnginePrototype;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,7 +31,7 @@ class TestUserComputeEngine {
         // Given
         String inputSource = "input.txt";
         String outputSource = "output.txt";
-        private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
+        final String[] DEFAULT_DELIMITERS = {",", ";", " "};
 
         // Mock readData to return a predefined string
         doReturn("Sample,data;test").when(computeEngine).readData(inputSource);
@@ -38,7 +44,7 @@ class TestUserComputeEngine {
     }
 
     @Test
-    void testProcessData_withDefaultDelimiters() {
+    void testProcessData_withUserDelimiters() {
         // Given
         String inputSource = "input.txt";
         String outputSource = "output.txt";

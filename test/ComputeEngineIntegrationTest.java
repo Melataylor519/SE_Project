@@ -1,31 +1,35 @@
 // ComputeEngineIntegrationTest.java
 
-package test.java.com.assignment2.api;
+
 
 import main.java.com.assignment2.api.UserComputeEnginePrototype;
-import project.annotations.InMemoryDataStoreAPITest;
-import project.annotations.InMemoryInputConfig;
-import project.annotations.InMemoryOutputConfig;
+
 import project.annotations.ReadResult;
 import project.annotations.WriteResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.List;
+
 
 
 class ComputeEngineIntegrationTest {
 
     private UserComputeEnginePrototype computeEngine;
-    private InMemoryDataStoreAPITest dataStore;
+    private InMemoryDataStoreAPI dataStore;
     private InMemoryInputConfig inputConfig;
     private InMemoryOutputConfig outputConfig;
 
     @BeforeEach
     void setUp() {
         computeEngine = new UserComputeEnginePrototype();
-        dataStore = new InMemoryDataStoreAPITest();
+        dataStore = new InMemoryDataStoreAPI();
 
         // Initialize input with predefined values: [1, 10, 25]
         List<Integer> inputData = Arrays.asList(1, 10, 25);

@@ -1,6 +1,8 @@
 package project.annotations;
 
-class ReadResultImp implements ReadResult {
+import java.util.List;
+
+public class ReadResultImp implements ReadResult {
 	private final Status status;
 	private final Iterable<Integer> results; 
 	
@@ -17,5 +19,11 @@ class ReadResultImp implements ReadResult {
 	@Override
 	public Iterable<Integer> getResults() {
 		return results;
+	}
+
+	@Override
+	public List<Integer> getData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,8 +1,16 @@
-package project.annotations;
+
 
 import java.util.List;
 
-public class InMemoryDataStoreAPITest implements DataProcessingAPI {
+import project.annotations.DataProcessingAPI;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+import project.annotations.ReadResult;
+import project.annotations.ReadResultImp;
+import project.annotations.WriteResult;
+import project.annotations.WriteResultImp;
+
+public class InMemoryDataStoreAPI implements DataProcessingAPI {
 
 	@Override
 	public ReadResult read(InputConfig input) {
@@ -27,5 +35,9 @@ public class InMemoryDataStoreAPITest implements DataProcessingAPI {
 
 	     	return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
 	}
+
+
+
+
 
 }

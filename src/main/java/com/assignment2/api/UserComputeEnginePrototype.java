@@ -33,12 +33,12 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
         writeData(outputSource, processedData);
     }
     
-    private String readData(String source) {
+    public String readData(String source) {
         // Placeholder for reading data logic
         return "Sample data from " + source;
     }
 
-    private void writeData(String destination, String data) {
+    public void writeData(String destination, String data) {
         // Placeholder for writing data logic
         System.out.println("Writing to " + destination + ": " + data);
     }

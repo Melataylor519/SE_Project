@@ -6,8 +6,6 @@ import computecomponents.ComputeRequest;
 import computecomponents.ComputeResponse;
 import computecomponents.ComputeSystem;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
 
 	public class TestComputeSystem {
 		@Test

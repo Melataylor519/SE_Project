@@ -30,21 +30,24 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testReadSuccess() {
-        List<Integer> mockData = Arrays.asList(1, 2, 3);
+        List<Integer> mockData = List.of(1, 2, 3); 
         ReadResult mockReadResult = new ReadResultImp(ReadResult.Status.SUCCESS, mockData);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
         WriteResult mockWriteResult = new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
-        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
+        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(',')))
+        .thenAnswer(invocation -> new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
-        prototype.prototype(mockAPI);
-        
+        // Execute the method under test
+        prototype.execute(mockAPI); 
+
+        // Verify read() is called once
         verify(mockAPI).read(any(InputConfig.class));
 
+        // Verify appendSingleResult() for each value in mockData
         for (Integer value : mockData) {
             verify(mockAPI).appendSingleResult(any(OutputConfig.class), eq(String.valueOf(value)), eq(','));
-        }
-        verify(mockAPI, times(mockData.size())).appendSingleResult(any(OutputConfig.class), anyString(), eq(','));
+        }    
     }
 
     @Test

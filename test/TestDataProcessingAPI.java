@@ -54,7 +54,7 @@ public class TestDataProcessingAPI {
         ReadResult mockReadResult = new ReadResult(ReadResult.Status.FAILURE, null);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
-        prototype.prototype(mockAPI);
+        prototype.execute(mockAPI);
 
         verify(mockAPI).read(any(InputConfig.class));
         verify(mockAPI, never()).appendSingleResult(any(OutputConfig.class), anyString(), anyChar());

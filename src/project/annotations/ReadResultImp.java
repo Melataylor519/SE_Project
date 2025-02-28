@@ -1,6 +1,5 @@
 package project.annotations;
 
-import java.util.List;
 
 public class ReadResultImp implements ReadResult {
 	private final Status status;
@@ -21,9 +20,4 @@ public class ReadResultImp implements ReadResult {
 		return results;
 	}
 
-	@Override
-	public List<Integer> getData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

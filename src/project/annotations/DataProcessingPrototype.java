@@ -1,5 +1,7 @@
 package project.annotations;
 
+import project.annotations.WriteResult.WriteResultStatus;
+
 public class DataProcessingPrototype implements DataProcessingAPI {
 
 	@Override
@@ -9,7 +11,8 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 
 	@Override
 	public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
-		return null;
+		WriteResult writeResult = new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
+		return writeResult;
 	}
 	
 	public void prototype(DataProcessingAPI apiCall) {
@@ -23,7 +26,19 @@ public class DataProcessingPrototype implements DataProcessingAPI {
         			return "";  // replace with the actual file path
     			}
 		}; 
-		OutputConfig outputConfig = null;
+		OutputConfig outputConfig = new OutputConfig() { //created anonymous class cuz it's not implemented yet
+
+			@Override
+			public String getFilePath() {
+				return "";
+			}
+
+			@Override
+			public String formatOutput(String result) {
+				return "";
+			}
+			
+		};
 
 		ReadResult dataStoreReadResult = apiCall.read(inputConfig);
 

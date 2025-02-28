@@ -1,6 +1,6 @@
 package project.annotations;
 
-class WriteResultImp implements WriteResult {
+public class WriteResultImp implements WriteResult {
 	private final WriteResultStatus status; 
 	
 	public WriteResultImp(WriteResultStatus status) {

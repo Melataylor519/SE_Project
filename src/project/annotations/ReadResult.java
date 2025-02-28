@@ -1,5 +1,6 @@
 package project.annotations;
 
+
 public interface ReadResult {
 	public static enum Status {
 	    SUCCESS,
@@ -9,5 +10,6 @@ public interface ReadResult {
 	public Iterable<Integer> getResults();
 	    
 	public Status getStatus();
+
 
 }

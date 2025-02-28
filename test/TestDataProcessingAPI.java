@@ -1,11 +1,36 @@
-package project.annotations;
+
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyChar;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
+import computecomponents.ComputeResponse;
+import project.annotations.DataProcessingAPI;
+import project.annotations.DataProcessingImp;
+import project.annotations.DataProcessingPrototype;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+import project.annotations.ReadResult;
+import project.annotations.WriteResult;
+import project.annotations.ReadResultImp;
+import project.annotations.WriteResultImp;
 
 public class TestDataProcessingAPI {
     
@@ -19,13 +44,14 @@ public class TestDataProcessingAPI {
     private OutputConfig mockOutputConfig;
 
     private DataProcessingPrototype prototype;
-    private DataProcessingAPIImp realAPI;
+    private DataProcessingImp realAPI;
+    private DataProcessingAPI api;
 
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         prototype = new DataProcessingPrototype();
-        realAPI = new DataProcessingAPIImp(new DataProcessingAPI()); 
+        realAPI = new DataProcessingImp(api); 
     }
 
     @Test
@@ -49,7 +75,7 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testReadFailure_WithInvalidInput() {
-        ReadResult mockReadResult = new ReadResult(ReadResult.Status.FAILURE, null);
+        ReadResult mockReadResult = new ReadResultImp(ReadResult.Status.FAILURE, null);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
         prototype.prototype(mockAPI);
@@ -60,10 +86,10 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testWriteFailure_WhenAppendFails() {
-        ReadResult mockReadResult = new ReadResult(ReadResult.Status.SUCCESS, Arrays.asList(1));
+        ReadResult mockReadResult = new ReadResultImp(ReadResult.Status.SUCCESS, Arrays.asList(1));
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
-        WriteResult mockWriteResult = new WriteResult(WriteResult.WriteResultStatus.FAILURE);
+        WriteResult mockWriteResult = new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
         when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
 
         prototype.prototype(mockAPI);
@@ -74,7 +100,20 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testRealImplementation_ReadReturnsValidResult() {
-        InputConfig inputConfig = new InputConfig() {};  
+        InputConfig inputConfig = new InputConfig() {
+
+			@Override
+			public String getInputData() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getFilePath() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			};  
         ReadResult result = realAPI.read(inputConfig);
 
         assertNotNull("Read result should not be null", result);
@@ -83,7 +122,20 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testRealImplementation_WriteReturnsValidResult() {
-        OutputConfig outputConfig = new OutputConfig() {};  
+        OutputConfig outputConfig = new OutputConfig() {
+
+			@Override
+			public String getFilePath() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String formatOutput(String result) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			};  
         String testData = "test";
         char delimiter = ',';
 
@@ -94,9 +146,9 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testSimple_ReadReturnsNonNullResult() {
-        DataProcessingAPI api = new DataProcessingAPIImp(null);
+        DataProcessingAPI api = new DataProcessingImp(null);
         ReadResult result = api.read(null);
 
-        assertNotNull(result);
+        assertNotNull("Read result should not be null", result);
     }
 }

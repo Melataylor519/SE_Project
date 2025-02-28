@@ -1,6 +1,7 @@
 package project.annotations;
 
-class ReadResultImp implements ReadResult {
+
+public class ReadResultImp implements ReadResult {
 	private final Status status;
 	private final Iterable<Integer> results; 
 	
@@ -18,4 +19,5 @@ class ReadResultImp implements ReadResult {
 	public Iterable<Integer> getResults() {
 		return results;
 	}
+
 }

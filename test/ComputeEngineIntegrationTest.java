@@ -46,7 +46,7 @@ class ComputeEngineIntegrationTest {
         assertEquals(ReadResult.Status.SUCCESS, readResult.getStatus(), "Failed to read input data.");
 
         // Step 2: Process data (Since the engine is not implemented yet, we assume direct processing)
-        List<Integer> processedData = readResult.getData(); // Using raw data as no processing is implemented yet
+        Iterable<Integer> processedData = readResult.getResults(); // Using raw data as no processing is implemented yet
         String resultString = processedData.toString(); // Convert the processed result into a string format
 
         // Step 3: Write processed data to the data store

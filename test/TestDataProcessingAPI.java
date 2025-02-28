@@ -37,7 +37,7 @@ public class TestDataProcessingAPI {
         WriteResult mockWriteResult = new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
         when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
 
-        prototype.prototype(mockAPI);
+        prototype.execute(mockAPI);
         
         verify(mockAPI).read(any(InputConfig.class));
 
@@ -52,7 +52,7 @@ public class TestDataProcessingAPI {
         ReadResult mockReadResult = new ReadResult(ReadResult.Status.FAILURE, null);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
-        prototype.prototype(mockAPI);
+        prototype.execute(mockAPI);
 
         verify(mockAPI).read(any(InputConfig.class));
         verify(mockAPI, never()).appendSingleResult(any(OutputConfig.class), anyString(), anyChar());
@@ -66,7 +66,7 @@ public class TestDataProcessingAPI {
         WriteResult mockWriteResult = new WriteResult(WriteResult.WriteResultStatus.FAILURE);
         when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
 
-        prototype.prototype(mockAPI);
+        prototype.execute(mockAPI);
 
         verify(mockAPI).read(any(InputConfig.class));
         verify(mockAPI).appendSingleResult(any(OutputConfig.class), anyString(), eq(','));

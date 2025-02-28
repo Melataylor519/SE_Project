@@ -109,7 +109,8 @@ public class TestDataProcessingAPI {
 			public String getFilePath() {
 				// TODO Auto-generated method stub
 				return null;
-			}};  
+			}
+			};  
         ReadResult result = realAPI.read(inputConfig);
 
         assertNotNull("Read result should not be null", result);

@@ -19,7 +19,7 @@ public class CoordinationComponent {
     public CoordinationComponent(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
         //this.userComputeEngine = userComputeEngine;
         this.dataStorage = dataStorage;
-        this.computeSystem = new ComputeSystemImpl();
+        this.computeSystem = new ComputeSystemImpl(dataStorage, userComputeEngine);
     }
 
     public String handleComputation(String inputSource, String outputSource) {

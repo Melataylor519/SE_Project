@@ -38,7 +38,7 @@ public class TestDataProcessingAPI {
         .thenAnswer(invocation -> new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
         // Execute the method under test
-        prototype.execute(mockAPI); // Assuming 'prototype.prototype(mockAPI)' was a typo
+        prototype.execute(mockAPI); 
 
         // Verify read() is called once
         verify(mockAPI).read(any(InputConfig.class));

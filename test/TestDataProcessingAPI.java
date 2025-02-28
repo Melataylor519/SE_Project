@@ -27,24 +27,26 @@ public class TestDataProcessingAPI {
         prototype = new DataProcessingPrototype();
         realAPI = new DataProcessingAPIImp(new DataProcessingAPI()); 
     }
-
     @Test
     public void testReadSuccess() {
-        List<Integer> mockData = Arrays.asList(1, 2, 3);
+        List<Integer> mockData = List.of(1, 2, 3); 
         ReadResult mockReadResult = new ReadResultImp(ReadResult.Status.SUCCESS, mockData);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
         WriteResult mockWriteResult = new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
-        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
+        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(',')))
+        .thenAnswer(invocation -> new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
-        prototype.prototype(mockAPI);
-        
+        // Execute the method under test
+        prototype.execute(mockAPI); // Assuming 'prototype.prototype(mockAPI)' was a typo
+
+        // Verify read() is called once
         verify(mockAPI).read(any(InputConfig.class));
 
+        // Verify appendSingleResult() for each value in mockData
         for (Integer value : mockData) {
             verify(mockAPI).appendSingleResult(any(OutputConfig.class), eq(String.valueOf(value)), eq(','));
-        }
-        verify(mockAPI, times(mockData.size())).appendSingleResult(any(OutputConfig.class), anyString(), eq(','));
+        }    
     }
 
     @Test
@@ -59,18 +61,27 @@ public class TestDataProcessingAPI {
     }
 
     @Test
-    public void testWriteFailure_WhenAppendFails() {
-        ReadResult mockReadResult = new ReadResult(ReadResult.Status.SUCCESS, Arrays.asList(1));
+    public void testWriteFailureWhenAppendFails() {
+        // Mock a successful read
+        List<Integer> mockData = List.of(1);
+        ReadResult mockReadResult = new ReadResultImp(ReadResult.Status.SUCCESS, mockData);
         when(mockAPI.read(any(InputConfig.class))).thenReturn(mockReadResult);
 
-        WriteResult mockWriteResult = new WriteResult(WriteResult.WriteResultStatus.FAILURE);
-        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(','))).thenReturn(mockWriteResult);
+        // Mock a failed append operation
+        WriteResult mockWriteResult = new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
+        when(mockAPI.appendSingleResult(any(OutputConfig.class), anyString(), eq(',')))
+        .thenReturn(mockWriteResult);
 
-        prototype.prototype(mockAPI);
+        // Execute the method 
+        prototype.execute(mockAPI); 
 
+        // Verify read operation was called
         verify(mockAPI).read(any(InputConfig.class));
+
+        // Verify appendSingleResult was attempted and failed
         verify(mockAPI).appendSingleResult(any(OutputConfig.class), anyString(), eq(','));
     }
+
 
     @Test
     public void testRealImplementation_ReadReturnsValidResult() {

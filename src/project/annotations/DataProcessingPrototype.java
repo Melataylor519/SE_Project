@@ -1,7 +1,5 @@
 package project.annotations;
 
-import project.annotations.WriteResult.WriteResultStatus;
-
 public class DataProcessingPrototype implements DataProcessingAPI {
 
 	@Override

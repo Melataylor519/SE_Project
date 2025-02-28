@@ -1,31 +1,66 @@
-package project.annotations;
+package src.project.annotations;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryDataStoreAPITest implements DataProcessingAPI {
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-	@Override
-	public ReadResult read(InputConfig input) {
-		if (!(input instanceof InMemoryInputConfig)) {
-            		throw new IllegalArgumentException("Unsupported InputConfig type");
-        	}
+class InMemoryDataStoreAPITest {
 
-        	InMemoryInputConfig inMemoryInput = (InMemoryInputConfig) input;
-        	List<Integer> inputData = inMemoryInput.getInput();
+    private InMemoryDataStoreAPITest dataStore;
 
-        	return new ReadResultImp(ReadResult.Status.SUCCESS, inputData);
-	}
+    @BeforeEach
+    void setUp() {
+        dataStore = new InMemoryDataStoreAPITest();
+    }
 
-	@Override
-	public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
-		if (!(output instanceof InMemoryOutputConfig)) {
-			throw new IllegalArgumentException("Unsupported OutputConfig type");
-	     	}
-		 
-		InMemoryOutputConfig inMemoryOutput = (InMemoryOutputConfig) output;
-		inMemoryOutput.getOutput().add(result);
+    @Test
+    void testRead() {
+        List<Integer> inputData = List.of(1, 2, 3, 4);
+        InMemoryInputConfig inputConfig = new InMemoryInputConfig(inputData);
 
-	     	return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
-	}
+        ReadResult result = dataStore.read(inputConfig);
+        
+        assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
+        assertEquals(inputData, result.getData());
+    }
 
+    @Test
+    void testAppendSingleResult() {
+        List<String> outputData = new ArrayList<>();
+        InMemoryOutputConfig outputConfig = new InMemoryOutputConfig(outputData);
+
+        WriteResult result = dataStore.appendSingleResult(outputConfig, "Test Result", ',');
+
+        assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
+        assertTrue(outputData.contains("Test Result"));
+    }
+
+    @Test
+    void testInvalidReadConfig() {
+        InputConfig invalidConfig = new InputConfig() {}; 
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            dataStore.read(invalidConfig);
+        });
+
+        assertEquals("Unsupported InputConfig type", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidAppendConfig() {
+        OutputConfig invalidConfig = new OutputConfig() {}; 
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            dataStore.appendSingleResult(invalidConfig, "Test Result", ',');
+        });
+
+        assertEquals("Unsupported OutputConfig type", exception.getMessage());
+    }
 }
+

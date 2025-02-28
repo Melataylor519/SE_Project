@@ -131,8 +131,7 @@ public class TestDataProcessingAPI {
 			public String formatOutput(String result) {
 				// TODO Auto-generated method stub
 				return null;
-			}
-			};  
+			}};  
         String testData = "test";
         char delimiter = ',';
 

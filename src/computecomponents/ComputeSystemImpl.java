@@ -1,7 +1,5 @@
 package computecomponents;
 
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
 import main.java.com.assignment2.api.UserComputeEngineAPI;
 import project.annotations.DataProcessingAPI;
 
@@ -31,7 +29,7 @@ public class ComputeSystemImpl implements ComputeSystem{
         return new ComputeResponseImpl(ComputeResponse.ComputeResponseStatus.SUCCESS, result);
     }
 	
-    private String calculateLargestPrimeFactors(String inputData) {
+    public String calculateLargestPrimeFactors(String inputData) {
         // parse input data to long data type
         long number = Long.parseLong(inputData.trim());
         StringBuilder result = new StringBuilder();

@@ -28,6 +28,7 @@ public class ComputeSystemImpl implements ComputeSystem{
             }
 
             // compute Largest Prime Factor
+<<<<<<< Updated upstream
             String result = calculateLargestPrimeFactors(num);
 
             // return result
@@ -41,6 +42,22 @@ public class ComputeSystemImpl implements ComputeSystem{
 
     private String calculateLargestPrimeFactors(long num) {
         StringBuilder result = new StringBuilder();
+=======
+            String result = calculateLargestPrimeFactors(inputData);
+
+            // return result
+            return new ComputeResponseImpl(ComputeResponse.ComputeResponseStatus.SUCCESS, result);
+        
+		} catch (Exception e) {
+            // Catch any unexpected exceptions
+            return new ComputeResponseImpl(ComputeResponse.ComputeResponseStatus.FAILURE, "Unexpected error occurred: " + e.getMessage());
+        }
+    }
+	
+    private String calculateLargestPrimeFactors(String inputData) {
+    	StringBuilder result = new StringBuilder();
+        long num = Long.parseLong(inputData);  // Convert input string to long
+>>>>>>> Stashed changes
 
         // Factor out 2s
         while (num % 2 == 0) {

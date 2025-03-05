@@ -2,7 +2,18 @@
 
 package computecomponents;
 
+import main.java.com.assignment2.api.UserComputeEngineAPI;
+import project.annotations.DataProcessingAPI;
+
 public class ComputeSystemImpl implements ComputeSystem{
+	
+	private DataProcessingAPI dp;
+	private UserComputeEngineAPI uce;
+
+	public ComputeSystemImpl(DataProcessingAPI dp, UserComputeEngineAPI uce) {
+		this.dp = dp;
+		this.uce = uce;
+	}
 
 	@Override
 	public ComputeResponse compute(ComputeRequest request) {

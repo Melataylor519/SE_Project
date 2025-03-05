@@ -17,13 +17,27 @@ public class CoordinationComponent {
     private final ComputeSystem computeSystem;
 
     public CoordinationComponent(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
-        //this.userComputeEngine = userComputeEngine;
+    	if (userComputeEngine == null) {
+            throw new IllegalArgumentException("UserComputeEngineAPI cannot be null");
+        }
+        if (dataStorage == null) {
+            throw new IllegalArgumentException("DataProcessingAPI cannot be null");
+        }
+    	
+    	//this.userComputeEngine = userComputeEngine;
         this.dataStorage = dataStorage;
         this.computeSystem = new ComputeSystemImpl(dataStorage, userComputeEngine);
     }
 
     public String handleComputation(String inputSource, String outputSource) {
-        // Read input data from storage
+    	if (inputSource == null || inputSource.trim().isEmpty()) {
+            return "Error: inputSource cannot be null or empty.";
+        }
+        if (outputSource == null || outputSource.trim().isEmpty()) {
+            return "Error: outputSource cannot be null or empty.";
+        }
+    	
+    	// Read input data from storage
     	// 초기 InputConfig 객체 생성
     	InputConfig inputConfig = new DefaultInputConfig(""); 
 

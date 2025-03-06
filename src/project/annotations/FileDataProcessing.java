@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.ArrayList;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.Collectors;
 
@@ -18,10 +17,12 @@ public class FileDataProcessing implements DataProcessingAPI {
         }
 
         String filePath = input.getFilePath();
+        if (filePath == null || filePath.trim().isEmpty()) {
+            throw new IllegalArgumentException("File path cannot be null or empty");
+        }
+
         try {
-            // Read all lines from the file as strings.
             List<String> lines = Files.readAllLines(Paths.get(filePath));
-            // Convert each line (String) to an Integer.
             List<Integer> data = lines.stream()
                                       .map(Integer::parseInt)
                                       .collect(Collectors.toList());
@@ -39,6 +40,10 @@ public class FileDataProcessing implements DataProcessingAPI {
         }
 
         String filePath = output.getFilePath();
+        if (filePath == null || filePath.trim().isEmpty()) {
+            throw new IllegalArgumentException("File path cannot be null or empty");
+        }
+
         try {
             Files.write(Paths.get(filePath),
                         (result + delimiter).getBytes(),

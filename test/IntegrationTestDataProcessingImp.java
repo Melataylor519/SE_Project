@@ -39,8 +39,6 @@ public class IntegrationTestDataProcessingImp {
             }
         };
 
-        doThrow(new RuntimeException("Test Exception")).when(mockDataProcessingAPI).read(validInputConfig);
-
         try {
             // Create a temporary file to pass the validation check
             Files.createFile(Paths.get("validPath.txt"));

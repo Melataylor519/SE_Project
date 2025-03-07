@@ -1,24 +1,27 @@
-import project.annotations.DataProcessingAPI;
-import project.annotations.DataProcessingImp;
-import project.annotations.DataProcessingPrototype;
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
-import project.annotations.ReadResult;
-import project.annotations.WriteResult;
-import project.annotations.ReadResultImp;
-import project.annotations.WriteResultImp;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
+package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.io.IOException;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import project.annotations.DataProcessingAPI;
+import project.annotations.DataProcessingImp;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+import project.annotations.ReadResult;
+import project.annotations.ReadResultImp;
+import project.annotations.WriteResult;
+import project.annotations.WriteResultImp;
 
 public class TestDataProcessingImp {
 
@@ -35,6 +38,11 @@ public class TestDataProcessingImp {
     public void testReadValidation() {
         InputConfig invalidInputConfig = new InputConfig() {
             @Override
+            public String getInputData() {
+                return " ";
+            }
+
+            @Override
             public String getFilePath() {
                 return " ";
             }
@@ -48,6 +56,11 @@ public class TestDataProcessingImp {
 
         InputConfig validInputConfig = new InputConfig() {
             @Override
+            public String getInputData() {
+                return "";
+            }
+
+            @Override
             public String getFilePath() {
                 return "validPath.txt";
             }
@@ -55,18 +68,21 @@ public class TestDataProcessingImp {
 
         when(mockDataProcessingAPI.read(validInputConfig)).thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
 
+        Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
-            Files.createFile(Paths.get("validPath.txt"));
+            tempFile = Files.createFile(Paths.get("validPath.txt"));
             ReadResult result = dataProcessingImp.read(validInputConfig);
             assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {
-            try {
-                Files.deleteIfExists(Paths.get("validPath.txt"));
-            } catch (Exception e) {
-                // Ignore cleanup errors
+            if (tempFile != null) {
+                try {
+                    Files.deleteIfExists(tempFile);
+                } catch (IOException ex) {
+                    System.err.println("Failed to delete temp file: " + tempFile);
+                }
             }
         }
     }
@@ -74,6 +90,11 @@ public class TestDataProcessingImp {
     @Test
     public void testAppendSingleResultValidation() {
         OutputConfig invalidOutputConfig = new OutputConfig() {
+            @Override
+            public String formatOutput(String result) {
+                return null;
+            }
+
             @Override
             public String getFilePath() {
                 return " ";
@@ -88,6 +109,11 @@ public class TestDataProcessingImp {
 
         OutputConfig validOutputConfig = new OutputConfig() {
             @Override
+            public String formatOutput(String result) {
+                return result;
+            }
+
+            @Override
             public String getFilePath() {
                 return "validPath.txt";
             }
@@ -95,18 +121,21 @@ public class TestDataProcessingImp {
 
         when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ',')).thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
+        Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
-            Files.createFile(Paths.get("validPath.txt"));
+            tempFile = Files.createFile(Paths.get("validPath.txt"));
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
             assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {
-            try {
-                Files.deleteIfExists(Paths.get("validPath.txt"));
-            } catch (Exception e) {
-                // Ignore cleanup errors
+            if (tempFile != null) {
+                try {
+                    Files.deleteIfExists(tempFile);
+                } catch (IOException ex) {
+                    System.err.println("Failed to delete temp file: " + tempFile);
+                }
             }
         }
     }

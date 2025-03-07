@@ -11,14 +11,14 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.project.annotations.DataProcessingAPI;
-import src.project.annotations.DataProcessingImp;
-import src.project.annotations.InputConfig;
-import src.project.annotations.OutputConfig;
-import src.project.annotations.ReadResult;
-import src.project.annotations.ReadResultImp;
-import src.project.annotations.WriteResult;
-import src.project.annotations.WriteResultImp;
+import project.annotations.DataProcessingAPI;
+import project.annotations.DataProcessingImp;
+import project.annotations.InputConfig;
+import project.annotations.OutputConfig;
+import project.annotations.ReadResult;
+import project.annotations.ReadResultImp;
+import project.annotations.WriteResult;
+import project.annotations.WriteResultImp;
 
 public class IntegrationTestDataProcessingImp {
 

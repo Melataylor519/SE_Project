@@ -35,6 +35,10 @@ public class TestDataProcessingImp {
     public void testReadValidation() {
         InputConfig invalidInputConfig = new InputConfig() {
             @Override
+            public String getInputData() {
+                return " "; 
+            }
+            @Override
             public String getFilePath() {
                 return " ";
             }

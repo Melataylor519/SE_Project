@@ -28,15 +28,15 @@ public class TestMultiUser {
 
 	@Test
 	public void compareMultiAndSingleThreaded() throws Exception {
-		int nThreads = 4;
+		int n_threads = 4;
 		List<TestUser> testUsers = new ArrayList<>();
-		for (int i = 0; i < nThreads; i++) {
+		for (int i = 0; i < n_threads; i++) {
 			testUsers.add(new TestUser(coordinator));
 		}
 		
 		// Run single threaded
 		String singleThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.singleThreadOut.tmp";
-		for (int i = 0; i < nThreads; i++) {
+		for (int i = 0; i < n_threads; i++) {
 			File singleThreadedOut = 
 					new File(singleThreadFilePrefix + i);
 			singleThreadedOut.deleteOnExit();
@@ -47,7 +47,7 @@ public class TestMultiUser {
 		ExecutorService threadPool = Executors.newCachedThreadPool();
 		List<Future<?>> results = new ArrayList<>();
 		String multiThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.multiThreadOut.tmp";
-		for (int i = 0; i < nThreads; i++) {
+		for (int i = 0; i < n_threads; i++) {
 			File multiThreadedOut = 
 					new File(multiThreadFilePrefix + i);
 			multiThreadedOut.deleteOnExit();
@@ -66,14 +66,14 @@ public class TestMultiUser {
 		
 		
 		// Check that the output is the same for multi-threaded and single-threaded
-		List<String> singleThreaded = loadAllOutput(singleThreadFilePrefix, nThreads);
-		List<String> multiThreaded = loadAllOutput(multiThreadFilePrefix, nThreads);
+		List<String> singleThreaded = loadAllOutput(singleThreadFilePrefix, n_threads);
+		List<String> multiThreaded = loadAllOutput(multiThreadFilePrefix, n_threads);
 		Assert.assertEquals(singleThreaded, multiThreaded);
 	}
 
-	private List<String> loadAllOutput(String prefix, int nThreads) throws IOException {
+	private List<String> loadAllOutput(String prefix, int n_threads) throws IOException {
 		List<String> result = new ArrayList<>();
-		for (int i = 0; i < nThreads; i++) {
+		for (int i = 0; i < n_threads; i++) {
 			File multiThreadedOut = 
 					new File(prefix + i);
 			result.addAll(Files.readAllLines(multiThreadedOut.toPath()));

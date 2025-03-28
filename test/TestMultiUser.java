@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class TestMultiUser {
 	
 	// TODO 1: change the type of this variable to the name you're using for your @NetworkAPI
-	// interface
+	// interface 
 	private ComputationCoordinator coordinator;
 	
 	@BeforeEach

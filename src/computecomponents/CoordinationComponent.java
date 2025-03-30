@@ -17,14 +17,33 @@ public class CoordinationComponent {
     private final ComputeSystem computeSystem;
 
     public CoordinationComponent(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
-        //this.userComputeEngine = userComputeEngine;
+    	if (userComputeEngine == null) {
+            throw new IllegalArgumentException("UserComputeEngineAPI cannot be null");
+        }
+        if (dataStorage == null) {
+            throw new IllegalArgumentException("DataProcessingAPI cannot be null");
+        }
+    	
+    	//this.userComputeEngine = userComputeEngine;
         this.dataStorage = dataStorage;
         this.computeSystem = new ComputeSystemImpl(dataStorage, userComputeEngine);
     }
 
     public String handleComputation(String inputSource, String outputSource) {
-        // Read input data from storage
-    	// create initial InputConfig object
+      
+
+
+    	if (inputSource == null || inputSource.trim().isEmpty()) {
+            return "Error: inputSource cannot be null or empty.";
+        }
+
+    	
+    	
+
+      // Read input data from storage
+    	// create initial InputConfig
+
+
     	InputConfig inputConfig = new DefaultInputConfig(""); 
 
     	// read data
@@ -34,7 +53,10 @@ public class CoordinationComponent {
     	    StringBuilder inputData = new StringBuilder();
     	    
     	    for (int num : loadedData) {
+
     	        inputData.append(num).append(",");  // Convert integers to strings separated by commas (,)
+
+
     	    }
     	    
     	    // delete last comma

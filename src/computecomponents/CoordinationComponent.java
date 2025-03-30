@@ -24,27 +24,27 @@ public class CoordinationComponent {
 
     public String handleComputation(String inputSource, String outputSource) {
         // Read input data from storage
-    	// 초기 InputConfig 객체 생성
+    	// create initial InputConfig object
     	InputConfig inputConfig = new DefaultInputConfig(""); 
 
-    	// 데이터 읽기
+    	// read data
     	ReadResult readResult = dataStorage.read(inputConfig);
     	if (readResult.getStatus() == ReadResult.Status.SUCCESS) {
-    	    Iterable<Integer> loadedData = readResult.getResults(); // ✅ Iterable<Integer> 가져오기
+    	    Iterable<Integer> loadedData = readResult.getResults(); // get Iterable<Integer>
     	    StringBuilder inputData = new StringBuilder();
     	    
     	    for (int num : loadedData) {
-    	        inputData.append(num).append(",");  // 정수를 쉼표(,)로 구분하여 문자열 변환
+    	        inputData.append(num).append(",");  // Convert integers to strings separated by commas (,)
     	    }
     	    
-    	    // 마지막 쉼표 제거
+    	    // delete last comma
     	    String inputDataString = inputData.length() > 0 ? inputData.substring(0, inputData.length() - 1) : "";
 
     	    if (inputDataString.isEmpty()) {
     	        return "Error: No valid input data.";
     	    }
 
-    	    // `DefaultInputConfig`를 사용해 올바르게 설정
+    	    // Set it up correctly using `DefaultInputConfig`
     	    inputConfig = new DefaultInputConfig(inputDataString);
     	} else {
     	    return "Error: Failed to read input data.";

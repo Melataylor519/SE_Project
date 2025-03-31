@@ -1,5 +1,3 @@
-package edu.softwareeng.sample;
-
 import java.io.File;
 
 

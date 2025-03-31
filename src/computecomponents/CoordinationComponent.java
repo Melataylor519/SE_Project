@@ -30,19 +30,19 @@ public class CoordinationComponent {
     }
 
     public String handleComputation(String inputSource, String outputSource) {
+      
+
 
     	if (inputSource == null || inputSource.trim().isEmpty()) {
             return "Error: inputSource cannot be null or empty.";
         }
-      if (outputSource == null || outputSource.trim().isEmpty()) {
-            return "Error: outputSource cannot be null or empty.";
-        }
-    	
+
     	
     	
 
       // Read input data from storage
     	// create initial InputConfig
+
 
     	InputConfig inputConfig = new DefaultInputConfig(""); 
 
@@ -53,10 +53,13 @@ public class CoordinationComponent {
     	    StringBuilder inputData = new StringBuilder();
     	    
     	    for (int num : loadedData) {
-    	        inputData.append(num).append(",");  // Convert integers to strings by separating them with commas (,)
+
+    	        inputData.append(num).append(",");  // Convert integers to strings separated by commas (,)
+
+
     	    }
     	    
-    	    // 마지막 쉼표 제거
+    	    // delete last comma
     	    String inputDataString = inputData.length() > 0 ? inputData.substring(0, inputData.length() - 1) : "";
 
     	    if (inputDataString.isEmpty()) {

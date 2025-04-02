@@ -1,13 +1,13 @@
 package test;
 
 import java.util.List;
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.ReadResultImp;
-import datastorecomponents.WriteResult;
-import datastorecomponents.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.WriteResultImp;
 
 public class InMemoryDataStoreAPI implements DataProcessingAPI {
 	@Override

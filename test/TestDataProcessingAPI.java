@@ -1,4 +1,4 @@
-
+package test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -19,15 +19,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import project.annotations.DataProcessingAPI;
-import project.annotations.DataProcessingImp;
-import project.annotations.DataProcessingPrototype;
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
-import project.annotations.ReadResult;
-import project.annotations.WriteResult;
-import project.annotations.ReadResultImp;
-import project.annotations.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.DataProcessingImp;
+import src.datastorecomponents.DataProcessingPrototype;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResultImp;
 
 public class TestDataProcessingAPI {
     

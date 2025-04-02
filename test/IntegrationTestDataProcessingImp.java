@@ -13,14 +13,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import project.annotations.DataProcessingAPI;
-import project.annotations.DataProcessingImp;
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
-import project.annotations.ReadResult;
-import project.annotations.ReadResultImp;
-import project.annotations.WriteResult;
-import project.annotations.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.DataProcessingImp;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.WriteResultImp;
 
 public class IntegrationTestDataProcessingImp {
 
@@ -57,7 +57,7 @@ public class IntegrationTestDataProcessingImp {
             ReadResult result = dataProcessingImp.read(validInputConfig);
             assertEquals(ReadResult.Status.FAILURE, result.getStatus());
         } catch (Exception e) {
-            fail("Exception should not be thrown for valid input");
+        	fail("Exception should not be thrown for valid input");
         } finally {
             if (tempFile != null) {
                 try {

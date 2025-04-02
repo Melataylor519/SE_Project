@@ -1,8 +1,8 @@
-// ComputeEngineIntegrationTest.java
-import usercomputecomponents.UserComputeEnginePrototype;
+import src.usercomputecomponents.UserComputeEnginePrototype;
 
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.WriteResult;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

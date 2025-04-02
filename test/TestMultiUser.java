@@ -1,3 +1,5 @@
+package test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,13 +13,18 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import src.usercomputecomponents.UserComputeEngineAPI;
+import src.usercomputecomponents.UserComputeEnginePrototype;
+
 public class TestMultiUser {
-	 
+	
+	// TODO 1: change the type of this variable to the name you're using for your @NetworkAPI
+	// interface
 	private UserComputeEngineAPI coordinator;
 	
 	@BeforeEach
 	public void initializeComputeEngine() {
-		// an instance of the implementation of @NetworkAPI; this is the component
+		//TODO 2: create an instance of the implementation of your @NetworkAPI; this is the component
 		// that the user will make requests to
 		// Store it in the 'coordinator' instance variable
 		coordinator = new UserComputeEnginePrototype();
@@ -78,3 +85,4 @@ public class TestMultiUser {
 		return result;
 	}
 }
+

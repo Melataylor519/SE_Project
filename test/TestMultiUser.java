@@ -12,29 +12,23 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.projectannotations.MultiThreadedNetworkAPI;
-import src.computecomponents.ComputeRequest;
-import src.computecomponents.ComputeResponse;
-import src.datastorecomponents.InputConfig;
-import src.datastorecomponents.OutputConfig;
+import projectannotations.MultiThreadedNetworkAPI;
+import computecomponents.ComputeRequest;
+import computecomponents.ComputeResponse;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import usercomputecomponents.UserComputeEngineAPI;
+import usercomputecomponents.UserComputeEngineImpl;
 
 public class TestMultiUser {
     // Use MultiThreadedNetworkAPI to simulate requests
-    private MultiThreadedNetworkAPI coordinator;
-    private static final int THREAD_POOL_SIZE = 10;
-
-    @BeforeEach
-    public void initializeComputeEngine() {
-        // Initialize MultiThreadedNetworkAPI
-        coordinator = new MultiThreadedNetworkAPI();
-    }
 
     @Test
     public void compareMultiAndSingleThreaded() throws Exception {
         int numThreads = 4;
         List<TestUser> testUsers = new ArrayList<>();
         for (int i = 0; i < numThreads; i++) {
-            testUsers.add(new TestUser(coordinator));
+            testUsers.add(new TestUser(new UserComputeEngineImpl()));
         }
 
         // Run single-threaded
@@ -57,23 +51,26 @@ public class TestMultiUser {
             String multiThreadOutputPath = multiThreadedOut.getCanonicalPath();
             TestUser testUser = testUsers.get(i);
             
+            // Create a final copy of the loop variable for use in anonymous classes
+            final int userId = i;
+            
             // Creating mock InputConfig and OutputConfig for each user
             InputConfig inputConfig = new InputConfig() {
                 @Override
                 public String getInputData() {
-                    return "Mock Input Data for User " + i;
+                    return "Mock Input Data for User " + userId;
                 }
 
                 @Override
                 public String getFilePath() {
-                    return "mock/input/path" + i;
+                    return "mock/input/path" + userId;
                 }
             };
             
             OutputConfig outputConfig = new OutputConfig() {
                 @Override
                 public String getFilePath() {
-                    return "mock/output/path" + i;
+                    return "mock/output/path" + userId;
                 }
 
                 @Override
@@ -90,7 +87,7 @@ public class TestMultiUser {
                 Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequest(request);
                 try {
                     ComputeResponse response = futureResponse.get(); // Wait for the response
-                    // Simulate the user’s computation output
+                    // Simulate the user's computation output
                     testUser.run(multiThreadOutputPath); // Use the response if necessary to customize output
                 } catch (Exception e) {
                     e.printStackTrace();

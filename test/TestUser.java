@@ -1,7 +1,7 @@
 package test;
 
 import java.io.File;
-import src.usercomputecomponents.UserComputeEngineAPI;
+import usercomputecomponents.UserComputeEngineAPI;
 
 public class TestUser {
 	

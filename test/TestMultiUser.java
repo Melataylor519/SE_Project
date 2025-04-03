@@ -83,18 +83,19 @@ public class TestMultiUser {
             };
 
             // Create the ComputeRequest using mock configurations
-            ComputeRequest request = new ComputeRequest(inputConfig, outputConfig);
             
             // Submit the request to the multi-threaded API
             results.add(threadPool.submit(() -> {
-                Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequest(request);
-                try {
-                    ComputeResponse response = futureResponse.get(); // Wait for the response
-                    // Simulate the user’s computation output
-                    testUser.run(multiThreadOutputPath); // Use the response if necessary to customize output
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequest(request);
+            try {
+                ComputeResponse response = futureResponse.get(); // Wait for the response
+                
+                // Simulate the user’s computation output
+                testUser.run(multiThreadOutputPath);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response; 
             }));
         }
 

@@ -53,6 +53,7 @@ public class TestComputeSystem {
 	ComputeSystemImpl system = new ComputeSystemImpl(mockDP, mockEngine);
 		
 	//define input
+        long input = 12;
         
         //define expected output
         String expected = "2 2 3";

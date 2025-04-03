@@ -1,11 +1,8 @@
-// ComputeEngineIntegrationTest.java
+import src.usercomputecomponents.UserComputeEnginePrototype;
 
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.WriteResult;
 
-
-import main.java.com.assignment2.api.UserComputeEnginePrototype;
-
-import project.annotations.ReadResult;
-import project.annotations.WriteResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
-
-
 
 class ComputeEngineIntegrationTest {
 

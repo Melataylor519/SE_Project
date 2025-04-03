@@ -1,17 +1,15 @@
-
+package test;
 
 import java.util.List;
-
-import project.annotations.DataProcessingAPI;
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
-import project.annotations.ReadResult;
-import project.annotations.ReadResultImp;
-import project.annotations.WriteResult;
-import project.annotations.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.WriteResultImp;
 
 public class InMemoryDataStoreAPI implements DataProcessingAPI {
-
 	@Override
 	public ReadResult read(InputConfig input) {
 		if (!(input instanceof InMemoryInputConfig)) {
@@ -20,7 +18,6 @@ public class InMemoryDataStoreAPI implements DataProcessingAPI {
 
         	InMemoryInputConfig inMemoryInput = (InMemoryInputConfig) input;
         	List<Integer> inputData = inMemoryInput.getInput();
-
         	return new ReadResultImp(ReadResult.Status.SUCCESS, inputData);
 	}
 
@@ -32,12 +29,6 @@ public class InMemoryDataStoreAPI implements DataProcessingAPI {
 		 
 		InMemoryOutputConfig inMemoryOutput = (InMemoryOutputConfig) output;
 		inMemoryOutput.getOutput().add(result);
-
-	     	return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
+	    return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
 	}
-
-
-
-
-
 }

@@ -1,8 +1,6 @@
-// TestUserComputeEngine.java
+package test;
 
-
-
-import main.java.com.assignment2.api.UserComputeEnginePrototype;
+import src.usercomputecomponents.UserComputeEnginePrototype;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -14,13 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 //import static org.mockito.Mockito.*;
-
 //import static org.junit.jupiter.api.Assertions.*;
 
 class TestUserComputeEngine {
-
     private UserComputeEnginePrototype computeEngine;
-
     @BeforeEach
     void setUp() {
         computeEngine = Mockito.spy(new UserComputeEnginePrototype());

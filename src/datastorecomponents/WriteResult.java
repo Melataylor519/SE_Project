@@ -1,4 +1,4 @@
-package project.annotations;
+package datastorecomponents;
 
 public interface WriteResult {
 	 WriteResultStatus getStatus();

@@ -1,4 +1,4 @@
-package project.annotations;
+package datastorecomponents;
 
 public class WriteResultImp implements WriteResult {
 	private final WriteResultStatus status; 

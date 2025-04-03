@@ -1,5 +1,5 @@
 package computecomponents;
-import project.annotations.ConceptualAPI;
+import projectannotations.ConceptualAPI;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

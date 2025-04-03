@@ -1,5 +1,4 @@
-package project.annotations;
-
+package datastorecomponents;
 
 public interface ReadResult {
 	public static enum Status {
@@ -10,6 +9,5 @@ public interface ReadResult {
 	public Iterable<Integer> getResults();
 	    
 	public Status getStatus();
-
 
 }

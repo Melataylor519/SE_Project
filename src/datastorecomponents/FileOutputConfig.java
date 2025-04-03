@@ -1,4 +1,4 @@
-package project.annotations;
+package datastorecomponents;
 
 public class FileOutputConfig implements OutputConfig {
     private final String filePath;
@@ -12,8 +12,8 @@ public class FileOutputConfig implements OutputConfig {
         return filePath;
     }
 
-    
-    public String formatOutput(String input) {
-        return input;
+    @Override
+    public String formatOutput(String output) {
+        return output;
     }
 }

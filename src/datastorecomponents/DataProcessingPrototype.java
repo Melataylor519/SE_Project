@@ -1,7 +1,8 @@
-package project.annotations;
+package datastorecomponents;
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.WriteResult.WriteResultStatus;
 
 public class DataProcessingPrototype implements DataProcessingAPI {
-
 	@Override
 	public ReadResult read(InputConfig input) {
 		return null;
@@ -48,7 +49,7 @@ public class DataProcessingPrototype implements DataProcessingAPI {
 				WriteResult writeResult = apiCall.appendSingleResult(outputConfig, result, ',');
 
 				if (writeResult.getStatus() != WriteResult.WriteResultStatus.SUCCESS) {
-					System.out.println("Fail. Please try again.");
+					System.err.println("Fail. Please try again.");
 				}
 			}
 		}

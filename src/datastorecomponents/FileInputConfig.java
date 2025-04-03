@@ -1,4 +1,4 @@
-package project.annotations;
+package datastorecomponents;
 
 public class FileInputConfig implements InputConfig {
     private final String filePath;
@@ -12,6 +12,7 @@ public class FileInputConfig implements InputConfig {
         return "";
     }
     
+    @Override
     public String getFilePath() {
         return filePath;
     }

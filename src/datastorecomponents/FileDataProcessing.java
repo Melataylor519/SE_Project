@@ -1,5 +1,5 @@
 // This file is to handle reading from and writing to files based on the provided configurations.
-package project.annotations;
+package datastorecomponents;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,6 +7,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.Collectors;
+
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.WriteResult.WriteResultStatus;
 
 public class FileDataProcessing implements DataProcessingAPI {
 

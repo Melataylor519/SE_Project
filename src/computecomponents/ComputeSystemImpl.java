@@ -2,8 +2,8 @@
 
 package computecomponents;
 
-import main.java.com.assignment2.api.UserComputeEngineAPI;
-import project.annotations.DataProcessingAPI;
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataProcessingAPI;
 
 public class ComputeSystemImpl implements ComputeSystem{
 	

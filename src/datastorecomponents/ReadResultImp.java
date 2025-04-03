@@ -1,5 +1,4 @@
-package project.annotations;
-
+package datastorecomponents;
 
 public class ReadResultImp implements ReadResult {
 	private final Status status;
@@ -19,5 +18,4 @@ public class ReadResultImp implements ReadResult {
 	public Iterable<Integer> getResults() {
 		return results;
 	}
-
 }

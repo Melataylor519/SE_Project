@@ -1,24 +1,11 @@
-// UserComputeEnginePrototype.java
+package usercomputecomponents;
 
-package main.java.com.assignment2.api;
+import projectannotations.NetworkAPIPrototype;
 
-import main.java.project.annotations.NetworkAPIPrototype;
-
-/**
- * Prototype implementation of ComputeEngineAPI.
- */
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     // Default delimiters
     private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
-
-    /**
-     * Processes data from the source and writes it to the destination using specified delimiters.
-     *
-     * @param source      The input data source (local file or networked storage)
-     * @param destination The output destination
-     * @param delimiters  Custom delimiters for output formatting, uses defaults if null
-     */
 
     @NetworkAPIPrototype
     @Override

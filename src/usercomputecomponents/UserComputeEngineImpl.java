@@ -1,13 +1,6 @@
-// UserComputeEngineImpl.java
+package usercomputecomponents;
 
-package main.java.com.assignment2.api;
-
-import main.java.project.annotations.NetworkAPI;
-
-/**
- * Empty implementation of UserComputeEngineAPI.
- * This class serves as a placeholder for future functionality.
- */
+import projectannotations.NetworkAPI;
 
 @NetworkAPI
 public class UserComputeEngineImpl implements UserComputeEngineAPI {

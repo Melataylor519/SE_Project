@@ -1,11 +1,11 @@
 package computecomponents;
 
-import main.java.com.assignment2.api.UserComputeEngineAPI;
-import project.annotations.DataProcessingAPI;
-import project.annotations.ReadResult;
-import project.annotations.WriteResult;
-import project.annotations.InputConfig; 
-import project.annotations.OutputConfig; 
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+import datastorecomponents.InputConfig; 
+import datastorecomponents.OutputConfig; 
 
 
 /**

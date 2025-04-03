@@ -1,8 +1,8 @@
 package computecomponents;
 
-import main.java.com.assignment2.api.UserComputeEngineAPI;
-import project.annotations.InputConfig;
-import project.annotations.OutputConfig;
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
 
 public class ComputeRequest {
 	

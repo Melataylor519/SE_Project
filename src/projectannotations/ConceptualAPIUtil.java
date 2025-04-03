@@ -9,7 +9,6 @@ public class ConceptualAPIUtil {
     private ConceptualAPIUtil() {
     }
 
-    @Override
     public static ComputeResponse process(ComputeRequest request) {
         if (request.getInputConfig() == null || request.getOutputConfig() == null) {
             return new ComputeResponse() {

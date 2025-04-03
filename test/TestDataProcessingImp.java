@@ -39,12 +39,12 @@ public class TestDataProcessingImp {
         InputConfig invalidInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return " ";
+                return "";
             }
 
             @Override
             public String getFilePath() {
-                return " ";
+                return "";
             }
         };
 
@@ -92,12 +92,12 @@ public class TestDataProcessingImp {
         OutputConfig invalidOutputConfig = new OutputConfig() {
             @Override
             public String formatOutput(String result) {
-                return null;
+                return " ";
             }
 
             @Override
             public String getFilePath() {
-                return " ";
+                return "";
             }
         };
 

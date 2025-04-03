@@ -1,4 +1,4 @@
-package test;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +12,11 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.projectannotations.MultiThreadedNetworkAPI;
-import src.computecomponents.ComputeRequest;
-import src.computecomponents.ComputeResponse;
-import src.datastorecomponents.InputConfig;
-import src.datastorecomponents.OutputConfig;
+import projectannotations.MultiThreadedNetworkAPI;
+import computecomponents.ComputeRequest;
+import computecomponents.ComputeResponse;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
 
 public class TestMultiUser {
     // Use MultiThreadedNetworkAPI to simulate requests

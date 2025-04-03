@@ -1,9 +1,8 @@
-package test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.datastorecomponents.OutputConfig;
+import datastorecomponents.OutputConfig;
 
 public class InMemoryOutputConfig  implements OutputConfig {
 	private List<String> output = new ArrayList<>();

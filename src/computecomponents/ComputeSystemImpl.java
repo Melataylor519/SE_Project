@@ -50,7 +50,7 @@ public class ComputeSystemImpl implements ComputeSystem{
         }
     }
 
-    private String calculateLargestPrimeFactors(long num) {
+    public String calculateLargestPrimeFactors(long num) {
         StringBuilder result = new StringBuilder();
 
         // Factor out 2s

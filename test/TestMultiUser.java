@@ -21,6 +21,7 @@ import src.datastorecomponents.OutputConfig;
 public class TestMultiUser {
     // Use MultiThreadedNetworkAPI to simulate requests
     private MultiThreadedNetworkAPI coordinator;
+    private static final int THREAD_POOL_SIZE = 10;
 
     @BeforeEach
     public void initializeComputeEngine() {
@@ -46,8 +47,8 @@ public class TestMultiUser {
         }
 
         // Run multi-threaded using MultiThreadedNetworkAPI
-        ExecutorService threadPool = java.util.concurrent.Executors.newCachedThreadPool();
-        List<Future<?>> results = new ArrayList<>();
+        ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        List<Future<ComputeResponse>> results = new ArrayList<>();
         String multiThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.multiThreadOut.tmp";
         for (int i = 0; i < numThreads; i++) {
             File multiThreadedOut =
@@ -86,7 +87,7 @@ public class TestMultiUser {
             
             // Submit the request to the multi-threaded API
             results.add(threadPool.submit(() -> {
-                Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequestAsync(request);
+                Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequest(request);
                 try {
                     ComputeResponse response = futureResponse.get(); // Wait for the response
                     // Simulate the user’s computation output
@@ -98,7 +99,7 @@ public class TestMultiUser {
         }
 
         // Wait for all threads to finish
-        for (Future<?> future : results) {
+        for (Future<ComputeResponse> future : results) {
             future.get();
         }
 

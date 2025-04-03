@@ -86,7 +86,7 @@ public class TestMultiUser {
             ComputeRequest request = new ComputeRequest(inputConfig, outputConfig);
             
             // Submit the request to the multi-threaded API
-            results.add(threadPool.submit(() -> {
+            results.add(threadPool.submit()) -> {
                 Future<ComputeResponse> futureResponse = MultiThreadedNetworkAPI.processRequest(request);
                 try {
                     ComputeResponse response = futureResponse.get(); // Wait for the response

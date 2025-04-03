@@ -6,20 +6,27 @@ import computecomponents.ComputeResponse;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 public class MultiThreadedNetworkAPI {
 
-    private static final int THREAD_POOL_SIZE = 10; 
+    private static final int THREAD_POOL_SIZE = 10;  // Fixed size of 10
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private static final Logger logger = Logger.getLogger(MultiThreadedNetworkAPI.class.getName());
 
-    private MultiThreadedNetworkAPI() {
-        // Private constructor to prevent instantiation
+    public MultiThreadedNetworkAPI() {
+        
     }
   
     public static Future<ComputeResponse> processRequest(ComputeRequest request) {
         return executor.submit(() -> {
-            // Simulate processing the request using ConceptualAPIUtil
-            return ConceptualAPIUtil.process(request); 
+            try {
+                logger.info("Processing request: " + request);  
+                return ConceptualAPIUtil.process(request); 
+            } catch (Exception e) {
+                logger.severe("Error processing request: " + e.getMessage());
+                throw new RuntimeException("Request processing failed", e);  
+            }
         });
     }
 

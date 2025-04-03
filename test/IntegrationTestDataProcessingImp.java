@@ -1,5 +1,3 @@
-package test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.doThrow;
@@ -13,14 +11,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.datastorecomponents.DataProcessingAPI;
-import src.datastorecomponents.DataProcessingImp;
-import src.datastorecomponents.InputConfig;
-import src.datastorecomponents.OutputConfig;
-import src.datastorecomponents.ReadResult;
-import src.datastorecomponents.ReadResultImp;
-import src.datastorecomponents.WriteResult;
-import src.datastorecomponents.WriteResultImp;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.DataProcessingImp;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.ReadResultImp;
+import datastorecomponents.WriteResult;
+import datastorecomponents.WriteResultImp;
 
 public class IntegrationTestDataProcessingImp {
 

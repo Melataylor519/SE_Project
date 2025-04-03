@@ -1,7 +1,7 @@
-import src.usercomputecomponents.UserComputeEnginePrototype;
+import usercomputecomponents.UserComputeEnginePrototype;
 
-import src.datastorecomponents.ReadResult;
-import src.datastorecomponents.WriteResult;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

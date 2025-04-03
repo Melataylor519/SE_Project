@@ -1,15 +1,20 @@
 
 
 import java.io.File;
-import usercomputecomponents.UserComputeEngineAPI;
+
+import computecomponents.ComputeRequest;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
+import projectannotations.MultiThreadedNetworkAPI;
+
 
 public class TestUser {
 	
 	// TODO 3: change the type of this variable to the name you're using for your
 	// @NetworkAPI interface; also update the parameter passed to the constructor
-	private final UserComputeEngineAPI coordinator;
+	private final MultiThreadedNetworkAPI coordinator;
 
-	public TestUser(UserComputeEngineAPI coordinator) {
+	public TestUser(MultiThreadedNetworkAPI coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -23,6 +28,9 @@ public class TestUser {
 	    	String[] delimiters = {String.valueOf(delimiter)};
 
 	    	// data process
-	    	coordinator.processData(inputPath, outputPath, delimiters);
+	    	FileInputConfig inputConfig = new FileInputConfig(inputPath);
+	    	FileOutputConfig outputConfig = new FileOutputConfig(outputPath);
+	    	ComputeRequest request = new ComputeRequest(inputConfig, outputConfig, delimiter);
+	    	coordinator.processRequest(request);
 	}
 }

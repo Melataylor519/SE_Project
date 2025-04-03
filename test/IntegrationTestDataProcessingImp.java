@@ -36,7 +36,7 @@ public class IntegrationTestDataProcessingImp {
         InputConfig validInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return null;
+                return "valid input";
             }
 
             @Override

@@ -1,6 +1,6 @@
 package computecomponents;
 
-import project.annotations.InputConfig;
+import datastorecomponents.InputConfig;
 
 public class DefaultInputConfig implements InputConfig {
     private final String inputData;

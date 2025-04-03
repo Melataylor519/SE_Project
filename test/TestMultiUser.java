@@ -52,6 +52,7 @@ public class TestMultiUser {
         List<Future<ComputeResponse>> results = new ArrayList<>();
         String multiThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.multiThreadOut.tmp";
         for (int i = 0; i < numThreads; i++) {
+        	final int threadIndex = i; // Create a final copy of `i`
             File multiThreadedOut =
                     new File(multiThreadFilePrefix + i);
             multiThreadedOut.deleteOnExit();
@@ -62,19 +63,19 @@ public class TestMultiUser {
             InputConfig inputConfig = new InputConfig() {
                 @Override
                 public String getInputData() {
-                    return "Mock Input Data for User " + i;
+                    return "Mock Input Data for User " + threadIndex;
                 }
 
                 @Override
                 public String getFilePath() {
-                    return "mock/input/path" + i;
+                    return "mock/input/path" + threadIndex;
                 }
             };
             
             OutputConfig outputConfig = new OutputConfig() {
                 @Override
                 public String getFilePath() {
-                    return "mock/output/path" + i;
+                    return "mock/output/path" + threadIndex;
                 }
 
                 @Override
@@ -96,6 +97,7 @@ public class TestMultiUser {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                return null;
             }));
         }
 

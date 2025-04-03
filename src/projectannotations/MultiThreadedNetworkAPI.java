@@ -12,7 +12,7 @@ public class MultiThreadedNetworkAPI {
     private static final int THREAD_POOL_SIZE = 10; 
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
-    private MultiThreadedNetworkAPI() {
+    public MultiThreadedNetworkAPI() {
         // Private constructor to prevent instantiation
     }
   

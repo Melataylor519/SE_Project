@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -22,6 +23,8 @@ import usercomputecomponents.UserComputeEngineImpl;
 
 public class TestMultiUser {
     // Use MultiThreadedNetworkAPI to simulate requests
+    private MultiThreadedNetworkAPI coordinator;
+    private static final int THREAD_POOL_SIZE = 10;
 
     @Test
     public void compareMultiAndSingleThreaded() throws Exception {

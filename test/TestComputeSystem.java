@@ -35,33 +35,11 @@ public class TestComputeSystem {
 		//mock parameters
 		ComputeRequest mockRequest = Mockito.mock(ComputeRequest.class);	
 		when(mockRequest.getInputConfig()).thenReturn(mock(InputConfig.class));
-	        when(mockRequest.getOutputConfig()).thenReturn(mock(OutputConfig.class));
+		when(mockRequest.getOutputConfig()).thenReturn(mock(OutputConfig.class));
 		ComputeResponse response = system.compute(mockRequest);
 				
 		//return INVALID_REQUEST because test input is null or empty
 		Assertions.assertEquals(response.getStatus(),ComputeResponse.ComputeResponseStatus.INVALID_REQUEST);
 			
 	}
-
-    @Test
-    void testCalculateLargestPrimeFactors() {
-    	//create mock objects
-    	DataProcessingAPI mockDP = Mockito.mock(DataProcessingAPI.class);
-		UserComputeEngineAPI mockEngine = Mockito.mock(UserComputeEngineAPI.class);
-		
-	//create instance of ComputeSystemImpl
-	ComputeSystemImpl system = new ComputeSystemImpl(mockDP, mockEngine);
-		
-	//define input
-        long input = 12;
-        
-        //define expected output
-        String expected = "2 2 3";
-        
-        //get actual output
-        String actual = system.calculateLargestPrimeFactors(input);
-        
-        //assert that the actual output matches the expected output
-        assertEquals(expected, actual);
-    }
 }

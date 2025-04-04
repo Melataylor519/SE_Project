@@ -17,18 +17,19 @@ public class DataProcessingImp implements DataProcessingAPI {
 
     @Override
     public ReadResult read(InputConfig input) {
-  
-            if (input == null || input.getInputData().isEmpty() || input.getFilePath().isEmpty()) {
+    	// Validate that the file exists and is readable
+        try {
+        	if (input == null || input.getInputData().isEmpty() || input.getFilePath().isEmpty()) {
                 throw new IllegalArgumentException("InputConfig or file path cannot be null or empty");
             }
-
-            // Validate that the file exists and is readable
-           try {
-            if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
-                throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
-            }
-            return dataProcessAPI.read(input);
-            
+        	
+        
+        	if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
+        		throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
+        	}
+        	return dataProcessAPI.read(input);
+    	            
+                  
         } catch (IllegalArgumentException e) {
             // Handle known exceptions
             e.printStackTrace();

@@ -1,20 +1,15 @@
-
+package test;
 
 import java.io.File;
-
-import computecomponents.ComputeRequest;
-import datastorecomponents.FileInputConfig;
-import datastorecomponents.FileOutputConfig;
-import projectannotations.MultiThreadedNetworkAPI;
-
+import usercomputecomponents.UserComputeEngineAPI;
 
 public class TestUser {
 	
 	// TODO 3: change the type of this variable to the name you're using for your
 	// @NetworkAPI interface; also update the parameter passed to the constructor
-	private final MultiThreadedNetworkAPI coordinator;
+	private final UserComputeEngineAPI coordinator;
 
-	public TestUser(MultiThreadedNetworkAPI coordinator) {
+	public TestUser(UserComputeEngineAPI coordinator) {
 		this.coordinator = coordinator;
 	}
 
@@ -25,12 +20,9 @@ public class TestUser {
 		// TODO 4: Call the appropriate method(s) on the coordinator to get it to 
 		// run the compute job specified by inputPath, outputPath, and delimiter
 		// processData() receives delimiter as a String array, so convert it to an array
-	    	String[] delimiters = {String.valueOf(delimiter)};
+		String[] delimiters = {String.valueOf(delimiter)};
 
-	    	// data process
-	    	FileInputConfig inputConfig = new FileInputConfig(inputPath);
-	    	FileOutputConfig outputConfig = new FileOutputConfig(outputPath);
-	    	ComputeRequest request = new ComputeRequest(inputConfig, outputConfig, delimiter);
-	    	coordinator.processRequest(request);
+		// data process
+		coordinator.processData(inputPath, outputPath, delimiters);
 	}
 }

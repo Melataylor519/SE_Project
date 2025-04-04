@@ -17,17 +17,19 @@ public class DataProcessingImp implements DataProcessingAPI {
 
     @Override
     public ReadResult read(InputConfig input) {
+    	// Validate that the file exists and is readable
         try {
-            if (input == null || input.getFilePath() == null || input.getFilePath().isEmpty()) {
+        	if (input == null || input.getInputData().isEmpty() || input.getFilePath().isEmpty()) {
                 throw new IllegalArgumentException("InputConfig or file path cannot be null or empty");
             }
-
-            // Validate that the file exists and is readable
-            if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
-                throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
-            }
-            return dataProcessAPI.read(input);
-            
+        	
+        
+        	if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
+        		throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
+        	}
+        	return dataProcessAPI.read(input);
+    	            
+                  
         } catch (IllegalArgumentException e) {
             // Handle known exceptions
             e.printStackTrace();
@@ -42,7 +44,6 @@ public class DataProcessingImp implements DataProcessingAPI {
 
     @Override
     public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
-        try {
             if (output == null || output.getFilePath() == null || output.getFilePath().isEmpty()) {
                 throw new IllegalArgumentException("OutputConfig or file path cannot be null or empty");
             }
@@ -54,17 +55,12 @@ public class DataProcessingImp implements DataProcessingAPI {
             if (result == null) {
                 throw new IllegalArgumentException("Result cannot be null");
             }
-            return dataProcessAPI.appendSingleResult(output, result, delimiter);
-            
-        } catch (IllegalArgumentException e) {
-            // Handle known exceptions
-            e.printStackTrace();
-            return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
-            
-        } catch (Exception e) {
-            // Handle unexpected exceptions
-            e.printStackTrace();
-            return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
-        }
+
+            try {
+                return dataProcessAPI.appendSingleResult(output, result, delimiter);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new WriteResultImp(WriteResult.WriteResultStatus.FAILURE);
+            }
     }
 }

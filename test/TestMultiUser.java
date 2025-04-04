@@ -1,4 +1,4 @@
-
+package test;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,18 +6,17 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import projectannotations.MultiThreadedNetworkAPI;
-import computecomponents.ComputeRequest;
-import computecomponents.ComputeResponse;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
+import src.projectannotations.MultiThreadedNetworkAPI;
+import src.computecomponents.ComputeRequest;
+import src.computecomponents.ComputeResponse;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
 
 public class TestMultiUser {
     // Use MultiThreadedNetworkAPI to simulate requests
@@ -52,7 +51,6 @@ public class TestMultiUser {
         List<Future<ComputeResponse>> results = new ArrayList<>();
         String multiThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.multiThreadOut.tmp";
         for (int i = 0; i < numThreads; i++) {
-        	final int threadIndex = i; // Create a final copy of `i`
             File multiThreadedOut =
                     new File(multiThreadFilePrefix + i);
             multiThreadedOut.deleteOnExit();
@@ -63,19 +61,19 @@ public class TestMultiUser {
             InputConfig inputConfig = new InputConfig() {
                 @Override
                 public String getInputData() {
-                    return "Mock Input Data for User " + threadIndex;
+                    return "Mock Input Data for User " + i;
                 }
 
                 @Override
                 public String getFilePath() {
-                    return "mock/input/path" + threadIndex;
+                    return "mock/input/path" + i;
                 }
             };
             
             OutputConfig outputConfig = new OutputConfig() {
                 @Override
                 public String getFilePath() {
-                    return "mock/output/path" + threadIndex;
+                    return "mock/output/path" + i;
                 }
 
                 @Override
@@ -97,7 +95,6 @@ public class TestMultiUser {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return null;
             }));
         }
 

@@ -1,5 +1,3 @@
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.doThrow;
@@ -18,7 +16,9 @@ import datastorecomponents.DataProcessingImp;
 import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
+import datastorecomponents.ReadResultImp;
 import datastorecomponents.WriteResult;
+import datastorecomponents.WriteResultImp;
 
 public class IntegrationTestDataProcessingImp {
 
@@ -36,7 +36,7 @@ public class IntegrationTestDataProcessingImp {
         InputConfig validInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return "valid input";
+                return null;
             }
 
             @Override

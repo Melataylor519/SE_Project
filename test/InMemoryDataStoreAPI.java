@@ -1,7 +1,5 @@
-
-
 import java.util.List;
-import  datastorecomponents.DataProcessingAPI;
+import datastorecomponents.DataProcessingAPI;
 import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;

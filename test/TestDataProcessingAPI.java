@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,15 +19,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.DataProcessingImp;
-import datastorecomponents.DataProcessingPrototype;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
-import datastorecomponents.ReadResultImp;
-import datastorecomponents.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.DataProcessingImp;
+import src.datastorecomponents.DataProcessingPrototype;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResultImp;
 
 public class TestDataProcessingAPI {
     

@@ -1,5 +1,3 @@
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -39,25 +37,22 @@ public class TestDataProcessingImp {
         InputConfig invalidInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return "";
+                return " ";
             }
 
             @Override
             public String getFilePath() {
-                return "";
+                return " ";
             }
         };
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            dataProcessingImp.read(invalidInputConfig);
-        });
-
-        assertEquals("InputConfig or file path cannot be null or empty", exception.getMessage());
+        ReadResult failedResult = dataProcessingImp.read(invalidInputConfig);
+        assertEquals(ReadResult.Status.FAILURE, failedResult.getStatus());
 
         InputConfig validInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return "valid data";
+                return "";
             }
 
             @Override
@@ -92,7 +87,7 @@ public class TestDataProcessingImp {
         OutputConfig invalidOutputConfig = new OutputConfig() {
             @Override
             public String formatOutput(String result) {
-                return " ";
+                return null;
             }
 
             @Override
@@ -101,11 +96,9 @@ public class TestDataProcessingImp {
             }
         };
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
-        });
+        WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
 
-        assertEquals("OutputConfig or file path cannot be null or empty", exception.getMessage());
+        assertEquals(WriteResult.WriteResultStatus.FAILURE, failedResult.getStatus());
 
         OutputConfig validOutputConfig = new OutputConfig() {
             @Override

@@ -1,11 +1,13 @@
-import usercomputecomponents.UserComputeEnginePrototype;
+import src.usercomputecomponents.UserComputeEnginePrototype;
 
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.WriteResult;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,12 +1,6 @@
 package usercomputecomponents;
 
 import projectannotations.NetworkAPIPrototype;
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
@@ -28,35 +22,12 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
     
     public String readData(String source) {
         // Placeholder for reading data logic
-        System.out.println("Reading data from " + source);
-
-        // read data from file
-        File file = new File(source);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                return reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return "";
+        return "Sample data from " + source;
     }
 
     public void writeData(String destination, String data) {
         // Placeholder for writing data logic
         System.out.println("Writing to " + destination + ": " + data);
-
-        // write to file destination if destination is exist
-        File file = new File(destination);
-        if (file.exists()) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                System.out.println("Writing to " + destination + ": " + data);
-                writer.write(data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
     
     private String process(String data, String[] delimiters) {

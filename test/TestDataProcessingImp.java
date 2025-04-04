@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -12,14 +14,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.DataProcessingImp;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.ReadResultImp;
-import datastorecomponents.WriteResult;
-import datastorecomponents.WriteResultImp;
+import src.datastorecomponents.DataProcessingAPI;
+import src.datastorecomponents.DataProcessingImp;
+import src.datastorecomponents.InputConfig;
+import src.datastorecomponents.OutputConfig;
+import src.datastorecomponents.ReadResult;
+import src.datastorecomponents.ReadResultImp;
+import src.datastorecomponents.WriteResult;
+import src.datastorecomponents.WriteResultImp;
 
 public class TestDataProcessingImp {
 
@@ -46,8 +48,11 @@ public class TestDataProcessingImp {
             }
         };
 
-        ReadResult failedResult = dataProcessingImp.read(invalidInputConfig);
-        assertEquals(ReadResult.Status.FAILURE, failedResult.getStatus());
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            dataProcessingImp.read(invalidInputConfig);
+        });
+
+        assertEquals("InputConfig or file path cannot be null or empty", exception.getMessage());
 
         InputConfig validInputConfig = new InputConfig() {
             @Override
@@ -92,13 +97,15 @@ public class TestDataProcessingImp {
 
             @Override
             public String getFilePath() {
-                return "";
+                return " ";
             }
         };
 
-        WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
+        });
 
-        assertEquals(WriteResult.WriteResultStatus.FAILURE, failedResult.getStatus());
+        assertEquals("OutputConfig or file path cannot be null or empty", exception.getMessage());
 
         OutputConfig validOutputConfig = new OutputConfig() {
             @Override

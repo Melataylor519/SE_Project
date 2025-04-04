@@ -1,6 +1,8 @@
+package test;
+
 import java.util.ArrayList;
 import java.util.List;
-import datastorecomponents.InputConfig;
+import src.datastorecomponents.InputConfig;
 
 public class InMemoryInputConfig implements InputConfig {
 	

@@ -3,13 +3,6 @@
 
 package projectannotations;
 
-/**
- * <pre>
- * The response message containing the reply.
- * </pre>
- *
- * Protobuf type {@code projectannotations.ResponseMessage}
- */
 public final class ResponseMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:projectannotations.ResponseMessage)
@@ -46,10 +39,7 @@ private static final long serialVersionUID = 0L;
   public static final int RESPONSE_DATA_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
   private volatile java.lang.Object responseData_ = "";
-  /**
-   * <code>string response_data = 1;</code>
-   * @return The responseData.
-   */
+    
   @java.lang.Override
   public java.lang.String getResponseData() {
     java.lang.Object ref = responseData_;
@@ -63,10 +53,7 @@ private static final long serialVersionUID = 0L;
       return s;
     }
   }
-  /**
-   * <code>string response_data = 1;</code>
-   * @return The bytes for responseData.
-   */
+
   @java.lang.Override
   public com.google.protobuf.ByteString
       getResponseDataBytes() {

@@ -24,8 +24,9 @@ public class DataProcessingImp implements DataProcessingAPI {
     /**
      * Creates a new DataProcessingImp instance that delegates to the provided
      * DataProcessingAPI implementation.
-     * 
+     *
      * @param delegate The underlying DataProcessingAPI implementation
+     * @throws IllegalArgumentException if delegate is null
      */
     public DataProcessingImp(DataProcessingAPI delegate) {
         if (delegate == null) {
@@ -34,6 +35,14 @@ public class DataProcessingImp implements DataProcessingAPI {
         this.delegate = delegate;
     }
 
+    /**
+     * Reads data from the specified input configuration.
+     * Validates the input configuration and file before delegating to the
+     * underlying implementation.
+     *
+     * @param inputConfig The input configuration containing the file path
+     * @return A ReadResult containing the data or an error message
+     */
     @Override
     public ReadResult read(InputConfig inputConfig) {
         if (inputConfig == null) {
@@ -66,6 +75,15 @@ public class DataProcessingImp implements DataProcessingAPI {
         }
     }
 
+    /**
+     * Appends a single result to the specified output configuration.
+     * Validates the output configuration and directory before delegating to the
+     * underlying implementation.
+     *
+     * @param outputConfig The output configuration containing the file path
+     * @param result       The result to append
+     * @return A WriteResult indicating success or failure
+     */
     @Override
     public WriteResult appendSingleResult(OutputConfig outputConfig, String result) {
         if (outputConfig == null) {

@@ -1,24 +1,38 @@
 package usercomputecomponents;
 
 import projectannotations.NetworkAPIPrototype;
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Implementation of the UserComputeEngineAPI that processes data from input
+ * files
+ * and writes the results to output files. This implementation includes proper
+ * error handling, logging, and file validation.
+ */
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
     private static final Logger LOGGER = Logger.getLogger(UserComputeEnginePrototype.class.getName());
 
-    // Default delimiters
+    // Default delimiters for data processing
     private static final String[] DEFAULT_DELIMITERS = { ",", ";", " " };
 
+    /**
+     * Processes data from the input source and writes the results to the output
+     * source.
+     * The data is processed using the provided delimiters. If no delimiters are
+     * provided,
+     * default delimiters are used.
+     *
+     * @param inputSource  The path to the input file
+     * @param outputSource The path to the output file
+     * @param delimiters   The delimiters to use for processing the data
+     * @throws IllegalArgumentException if input or output sources are null
+     * @throws RuntimeException         if there's an error processing the data
+     */
     @NetworkAPIPrototype
     @Override
     public void processData(String inputSource, String outputSource, String[] delimiters) {
@@ -46,6 +60,14 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
         }
     }
 
+    /**
+     * Reads data from the specified source file.
+     *
+     * @param source The path to the input file
+     * @return The contents of the file as a String
+     * @throws IOException if the file doesn't exist, is not readable, or there's an
+     *                     error reading it
+     */
     public String readData(String source) throws IOException {
         LOGGER.log(Level.INFO, "Reading data from: " + source);
 
@@ -60,14 +82,22 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             throw new IOException("Input file is not readable: " + source);
         }
 
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            return reader.readLine();
+        try {
+            return Files.readString(path);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error reading file: " + source, e);
             throw e;
         }
     }
 
+    /**
+     * Writes data to the specified destination file.
+     *
+     * @param destination The path to the output file
+     * @param data        The data to write
+     * @throws IOException if the file is not writable or there's an error writing
+     *                     to it
+     */
     public void writeData(String destination, String data) throws IOException {
         LOGGER.log(Level.INFO, "Writing data to: " + destination);
 
@@ -84,8 +114,8 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             throw new IOException("Output file is not writable: " + destination);
         }
 
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(data);
+        try {
+            Files.writeString(path, data);
             LOGGER.log(Level.INFO, "Successfully wrote data to: " + destination);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error writing to file: " + destination, e);
@@ -93,6 +123,13 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
         }
     }
 
+    /**
+     * Processes the input data using the specified delimiters.
+     *
+     * @param data       The data to process
+     * @param delimiters The delimiters to use for processing
+     * @return The processed data
+     */
     private String process(String data, String[] delimiters) {
         if (data == null) {
             LOGGER.log(Level.WARNING, "Input data is null");

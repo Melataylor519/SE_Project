@@ -1,15 +1,22 @@
+package test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import usercomputecomponents.UserComputeEngineAPI;
+import usercomputecomponents.UserComputeEngineImpl;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import usercomputecomponents.UserComputeEngineAPI;
 
 public class TestUser {
 

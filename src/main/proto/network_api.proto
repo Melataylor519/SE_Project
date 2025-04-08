@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package networkapi;
+
+option java_package = "networkapi";
+option java_multiple_files = true;
+
+// The Network API service definition.
+service NetworkAPI {
+  // An example RPC method.
+  rpc ProcessRequest (RequestMessage) returns (ResponseMessage);
+}
+
+// The request message containing the user's request.
+message RequestMessage {
+  string request_data = 1;
+}
+
+// The response message containing the reply.
+message ResponseMessage {
+  string response_data = 1;
+}

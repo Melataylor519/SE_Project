@@ -1,70 +1,118 @@
 plugins {
-    id 'com.google.protobuf' version '0.9.4'
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'pmd'
+    id 'jacoco'
+    id 'com.github.spotbugs' version '5.0.14'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-eclipse.project.name = 'LLM-Project'
-
-sourceSets {
-	main {
-	  proto {
-	    srcDirs = ['protobuf']
-	  }
-	  java {
-		srcDirs = ['src',
-					'build/generated/source/proto/main/grpc',
-					'build/generated/source/proto/main/java']
-	  }
-	}
-	test {
-	  java {
-	     srcDirs = ['test']
-	  }
-    }
-}
+group = 'com.example'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+dependencies {
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.1'
+    
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:5.7.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.7.0'
+    
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 test {
     useJUnitPlatform()
-    
-      filter {
-        excludeTestsMatching "project.annotations.Assignment*"
-	      setFailOnNoMatchingTests(false)
-      }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    finalizedBy jacocoTestReport
 }
 
-def grpcVersion = '1.59.1'
-def protobufVersion = '3.25.1'
-def protocVersion = protobufVersion
-
-dependencies {
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-    implementation "io.grpc:grpc-services:${grpcVersion}"
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
-    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
-
-    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
-
-    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
-    testImplementation "io.grpc:grpc-inprocess:${grpcVersion}"
-
-    testImplementation('junit:junit:4.12')
-    testImplementation('org.junit.jupiter:junit-jupiter:5.11.3')
-    testImplementation ('org.junit.jupiter:junit-jupiter-params:5.11.3')
-	testImplementation('org.mockito:mockito-core:5.15.2')
-    
+jacoco {
+    toolVersion = "0.8.11"
 }
 
-protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
-    plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
     }
-    generateProtoTasks {
-        all()*.plugins { grpc {} }
+}
+
+checkstyle {
+    toolVersion = '10.12.3'
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+pmd {
+    toolVersion = '6.55.0'
+    ruleSets = []
+    ruleSetFiles = files("${rootDir}/config/pmd/ruleset.xml")
+    ignoreFailures = false
+}
+
+spotbugs {
+    toolVersion = '4.7.3'
+    ignoreFailures = false
+    showStackTraces = true
+    showProgress = true
+    effort = 'max'
+    reportLevel = 'low'
+}
+
+spotbugsMain {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
     }
+}
+
+spotbugsTest {
+    reports {
+        html {
+            required = true
+            outputLocation = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+            stylesheet = 'fancy-hist.xsl'
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClass = 'com.example.Main'
 }

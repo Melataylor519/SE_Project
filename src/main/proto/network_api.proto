@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package networkapi;
+package projectannotations;
 
-option java_package = "networkapi";
+option java_package = "projectannotations";
 option java_multiple_files = true;
 
 // The Network API service definition.

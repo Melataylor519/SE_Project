@@ -1,11 +1,9 @@
-// ComputeSystemImpl.java
-
 package computecomponents;
 
 import usercomputecomponents.UserComputeEngineAPI;
 import datastorecomponents.DataProcessingAPI;
 
-public class ComputeSystemImpl implements ComputeSystem{
+public class ComputeSystemImpl implements ComputeSystem {
 	
 	private DataProcessingAPI dp;
 	private UserComputeEngineAPI uce;

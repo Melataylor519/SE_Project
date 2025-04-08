@@ -10,9 +10,6 @@ public class ComputeSystemApi {
 	public void prototype(ComputeSystem computeSystem) {
 		//user component will handle initialization, reading, and writing for the job
 		try {
-
-			//initialize input and output configurations
-			
 		    InputConfig inputConfig = new InputConfig() {
 	            @Override
 		    public String getFilePath() {

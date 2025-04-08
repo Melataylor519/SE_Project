@@ -7,15 +7,7 @@ public interface ResponseMessageOrBuilder extends
     // @@protoc_insertion_point(interface_extends:projectannotations.ResponseMessage)
     com.google.protobuf.MessageOrBuilder {
 
-  /**
-   * <code>string response_data = 1;</code>
-   * @return The responseData.
-   */
   java.lang.String getResponseData();
-  /**
-   * <code>string response_data = 1;</code>
-   * @return The bytes for responseData.
-   */
   com.google.protobuf.ByteString
       getResponseDataBytes();
 }

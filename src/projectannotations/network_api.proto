@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package networkapi;
+
+service NetworkAPI {
+  rpc ProcessRequest (RequestMessage) returns (ResponseMessage);
+}
+
+// Define request and response messages
+message RequestMessage {
+  string request_data = 1;
+}
+
+message ResponseMessage {
+  string response_data = 1;
+}

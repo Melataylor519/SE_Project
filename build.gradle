@@ -9,7 +9,7 @@ eclipse.project.name = 'LLM-Project'
 sourceSets {
 	main {
 	  proto {
-	    srcDirs = ['src/main/protobuf']
+	    srcDirs = ['src/main/proto/network_api.proto']
 	  }
 	  java {
 		srcDirs = ['src/main/java',

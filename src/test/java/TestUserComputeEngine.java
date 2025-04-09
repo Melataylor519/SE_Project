@@ -1,4 +1,4 @@
-import usercomputecomponents.UserComputeEnginePrototype;
+import main.java.usercomputecomponents.UserComputeEnginePrototype;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

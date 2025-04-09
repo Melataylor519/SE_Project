@@ -1,8 +1,8 @@
-package computecomponents;
+package main.java.computecomponents;
 
-import usercomputecomponents.UserComputeEngineAPI;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
+import main.java.usercomputecomponents.UserComputeEngineAPI;
+import main.java.datastorecomponents.InputConfig;
+import main.java.datastorecomponents.OutputConfig;
 
 public class ComputeRequest {
 	

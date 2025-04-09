@@ -9,9 +9,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import projectannotations.MultiThreadedNetworkAPI;
-import usercomputecomponents.UserComputeEngineAPI;
-import usercomputecomponents.UserComputeEnginePrototype;
+import main.java.projectannotations.MultiThreadedNetworkAPI;
+import main.java.usercomputecomponents.UserComputeEngineAPI;
+import main.java.usercomputecomponents.UserComputeEnginePrototype;
 
 public class TestMultiUser {
     // Use UserComputeEngineAPI for the coordinator

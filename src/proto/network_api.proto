@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package networkapi;
-
 service NetworkAPI {
   rpc ProcessRequest (RequestMessage) returns (ResponseMessage);
 }

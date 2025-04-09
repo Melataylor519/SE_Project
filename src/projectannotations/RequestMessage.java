@@ -32,13 +32,13 @@ private static final long serialVersionUID = 0L;
 
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return projectannotations.NetworkApi.internal_static_projectannotations_RequestMessage_descriptor;
+    return projectannotations.internal_static_projectannotations_RequestMessage_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return projectannotations.NetworkApi.internal_static_projectannotations_RequestMessage_fieldAccessorTable
+    return projectannotations.internal_static_projectannotations_RequestMessage_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             projectannotations.RequestMessage.class, projectannotations.RequestMessage.Builder.class);
   }
@@ -251,13 +251,13 @@ private static final long serialVersionUID = 0L;
       projectannotations.RequestMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return projectannotations.NetworkApi.internal_static_projectannotations_RequestMessage_descriptor;
+      return projectannotations.internal_static_projectannotations_RequestMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return projectannotations.NetworkApi.internal_static_projectannotations_RequestMessage_fieldAccessorTable
+      return projectannotations.internal_static_projectannotations_RequestMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               projectannotations.RequestMessage.class, projectannotations.RequestMessage.Builder.class);
     }
@@ -283,7 +283,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return projectannotations.NetworkApi.internal_static_projectannotations_RequestMessage_descriptor;
+      return projectannotations.internal_static_projectannotations_RequestMessage_descriptor;
     }
 
     @java.lang.Override

@@ -1,16 +1,12 @@
-package computecomponents;
+package main.java.computecomponents;
 
-import usercomputecomponents.UserComputeEngineAPI;
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
-import datastorecomponents.InputConfig; 
-import datastorecomponents.OutputConfig; 
+import main.java.usercomputecomponents.UserComputeEngineAPI;
+import main.java.datastorecomponents.DataProcessingAPI;
+import main.java.datastorecomponents.ReadResult;
+import main.java.datastorecomponents.WriteResult;
+import main.java.datastorecomponents.InputConfig; 
+import main.java.datastorecomponents.OutputConfig; 
 
-
-/**
- * Coordination component for managing computation requests.
- */
 public class CoordinationComponent {
     //private final UserComputeEngineAPI userComputeEngine;
     private final DataProcessingAPI dataStorage;

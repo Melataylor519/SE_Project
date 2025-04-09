@@ -1,4 +1,4 @@
-package computecomponents;
+package main.java.computecomponents;
 import projectannotations.ConceptualAPI;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

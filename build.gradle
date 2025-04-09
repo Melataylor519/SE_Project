@@ -9,7 +9,7 @@ eclipse.project.name = 'LLM-Project'
 sourceSets {
 	main {
 	  proto {
-	    srcDirs = ['protobuf']
+	    srcDirs = ['src/main/protobuf']
 	  }
 	  java {
 		srcDirs = ['src/main/java',

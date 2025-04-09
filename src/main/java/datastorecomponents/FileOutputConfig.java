@@ -1,4 +1,4 @@
-package datastorecomponents;
+package main.java.datastorecomponents;
 
 public class FileOutputConfig implements OutputConfig {
     private final String filePath;

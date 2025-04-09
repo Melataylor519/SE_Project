@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import datastorecomponents.OutputConfig;
+import main.java.datastorecomponents.OutputConfig;
 
 public class InMemoryOutputConfig  implements OutputConfig {
 	private List<String> output = new ArrayList<>();

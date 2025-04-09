@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import main.java.computecomponents.ComputeRequest;
-import main.java.computecomponents.ComputeResponse;
-import main.java.computecomponents.ComputeSystemImpl;
-import main.java.usercomputecomponents.UserComputeEngineAPI;
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult.Status;
-import main.java.datastorecomponents.ReadResultImp;
+import computecomponents.ComputeRequest;
+import computecomponents.ComputeResponse;
+import computecomponents.ComputeSystemImpl;
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.ReadResultImp;
 
 public class TestComputeSystem {
 	@Test

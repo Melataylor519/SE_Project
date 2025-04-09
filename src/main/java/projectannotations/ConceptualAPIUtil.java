@@ -1,8 +1,8 @@
-package projectannotations;
+package main.java.projectannotations;
 
-import computecomponents.ComputeRequest;
-import computecomponents.ComputeResponse;
-import computecomponents.ComputeResponse.ComputeResponseStatus;
+import main.java.computecomponents.ComputeRequest;
+import main.java.computecomponents.ComputeResponse;
+import main.java.computecomponents.ComputeResponse.ComputeResponseStatus;
 
 public class ConceptualAPIUtil {
     

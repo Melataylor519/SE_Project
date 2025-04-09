@@ -1,6 +1,6 @@
-package usercomputecomponents;
+package main.java.usercomputecomponents;
 
-import projectannotations.NetworkAPI;
+import main.java.projectannotations.NetworkAPI;
 
 @NetworkAPI
 public class UserComputeEngineImpl implements UserComputeEngineAPI {

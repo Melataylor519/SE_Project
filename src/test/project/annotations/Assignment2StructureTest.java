@@ -1,5 +1,4 @@
-
-package project.annotations;
+package test.project.annotations;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -20,6 +19,8 @@ import main.java.projectannotations.NetworkAPI;
 import main.java.projectannotations.NetworkAPIPrototype;
 import main.java.projectannotations.ProcessAPI;
 import main.java.projectannotations.ProcessAPIPrototype;
+
+import test.java.Utils;
 
 /**
  * This test checks that all 3 APIs exist in the 'src' folder as interfaces, with the appropriate annotations, and that they all

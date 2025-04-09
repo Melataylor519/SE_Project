@@ -20,7 +20,7 @@ import main.java.projectannotations.NetworkAPIPrototype;
 import main.java.projectannotations.ProcessAPI;
 import main.java.projectannotations.ProcessAPIPrototype;
 
-import test.java.Utils;
+import test.project.annotations.Utils;
 
 /**
  * This test checks that all 3 APIs exist in the 'src' folder as interfaces, with the appropriate annotations, and that they all

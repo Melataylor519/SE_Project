@@ -13,16 +13,16 @@ public class NetworkAPIServer {
     static class NetworkAPIImpl extends NetworkAPIGrpc.NetworkAPIImplBase {
 
         @Override
-        public void processRequest(NetworkAPI.RequestMessage request,
-                                   StreamObserver<NetworkAPI.ResponseMessage> responseObserver) {
+        public void processRequest(NetworkAPIProto.RequestMessage request,
+                                   StreamObserver<NetworkAPIProto.ResponseMessage> responseObserver) {
 
-            System.out.println("🛰️ Received request: " + request.getRequestData());
+            System.out.println("Received request: " + request.getRequestData());
 
             // Simulate some logic
-            String result = "✅ Server processed: " + request.getRequestData();
+            String result = "Server processed: " + request.getRequestData();
 
             // Build response
-            NetworkAPI.ResponseMessage response = NetworkAPI.ResponseMessage.newBuilder()
+            NetworkAPIProto.ResponseMessage response = NetworkAPIProto.ResponseMessage.newBuilder()
                     .setResponseData(result)
                     .build();
 

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_package = "networkapi";
-option java_outer_classname = "NetworkAPIProto";
+// option java_outer_classname = "NetworkAPIProto"; // cannot create the RequestMessage and ResponseMessage files seperately from this file. 
 
 package networkapi;
 

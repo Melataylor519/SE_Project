@@ -3,9 +3,9 @@ package main.java.projectannotations;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import networkapi.NetworkAPIGrpc;
-import networkapi.RequestMessage;
-import networkapi.ResponseMessage;
+import NetworkAPIGrpc;
+import RequestMessage;
+import ResponseMessage;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;

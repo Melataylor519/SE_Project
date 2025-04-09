@@ -4,8 +4,8 @@
 // Protobuf Java Version: 3.25.2
 package networkapi;
 
-public final class NetworkApi {
-  private NetworkApi() {}
+public final class NetworkAPIProto {
+  private NetworkAPIProto() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -56,15 +56,15 @@ public final class NetworkApi {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return networkapi.NetworkApi.internal_static_networkapi_RequestMessage_descriptor;
+      return networkapi.NetworkAPIProto.internal_static_networkapi_RequestMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return networkapi.NetworkApi.internal_static_networkapi_RequestMessage_fieldAccessorTable
+      return networkapi.NetworkAPIProto.internal_static_networkapi_RequestMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              networkapi.NetworkApi.RequestMessage.class, networkapi.NetworkApi.RequestMessage.Builder.class);
+              networkapi.NetworkAPIProto.RequestMessage.class, networkapi.NetworkAPIProto.RequestMessage.Builder.class);
     }
 
     public static final int REQUEST_DATA_FIELD_NUMBER = 1;
@@ -145,10 +145,10 @@ public final class NetworkApi {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof networkapi.NetworkApi.RequestMessage)) {
+      if (!(obj instanceof networkapi.NetworkAPIProto.RequestMessage)) {
         return super.equals(obj);
       }
-      networkapi.NetworkApi.RequestMessage other = (networkapi.NetworkApi.RequestMessage) obj;
+      networkapi.NetworkAPIProto.RequestMessage other = (networkapi.NetworkAPIProto.RequestMessage) obj;
 
       if (!getRequestData()
           .equals(other.getRequestData())) return false;
@@ -170,44 +170,44 @@ public final class NetworkApi {
       return hash;
     }
 
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(byte[] data)
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(java.io.InputStream input)
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -215,26 +215,26 @@ public final class NetworkApi {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static networkapi.NetworkApi.RequestMessage parseDelimitedFrom(java.io.InputStream input)
+    public static networkapi.NetworkAPIProto.RequestMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static networkapi.NetworkApi.RequestMessage parseDelimitedFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static networkapi.NetworkApi.RequestMessage parseFrom(
+    public static networkapi.NetworkAPIProto.RequestMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -247,7 +247,7 @@ public final class NetworkApi {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(networkapi.NetworkApi.RequestMessage prototype) {
+    public static Builder newBuilder(networkapi.NetworkAPIProto.RequestMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -268,21 +268,21 @@ public final class NetworkApi {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:networkapi.RequestMessage)
-        networkapi.NetworkApi.RequestMessageOrBuilder {
+        networkapi.NetworkAPIProto.RequestMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return networkapi.NetworkApi.internal_static_networkapi_RequestMessage_descriptor;
+        return networkapi.NetworkAPIProto.internal_static_networkapi_RequestMessage_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return networkapi.NetworkApi.internal_static_networkapi_RequestMessage_fieldAccessorTable
+        return networkapi.NetworkAPIProto.internal_static_networkapi_RequestMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                networkapi.NetworkApi.RequestMessage.class, networkapi.NetworkApi.RequestMessage.Builder.class);
+                networkapi.NetworkAPIProto.RequestMessage.class, networkapi.NetworkAPIProto.RequestMessage.Builder.class);
       }
 
-      // Construct using networkapi.NetworkApi.RequestMessage.newBuilder()
+      // Construct using networkapi.NetworkAPIProto.RequestMessage.newBuilder()
       private Builder() {
 
       }
@@ -303,17 +303,17 @@ public final class NetworkApi {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return networkapi.NetworkApi.internal_static_networkapi_RequestMessage_descriptor;
+        return networkapi.NetworkAPIProto.internal_static_networkapi_RequestMessage_descriptor;
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.RequestMessage getDefaultInstanceForType() {
-        return networkapi.NetworkApi.RequestMessage.getDefaultInstance();
+      public networkapi.NetworkAPIProto.RequestMessage getDefaultInstanceForType() {
+        return networkapi.NetworkAPIProto.RequestMessage.getDefaultInstance();
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.RequestMessage build() {
-        networkapi.NetworkApi.RequestMessage result = buildPartial();
+      public networkapi.NetworkAPIProto.RequestMessage build() {
+        networkapi.NetworkAPIProto.RequestMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -321,14 +321,14 @@ public final class NetworkApi {
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.RequestMessage buildPartial() {
-        networkapi.NetworkApi.RequestMessage result = new networkapi.NetworkApi.RequestMessage(this);
+      public networkapi.NetworkAPIProto.RequestMessage buildPartial() {
+        networkapi.NetworkAPIProto.RequestMessage result = new networkapi.NetworkAPIProto.RequestMessage(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(networkapi.NetworkApi.RequestMessage result) {
+      private void buildPartial0(networkapi.NetworkAPIProto.RequestMessage result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.requestData_ = requestData_;
@@ -369,16 +369,16 @@ public final class NetworkApi {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof networkapi.NetworkApi.RequestMessage) {
-          return mergeFrom((networkapi.NetworkApi.RequestMessage)other);
+        if (other instanceof networkapi.NetworkAPIProto.RequestMessage) {
+          return mergeFrom((networkapi.NetworkAPIProto.RequestMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(networkapi.NetworkApi.RequestMessage other) {
-        if (other == networkapi.NetworkApi.RequestMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(networkapi.NetworkAPIProto.RequestMessage other) {
+        if (other == networkapi.NetworkAPIProto.RequestMessage.getDefaultInstance()) return this;
         if (!other.getRequestData().isEmpty()) {
           requestData_ = other.requestData_;
           bitField0_ |= 0x00000001;
@@ -520,12 +520,12 @@ public final class NetworkApi {
     }
 
     // @@protoc_insertion_point(class_scope:networkapi.RequestMessage)
-    private static final networkapi.NetworkApi.RequestMessage DEFAULT_INSTANCE;
+    private static final networkapi.NetworkAPIProto.RequestMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new networkapi.NetworkApi.RequestMessage();
+      DEFAULT_INSTANCE = new networkapi.NetworkAPIProto.RequestMessage();
     }
 
-    public static networkapi.NetworkApi.RequestMessage getDefaultInstance() {
+    public static networkapi.NetworkAPIProto.RequestMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -561,7 +561,7 @@ public final class NetworkApi {
     }
 
     @java.lang.Override
-    public networkapi.NetworkApi.RequestMessage getDefaultInstanceForType() {
+    public networkapi.NetworkAPIProto.RequestMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -608,15 +608,15 @@ public final class NetworkApi {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return networkapi.NetworkApi.internal_static_networkapi_ResponseMessage_descriptor;
+      return networkapi.NetworkAPIProto.internal_static_networkapi_ResponseMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return networkapi.NetworkApi.internal_static_networkapi_ResponseMessage_fieldAccessorTable
+      return networkapi.NetworkAPIProto.internal_static_networkapi_ResponseMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              networkapi.NetworkApi.ResponseMessage.class, networkapi.NetworkApi.ResponseMessage.Builder.class);
+              networkapi.NetworkAPIProto.ResponseMessage.class, networkapi.NetworkAPIProto.ResponseMessage.Builder.class);
     }
 
     public static final int RESPONSE_DATA_FIELD_NUMBER = 1;
@@ -697,10 +697,10 @@ public final class NetworkApi {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof networkapi.NetworkApi.ResponseMessage)) {
+      if (!(obj instanceof networkapi.NetworkAPIProto.ResponseMessage)) {
         return super.equals(obj);
       }
-      networkapi.NetworkApi.ResponseMessage other = (networkapi.NetworkApi.ResponseMessage) obj;
+      networkapi.NetworkAPIProto.ResponseMessage other = (networkapi.NetworkAPIProto.ResponseMessage) obj;
 
       if (!getResponseData()
           .equals(other.getResponseData())) return false;
@@ -722,44 +722,44 @@ public final class NetworkApi {
       return hash;
     }
 
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(byte[] data)
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(java.io.InputStream input)
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -767,26 +767,26 @@ public final class NetworkApi {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static networkapi.NetworkApi.ResponseMessage parseDelimitedFrom(java.io.InputStream input)
+    public static networkapi.NetworkAPIProto.ResponseMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
 
-    public static networkapi.NetworkApi.ResponseMessage parseDelimitedFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static networkapi.NetworkApi.ResponseMessage parseFrom(
+    public static networkapi.NetworkAPIProto.ResponseMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -799,7 +799,7 @@ public final class NetworkApi {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(networkapi.NetworkApi.ResponseMessage prototype) {
+    public static Builder newBuilder(networkapi.NetworkAPIProto.ResponseMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -820,21 +820,21 @@ public final class NetworkApi {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:networkapi.ResponseMessage)
-        networkapi.NetworkApi.ResponseMessageOrBuilder {
+        networkapi.NetworkAPIProto.ResponseMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return networkapi.NetworkApi.internal_static_networkapi_ResponseMessage_descriptor;
+        return networkapi.NetworkAPIProto.internal_static_networkapi_ResponseMessage_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return networkapi.NetworkApi.internal_static_networkapi_ResponseMessage_fieldAccessorTable
+        return networkapi.NetworkAPIProto.internal_static_networkapi_ResponseMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                networkapi.NetworkApi.ResponseMessage.class, networkapi.NetworkApi.ResponseMessage.Builder.class);
+                networkapi.NetworkAPIProto.ResponseMessage.class, networkapi.NetworkAPIProto.ResponseMessage.Builder.class);
       }
 
-      // Construct using networkapi.NetworkApi.ResponseMessage.newBuilder()
+      // Construct using networkapi.NetworkAPIProto.ResponseMessage.newBuilder()
       private Builder() {
 
       }
@@ -855,17 +855,17 @@ public final class NetworkApi {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return networkapi.NetworkApi.internal_static_networkapi_ResponseMessage_descriptor;
+        return networkapi.NetworkAPIProto.internal_static_networkapi_ResponseMessage_descriptor;
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.ResponseMessage getDefaultInstanceForType() {
-        return networkapi.NetworkApi.ResponseMessage.getDefaultInstance();
+      public networkapi.NetworkAPIProto.ResponseMessage getDefaultInstanceForType() {
+        return networkapi.NetworkAPIProto.ResponseMessage.getDefaultInstance();
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.ResponseMessage build() {
-        networkapi.NetworkApi.ResponseMessage result = buildPartial();
+      public networkapi.NetworkAPIProto.ResponseMessage build() {
+        networkapi.NetworkAPIProto.ResponseMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -873,14 +873,14 @@ public final class NetworkApi {
       }
 
       @java.lang.Override
-      public networkapi.NetworkApi.ResponseMessage buildPartial() {
-        networkapi.NetworkApi.ResponseMessage result = new networkapi.NetworkApi.ResponseMessage(this);
+      public networkapi.NetworkAPIProto.ResponseMessage buildPartial() {
+        networkapi.NetworkAPIProto.ResponseMessage result = new networkapi.NetworkAPIProto.ResponseMessage(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(networkapi.NetworkApi.ResponseMessage result) {
+      private void buildPartial0(networkapi.NetworkAPIProto.ResponseMessage result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.responseData_ = responseData_;
@@ -921,16 +921,16 @@ public final class NetworkApi {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof networkapi.NetworkApi.ResponseMessage) {
-          return mergeFrom((networkapi.NetworkApi.ResponseMessage)other);
+        if (other instanceof networkapi.NetworkAPIProto.ResponseMessage) {
+          return mergeFrom((networkapi.NetworkAPIProto.ResponseMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(networkapi.NetworkApi.ResponseMessage other) {
-        if (other == networkapi.NetworkApi.ResponseMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(networkapi.NetworkAPIProto.ResponseMessage other) {
+        if (other == networkapi.NetworkAPIProto.ResponseMessage.getDefaultInstance()) return this;
         if (!other.getResponseData().isEmpty()) {
           responseData_ = other.responseData_;
           bitField0_ |= 0x00000001;
@@ -1072,12 +1072,12 @@ public final class NetworkApi {
     }
 
     // @@protoc_insertion_point(class_scope:networkapi.ResponseMessage)
-    private static final networkapi.NetworkApi.ResponseMessage DEFAULT_INSTANCE;
+    private static final networkapi.NetworkAPIProto.ResponseMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new networkapi.NetworkApi.ResponseMessage();
+      DEFAULT_INSTANCE = new networkapi.NetworkAPIProto.ResponseMessage();
     }
 
-    public static networkapi.NetworkApi.ResponseMessage getDefaultInstance() {
+    public static networkapi.NetworkAPIProto.ResponseMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1113,7 +1113,7 @@ public final class NetworkApi {
     }
 
     @java.lang.Override
-    public networkapi.NetworkApi.ResponseMessage getDefaultInstanceForType() {
+    public networkapi.NetworkAPIProto.ResponseMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1143,7 +1143,8 @@ public final class NetworkApi {
       "nseMessage\022\025\n\rresponse_data\030\001 \001(\t2W\n\nNet" +
       "workAPI\022I\n\016ProcessRequest\022\032.networkapi.R" +
       "equestMessage\032\033.networkapi.ResponseMessa" +
-      "geB\014\n\nnetworkapib\006proto3"
+      "geB\035\n\nnetworkapiB\017NetworkAPIProtob\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

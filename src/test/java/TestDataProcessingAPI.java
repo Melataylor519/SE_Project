@@ -17,15 +17,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.DataProcessingImp;
-import main.java.datastorecomponents.DataProcessingPrototype;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.WriteResult;
-import main.java.datastorecomponents.ReadResultImp;
-import main.java.datastorecomponents.WriteResultImp;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.DataProcessingImp;
+import datastorecomponents.DataProcessingPrototype;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+import datastorecomponents.ReadResultImp;
+import datastorecomponents.WriteResultImp;
 
 public class TestDataProcessingAPI {
     

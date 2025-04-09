@@ -1,4 +1,4 @@
-package datastorecomponents;
+package main.java.datastorecomponents;
 
 public class WriteResultImp implements WriteResult {
 	private final WriteResultStatus status; 

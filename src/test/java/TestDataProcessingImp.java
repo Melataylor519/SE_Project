@@ -12,14 +12,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.DataProcessingImp;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.ReadResultImp;
-import datastorecomponents.WriteResult;
-import datastorecomponents.WriteResultImp;
+import main.java.datastorecomponents.DataProcessingAPI;
+import main.java.datastorecomponents.DataProcessingImp;
+import main.java.datastorecomponents.InputConfig;
+import main.java.datastorecomponents.OutputConfig;
+import main.java.datastorecomponents.ReadResult;
+import main.java.datastorecomponents.ReadResultImp;
+import main.java.datastorecomponents.WriteResult;
+import main.java.datastorecomponents.WriteResultImp;
 
 public class TestDataProcessingImp {
 

@@ -1,4 +1,4 @@
-package datastorecomponents;
+package main.java.datastorecomponents;
 
 public class ReadResultImp implements ReadResult {
 	private final Status status;

@@ -1,4 +1,4 @@
-package datastorecomponents;
+package main.java.datastorecomponents;
 
 public interface OutputConfig {
 	String getFilePath();

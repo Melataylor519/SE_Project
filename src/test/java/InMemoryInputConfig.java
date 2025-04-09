@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import datastorecomponents.InputConfig;
+import main.java.datastorecomponents.InputConfig;
 
 public class InMemoryInputConfig implements InputConfig {
 	

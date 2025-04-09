@@ -3,8 +3,8 @@ package main.java.computecomponents;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
+import main.java.datastorecomponents.InputConfig;
+import main.java.datastorecomponents.OutputConfig;
 
 public class ComputeSystemApi {
 	public void prototype(ComputeSystem computeSystem) {

@@ -1,4 +1,4 @@
-package datastorecomponents;
+package main.java.datastorecomponents;
 
 public class FileInputConfig implements InputConfig {
     private final String filePath;

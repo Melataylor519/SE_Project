@@ -79,5 +79,5 @@ protobuf {
 }
 
 application {
-    mainClass = 'src.main.java.projectannotations.NetworkAPIServer'
+    mainClass = 'main.java.projectannotations.NetworkAPIServer'
 }

@@ -1,5 +1,5 @@
 import java.io.File;
-import usercomputecomponents.UserComputeEngineAPI;
+import main.java.usercomputecomponents.UserComputeEngineAPI;
 
 public class TestUser {
 	

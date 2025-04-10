@@ -10,3 +10,4 @@ bin
 *.class
 pre-commit
 .DS_Store
+/build/

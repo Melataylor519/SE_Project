@@ -1,4 +1,4 @@
-package main.java.projectannotations;
+/*package main.java.projectannotations;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -42,3 +42,4 @@ public class NetworkAPIServer {
         server.awaitTermination();
     }
 }
+*/

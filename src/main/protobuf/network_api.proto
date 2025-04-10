@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "networkapi";
+option java_outer_classname = "NetworkAPIProto"; 
+
+package networkapi;
+
+service NetworkAPI {
+  rpc ProcessRequest (RequestMessage) returns (ResponseMessage);
+}
+
+message RequestMessage {
+  string request_data = 1;
+}
+
+message ResponseMessage {
+  string response_data = 1;
+}

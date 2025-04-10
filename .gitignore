@@ -2,7 +2,6 @@
 .gradle
 
 # Ignore Gradle build output directory
-build
 gradle.zip
 .project
 .classpath
@@ -10,3 +9,4 @@ bin
 .settings
 *.class
 pre-commit
+.DS_Store

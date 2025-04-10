@@ -1,5 +1,6 @@
 plugins {
     id 'com.google.protobuf' version '0.9.4'
+    id 'application'
 }
 
 apply plugin: 'java'
@@ -9,17 +10,17 @@ eclipse.project.name = 'LLM-Project'
 sourceSets {
 	main {
 	  proto {
-	    srcDirs = ['protobuf']
+	    srcDirs = ['src/main/protobuf']
 	  }
 	  java {
-		srcDirs = ['src',
+		srcDirs = ['src/main/java',
 					'build/generated/source/proto/main/grpc',
 					'build/generated/source/proto/main/java']
 	  }
 	}
 	test {
 	  java {
-	     srcDirs = ['test']
+	     srcDirs = ['src/test/java']
 	  }
     }
 }
@@ -55,16 +56,28 @@ dependencies {
     testImplementation('junit:junit:4.12')
     testImplementation('org.junit.jupiter:junit-jupiter:5.11.3')
     testImplementation ('org.junit.jupiter:junit-jupiter-params:5.11.3')
-	testImplementation('org.mockito:mockito-core:5.15.2')
+    testImplementation('org.mockito:mockito-core:5.15.2')
     
 }
 
 protobuf {
-    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.25.2'
+    }
     plugins {
-        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.62.2'
+        }
     }
     generateProtoTasks {
-        all()*.plugins { grpc {} }
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
     }
+}
+
+application {
+    mainClass = 'main.java.projectannotations.NetworkAPIServer'
 }

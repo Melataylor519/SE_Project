@@ -46,7 +46,7 @@ public class TestDataProcessingAPI {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         prototype = new DataProcessingPrototype();
-        realAPI = new DataProcessingImp(api); 
+        realAPI = new DataProcessingImp(); 
     }
 
     @Test
@@ -141,7 +141,7 @@ public class TestDataProcessingAPI {
 
     @Test
     public void testSimple_ReadReturnsNonNullResult() {
-        DataProcessingAPI api = new DataProcessingImp(null);
+        DataProcessingAPI api = new DataProcessingImp();
         ReadResult result = api.read(null);
 
         assertNotNull("Read result should not be null", result);

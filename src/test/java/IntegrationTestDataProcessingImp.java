@@ -28,7 +28,7 @@ public class IntegrationTestDataProcessingImp {
     @BeforeEach
     public void setUp() {
         mockDataProcessingAPI = mock(DataProcessingAPI.class);
-        dataProcessingImp = new DataProcessingImp(mockDataProcessingAPI);
+        dataProcessingImp = new DataProcessingImp();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class IntegrationTestDataProcessingImp {
             // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
             ReadResult result = dataProcessingImp.read(validInputConfig);
-            assertEquals(ReadResult.Status.FAILURE, result.getStatus());
+            assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
         } catch (Exception e) {
         	fail("Exception should not be thrown for valid input");
         } finally {
@@ -89,7 +89,7 @@ public class IntegrationTestDataProcessingImp {
             // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
-            assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
+            assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {

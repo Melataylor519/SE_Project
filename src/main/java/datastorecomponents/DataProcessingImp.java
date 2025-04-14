@@ -1,4 +1,4 @@
-package main.java.datastorecomponents;
+package datastorecomponents;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

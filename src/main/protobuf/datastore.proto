@@ -11,11 +11,11 @@ service DataProcessing {
 }
 
 message InputConfig {
-  required string filePath = 1;
+  string filePath = 1;
 }
 
 message OutputConfig {
-  required string filePath = 1;
+  string filePath = 1;
 }
 
 message ReadResult {
@@ -23,14 +23,14 @@ message ReadResult {
     SUCCESS = 0;
     FAILURE = 1;
   }
-  required Status status = 1;
+  Status status = 1;
   repeated int32 data = 2;
 }
 
 message AppendRequest {
-  required OutputConfig output = 1;
-  required string result = 2;
-  required string delimiter = 3;
+  OutputConfig output = 1;
+  string result = 2;
+  string delimiter = 3;
 }
 
 message WriteResult {
@@ -38,5 +38,5 @@ message WriteResult {
     SUCCESS = 0;
     FAILURE = 1;
   }
-  required WriteResultStatus status = 1;
+  WriteResultStatus status = 1;
 }

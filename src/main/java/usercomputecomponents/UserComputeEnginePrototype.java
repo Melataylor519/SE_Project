@@ -1,64 +1,90 @@
 package usercomputecomponents;
 
 import projectannotations.NetworkAPIPrototype;
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import projectannotations.DataStoreClient;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+
+import io.grpc.Grpc;
+import io.grpc.InsecureChannelCredentials;
+import io.grpc.ManagedChannel;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+import java.util.concurrent.TimeUnit;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
-    // Default delimiters
     private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
+    private static final String TARGET = "localhost:50051";
 
     @NetworkAPIPrototype
     @Override
     public void processData(String inputSource, String outputSource, String[] delimiters) {
-    	// Read input data
-        String rawData = readData(inputSource);
+        // Use default delimiters if none are provided
+        if (delimiters == null || delimiters.length == 0) {
+            delimiters = DEFAULT_DELIMITERS;
+        }
 
-        // Process data using delimiters
-        String processedData = process(rawData, delimiters);
+        ManagedChannel channel = Grpc.newChannelBuilder(TARGET, InsecureChannelCredentials.create()).build();
+        DataStoreClient client = new DataStoreClient(channel);
 
-        // Write processed data to the output destination
-        writeData(outputSource, processedData);
+        try {
+            // Read data from datastore via gRPC
+            String rawData = readData(client, inputSource);
+
+            // Process data
+            String processedData = process(rawData, delimiters);
+
+            // Write processed data to datastore via gRPC
+            writeData(client, outputSource, processedData);
+
+        } finally {
+            try {
+                channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
-    
-    public String readData(String source) {
-        // Placeholder for reading data logic
+
+    public String readData(DataStoreClient client, String source) {
         System.out.println("Reading data from " + source);
 
-        // read data from file
-        File file = new File(source);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                return reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        try {
+            InputConfig input = new FileInputConfig(source);
+            ReadResult result = client.read(input);
 
-        return "";
+            if (result.getStatus() == ReadResult.Status.SUCCESS && result.getResults() != null) {
+                return StreamSupport.stream(result.getResults().spliterator(), false)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(" "));
+            } else {
+                System.err.println("Failed to read data or file not found: " + source);
+                return "";
+            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred during read operation:");
+            e.printStackTrace();
+            return "";
+        }
+        
     }
 
-    public void writeData(String destination, String data) {
-        // Placeholder for writing data logic
+    public void writeData(DataStoreClient client, String destination, String data) {
         System.out.println("Writing to " + destination + ": " + data);
+        OutputConfig output = new FileOutputConfig(destination);
 
-        // write to file destination if destination is exist
-        File file = new File(destination);
-        if (file.exists()) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                System.out.println("Writing to " + destination + ": " + data);
-                writer.write(data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        WriteResult result = client.appendSingleResult(output, data, ' ');
+        if (result.getStatus() != WriteResult.WriteResultStatus.SUCCESS) {
+            System.err.println("Failed to write data to " + destination);
         }
     }
-    
+
     private String process(String data, String[] delimiters) {
         // If delimiters are not provided, use default delimiters
         if (delimiters == null || delimiters.length == 0) {
@@ -72,5 +98,4 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
         return data.trim();
     }
-
 }

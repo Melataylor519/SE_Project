@@ -10,6 +10,7 @@ import io.grpc.protobuf.services.ProtoReflectionService;
 
 public class DataStoreServer {
     private Server server;
+
     private void start() throws IOException {
         int port = 50051;
 
@@ -19,7 +20,7 @@ public class DataStoreServer {
                 .build()
                 .start();
 
-        System.out.println("Server started on port " + port);
+        System.out.println("Server started on, listening on port " + port);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.err.println("*** Shutting down gRPC server since JVM is shutting down ***");

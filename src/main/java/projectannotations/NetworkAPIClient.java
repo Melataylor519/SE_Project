@@ -37,7 +37,7 @@ public class NetworkAPIClient {
         System.out.print("Enter output file path: ");
         String outputPath = scanner.nextLine().trim();
 
-        // choose Delimiter 
+        // choose Delimiter
         System.out.print("Enter output delimiter (or press Enter to use default ','): ");
         String delimiter = scanner.nextLine().trim();
         if (delimiter.isEmpty()) {
@@ -45,7 +45,7 @@ public class NetworkAPIClient {
         }
 
         // gRPC server connect
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
                 .usePlaintext()
                 .build();
 

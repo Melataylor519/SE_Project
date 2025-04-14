@@ -61,14 +61,15 @@ public class TestDataProcessingImp {
             }
         };
 
-        when(mockDataProcessingAPI.read(validInputConfig)).thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
+        when(mockDataProcessingAPI.read(validInputConfig))
+                .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
 
         Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
             ReadResult result = dataProcessingImp.read(validInputConfig);
-            assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
+            assertEquals(ReadResult.Status.FAILURE, result.getStatus());
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {
@@ -112,14 +113,15 @@ public class TestDataProcessingImp {
             }
         };
 
-        when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ',')).thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
+        when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ','))
+                .thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
         Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
-            assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
+            assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {

@@ -3,8 +3,8 @@ package main.java.datastorecomponents;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import main.java.datastorecomponents.ReadResult.Status;
-import main.java.datastorecomponents.WriteResult.WriteResultStatus;
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.WriteResult.WriteResultStatus;
 
 // Implementation for Data Store API
 public class DataProcessingImp implements DataProcessingAPI {

@@ -1,6 +1,6 @@
-package main.java.usercomputecomponents;
+package usercomputecomponents;
 
-import main.java.projectannotations.NetworkAPIPrototype;
+import projectannotations.NetworkAPIPrototype;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;

@@ -1,16 +1,16 @@
-package main.java.projectannotations;
+package projectannotations;
 
 import datastore.DataProcessingGrpc;
 import datastore.DatastoreProto;
 import io.grpc.stub.StreamObserver;
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.DataProcessingImp;
-import main.java.datastorecomponents.FileInputConfig;
-import main.java.datastorecomponents.FileOutputConfig;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.WriteResult;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.DataProcessingImp;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
 
 public class DataStoreService extends DataProcessingGrpc.DataProcessingImplBase {
     private final DataProcessingAPI api = new DataProcessingImp();

@@ -1,10 +1,10 @@
 
-package main.java.computecomponents;
+package computecomponents;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
 
 public class ComputeSystemApi {
 	public void prototype(ComputeSystem computeSystem) {

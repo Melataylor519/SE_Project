@@ -1,11 +1,11 @@
 import java.util.List;
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.ReadResultImp;
-import main.java.datastorecomponents.WriteResult;
-import main.java.datastorecomponents.WriteResultImp;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.ReadResultImp;
+import datastorecomponents.WriteResult;
+import datastorecomponents.WriteResultImp;
 
 public class InMemoryDataStoreAPI implements DataProcessingAPI {
 	@Override

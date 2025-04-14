@@ -1,6 +1,6 @@
-package main.java.datastorecomponents;
+package datastorecomponents;
 
-import main.java.projectannotations.ProcessAPI;
+import projectannotations.ProcessAPI;
 
 @ProcessAPI
 public interface DataProcessingAPI {

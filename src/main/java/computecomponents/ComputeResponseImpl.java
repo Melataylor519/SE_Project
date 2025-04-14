@@ -1,4 +1,4 @@
-package main.java.computecomponents;
+package computecomponents;
 
 public class ComputeResponseImpl implements ComputeResponse{
 	

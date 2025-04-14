@@ -1,4 +1,4 @@
-package main.java.projectannotations;
+package projectannotations;
 
 import datastore.DataProcessingGrpc;
 import datastore.DatastoreProto;
@@ -6,15 +6,15 @@ import io.grpc.Grpc;
 import io.grpc.InsecureChannelCredentials;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.FileInputConfig;
-import main.java.datastorecomponents.FileOutputConfig;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.ReadResultImp;
-import main.java.datastorecomponents.WriteResult;
-import main.java.datastorecomponents.WriteResultImp;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.ReadResultImp;
+import datastorecomponents.WriteResult;
+import datastorecomponents.WriteResultImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +91,7 @@ public class DataStoreClient implements DataProcessingAPI {
     }
 
     public static void main(String[] args) throws Exception {
-        String target = "localhost:50051";  // TODO: Ensure this matches your server port
+        String target = "localhost:50051"; 
 
         ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
                 .build();
@@ -99,7 +99,7 @@ public class DataStoreClient implements DataProcessingAPI {
             DataStoreClient client = new DataStoreClient(channel);
 
             // Example read
-            InputConfig input = new FileInputConfig("testfile.txt");
+            InputConfig input = new FileInputConfig("src/test/java/TestInputFile.test");
             ReadResult readResult = client.read(input);
             System.out.println("Read Status: " + readResult.getStatus());
             if (readResult.getResults() != null) {
@@ -107,7 +107,7 @@ public class DataStoreClient implements DataProcessingAPI {
             }
 
             // Example append
-            OutputConfig output = new FileOutputConfig("testfile.txt");
+            OutputConfig output = new FileOutputConfig("src/test/java/TestOutputFile.test");
             WriteResult writeResult = client.appendSingleResult(output, "123", ',');
             System.out.println("Write Status: " + writeResult.getStatus());
 

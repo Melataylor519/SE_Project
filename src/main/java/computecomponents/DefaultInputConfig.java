@@ -1,6 +1,6 @@
-package main.java.computecomponents;
+package computecomponents;
 
-import main.java.datastorecomponents.InputConfig;
+import datastorecomponents.InputConfig;
 
 public class DefaultInputConfig implements InputConfig {
     private final String inputData;

@@ -1,11 +1,11 @@
-package main.java.computecomponents;
+package computecomponents;
 
-import main.java.usercomputecomponents.UserComputeEngineAPI;
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.WriteResult;
-import main.java.datastorecomponents.InputConfig; 
-import main.java.datastorecomponents.OutputConfig; 
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+import datastorecomponents.InputConfig; 
+import datastorecomponents.OutputConfig; 
 
 public class CoordinationComponent {
     //private final UserComputeEngineAPI userComputeEngine;

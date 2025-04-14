@@ -1,7 +1,7 @@
 package main.java.projectannotations;
 
-import main.protobuf.datastore.DataProcessingGrpc;
-import main.protobuf.datastore.DatastoreProto;
+import datastore.DataProcessingGrpc;
+import datastore.DatastoreProto;
 import io.grpc.stub.StreamObserver;
 import main.java.datastorecomponents.DataProcessingAPI;
 import main.java.datastorecomponents.DataProcessingImp;

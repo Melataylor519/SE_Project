@@ -1,7 +1,7 @@
-package main.java.computecomponents;
+package computecomponents;
 
-import main.java.usercomputecomponents.UserComputeEngineAPI;
-import main.java.datastorecomponents.DataProcessingAPI;
+import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataProcessingAPI;
 
 public class ComputeSystemImpl implements ComputeSystem{
 	

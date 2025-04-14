@@ -1,4 +1,4 @@
-package main.java.datastorecomponents;
+package datastorecomponents;
 
 public interface ReadResult {
 	public static enum Status {

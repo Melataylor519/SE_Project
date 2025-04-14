@@ -1,4 +1,4 @@
-package main.java.projectannotations;
+package projectannotations;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

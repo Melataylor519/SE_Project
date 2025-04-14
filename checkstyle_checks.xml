@@ -4,7 +4,6 @@
           "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-  <module name="SuppressWarningsFilter"/>
 
   <property name="charset" value="UTF-8"/>
 

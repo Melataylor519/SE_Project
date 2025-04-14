@@ -28,7 +28,7 @@ public class IntegrationTestDataProcessingImp {
     @BeforeEach
     public void setUp() {
         mockDataProcessingAPI = mock(DataProcessingAPI.class);
-        dataProcessingImp = new DataProcessingImp(mockDataProcessingAPI);
+        dataProcessingImp = new DataProcessingImp();
     }
 
     @Test

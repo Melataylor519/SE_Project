@@ -57,7 +57,8 @@ public class IntegrationTestDataProcessingImp {
         } finally {
             try {
                 Files.deleteIfExists(Paths.get("validPath.txt"));
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                System.err.println("Failed to delete test file: " + e.getMessage());
             }
         }
     }

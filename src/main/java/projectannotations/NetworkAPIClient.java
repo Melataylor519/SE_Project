@@ -1,4 +1,4 @@
-package main.java.projectannotations;
+package projectannotations;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

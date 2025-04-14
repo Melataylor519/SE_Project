@@ -78,6 +78,8 @@ protobuf {
     }
 }
 
+compileJava.dependsOn generateProto
+
 application {
     mainClass = 'projectannotations.DataStoreServer'
 }
@@ -114,5 +116,3 @@ tasks.register('runDataStoreClient', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set('projectannotations.DataStoreClient')
 }
-
-

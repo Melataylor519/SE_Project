@@ -1,4 +1,4 @@
-package main.java.computecomponents;
+package computecomponents;
 
 public interface ComputeResponse {
 	static ComputeResponse SUCCESS = new ComputeResponse() {

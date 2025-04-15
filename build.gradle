@@ -38,8 +38,8 @@ test {
       }
 }
 
-def grpcVersion = '1.59.1'
-def protobufVersion = '3.25.1'
+def grpcVersion = '1.62.2'
+def protobufVersion = '3.25.2'
 def protocVersion = protobufVersion
 
 dependencies {
@@ -62,11 +62,11 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.25.2'
+        artifact = "com.google.protobuf:protoc:${protocVersion}"
     }
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.62.2'
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
         }
     }
     generateProtoTasks {
@@ -78,6 +78,41 @@ protobuf {
     }
 }
 
+compileJava.dependsOn generateProto
+
 application {
-    mainClass = 'main.java.projectannotations.NetworkAPIServer'
+    mainClass = 'projectannotations.DataStoreServer'
+}
+
+tasks.withType(JavaCompile) {
+    options.incremental = false
+}
+
+tasks.register('runNetworkAPIServer', JavaExec) {
+    group = 'application'
+    description = 'Runs the NetworkAPIServer main class.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('projectannotations.NetworkAPIServer')
+}
+
+tasks.register('runNetworkAPIClient', JavaExec) {
+    group = 'application'
+    description = 'Runs the NetworkAPIClient main class.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('projectannotations.NetworkAPIClient')
+    standardInput = System.in
+}
+
+tasks.register('runDataStoreServer', JavaExec) {
+    group = 'application'
+    description = 'Runs the DataStoreServer main class.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('projectannotations.DataStoreServer')
+}
+
+tasks.register('runDataStoreClient', JavaExec) {
+    group = 'application'
+    description = 'Runs the DataStoreClient main class.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('projectannotations.DataStoreClient')
 }

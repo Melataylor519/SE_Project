@@ -1,6 +1,6 @@
-package main.java.datastorecomponents;
-import main.java.datastorecomponents.ReadResult.Status;
-import main.java.datastorecomponents.WriteResult.WriteResultStatus;
+package datastorecomponents;
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.WriteResult.WriteResultStatus;
 
 public class DataProcessingPrototype implements DataProcessingAPI {
 	@Override

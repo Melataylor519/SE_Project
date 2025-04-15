@@ -1,0 +1,42 @@
+syntax = "proto2";
+
+package datastore;
+
+option java_package = "datastore";
+option java_outer_classname = "DatastoreProto";
+
+service DataProcessing {
+  rpc Read (InputConfig) returns (ReadResult);
+  rpc AppendSingleResult (AppendRequest) returns (WriteResult);
+}
+
+message InputConfig {
+  required string filePath = 1;
+}
+
+message OutputConfig {
+  required string filePath = 1;
+}
+
+message ReadResult {
+  enum Status {
+    SUCCESS = 0;
+    FAILURE = 1;
+  }
+  required Status status = 1;
+  repeated int32 data = 2;
+}
+
+message AppendRequest {
+  required OutputConfig output = 1;
+  required string result = 2;
+  required string delimiter = 3;
+}
+
+message WriteResult {
+  enum WriteResultStatus {
+    SUCCESS = 0;
+    FAILURE = 1;
+  }
+  required WriteResultStatus status = 1;
+}

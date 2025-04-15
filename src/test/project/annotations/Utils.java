@@ -1,4 +1,4 @@
-package test.project.annotations;
+package project.annotations;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class Utils {
     /**
      * Recursively loads classes from a directory.
      *
-     * @param f File or directory to process
-     * @param result List to store loaded classes
+     * @param f           File or directory to process
+     * @param result      List to store loaded classes
      * @param packageName Current package name
      * @throws Exception if there's an error loading classes
      */
@@ -53,4 +53,3 @@ public class Utils {
         }
     }
 }
-

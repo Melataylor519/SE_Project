@@ -11,17 +11,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.java.datastorecomponents.DataProcessingAPI;
-import main.java.datastorecomponents.DataProcessingImp;
-import main.java.datastorecomponents.InputConfig;
-import main.java.datastorecomponents.OutputConfig;
-import main.java.datastorecomponents.ReadResult;
-import main.java.datastorecomponents.ReadResultImp;
-import main.java.datastorecomponents.WriteResult;
-import main.java.datastorecomponents.WriteResultImp;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.DataProcessingImp;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
 
 public class IntegrationTestDataProcessingImp {
-
     private DataProcessingAPI mockDataProcessingAPI;
     private DataProcessingImp dataProcessingImp;
 
@@ -45,24 +42,23 @@ public class IntegrationTestDataProcessingImp {
             }
         };
 
-        doThrow(new RuntimeException("Test Exception")).when(mockDataProcessingAPI)
-            .read(validInputConfig);
+        doThrow(new RuntimeException("Simulated failure")).when(mockDataProcessingAPI).read(validInputConfig);
 
-        Path tempFile = null;
         try {
-            // Create a temporary file to pass the validation check
-            tempFile = Files.createFile(Paths.get("validPath.txt"));
+            // Create a file to pass validation
+            Files.createFile(Paths.get("validPath.txt"));
             ReadResult result = dataProcessingImp.read(validInputConfig);
+
+            // Expect FAILURE
             assertEquals(ReadResult.Status.FAILURE, result.getStatus());
-        } catch (Exception e) {
-        	fail("Exception should not be thrown for valid input");
+
+        } catch (IOException e) {
+            fail("Test setup failed: could not create test file");
         } finally {
-            if (tempFile != null) {
-                try {
-                    Files.deleteIfExists(tempFile);
-                } catch (IOException e) {
-                    System.err.println("Failed to delete temp file: " + tempFile);
-                }
+            try {
+                Files.deleteIfExists(Paths.get("validPath.txt"));
+            } catch (IOException e) {
+                System.err.println("Failed to delete test file: " + e.getMessage());
             }
         }
     }
@@ -82,14 +78,17 @@ public class IntegrationTestDataProcessingImp {
         };
 
         doThrow(new RuntimeException("Test Exception")).when(mockDataProcessingAPI)
-            .appendSingleResult(validOutputConfig, "result", ',');
+                .appendSingleResult(validOutputConfig, "result", ',');
 
         Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
+
+            // Expect FAILURE
             assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
+
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");
         } finally {

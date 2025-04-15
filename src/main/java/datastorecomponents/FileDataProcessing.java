@@ -1,4 +1,4 @@
-package main.java.datastorecomponents;
+package datastorecomponents;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,8 +7,8 @@ import java.util.List;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.Collectors;
 
-import main.java.datastorecomponents.ReadResult.Status;
-import main.java.datastorecomponents.WriteResult.WriteResultStatus;
+import datastorecomponents.ReadResult.Status;
+import datastorecomponents.WriteResult.WriteResultStatus;
 
 public class FileDataProcessing implements DataProcessingAPI {
 

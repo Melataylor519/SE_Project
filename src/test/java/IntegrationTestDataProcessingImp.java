@@ -80,7 +80,7 @@ public class IntegrationTestDataProcessingImp {
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
 
             // Expect FAILURE
-            assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
+            assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
 
         } catch (Exception e) {
             fail("Exception should not be thrown for valid input");

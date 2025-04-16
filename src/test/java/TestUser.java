@@ -1,5 +1,6 @@
 import java.io.File;
 import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.DataStoreClient;
 
 public class TestUser {
 	
@@ -14,6 +15,7 @@ public class TestUser {
 	public void run(String outputPath) {
 		char delimiter = ';';
 		String inputPath = "test" + File.separatorChar + "testInputFile.test";
+		DataStoreClient client = DataStoreClient.connect("localhost:50051");
 		
 		// TODO 4: Call the appropriate method(s) on the coordinator to get it to 
 		// run the compute job specified by inputPath, outputPath, and delimiter
@@ -21,6 +23,6 @@ public class TestUser {
 		String[] delimiters = {String.valueOf(delimiter)};
 
 		// data process
-		coordinator.processData(inputPath, outputPath, delimiters);
+		coordinator.processData(client, inputPath, outputPath, delimiters);
 	}
 }

@@ -70,52 +70,6 @@ public class TestDataProcessingImp {
         } catch (IOException e) {
             fail("Setup failed: " + e.getMessage());
         } finally {
-                try {
-                    if (tempFile != null) Files.deleteIfExists(tempFile);
-                } catch (IOException ex) {
-                System.err.println("Cleanup failed: " + ex.getMessage());
-                }
-            }
-        }
-    
-        @Test
-        public void testAppendSingleResultValidation() {
-        OutputConfig invalidOutputConfig = new OutputConfig() {
-            @Override
-            public String formatOutput(String result) { 
-                return null; 
-            }
-    
-            @Override
-            public String getFilePath() { 
-                return ""; 
-            }
-        };
-    
-        WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
-        assertEquals(WriteResult.WriteResultStatus.FAILURE, failedResult.getStatus());
-    
-        OutputConfig validOutputConfig = new OutputConfig() {
-            @Override
-            public String formatOutput(String result) { 
-                return result; 
-            }
-    
-            @Override
-            public String getFilePath() { 
-                return "validPath.txt"; 
-            }
-        };
-    
-        Path tempFile = null;
-        try {
-            tempFile = Files.createFile(Paths.get("validPath.txt"));
-    
-            WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
-            assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
-        } catch (IOException e) {
-            fail("Test setup failed: " + e.getMessage());
-        } finally {
             try {
                 if (tempFile != null) Files.deleteIfExists(tempFile);
             } catch (IOException ex) {
@@ -123,5 +77,50 @@ public class TestDataProcessingImp {
             }
         }
     }
-
+    
+        @Test
+        public void testAppendSingleResultValidation() {
+            OutputConfig invalidOutputConfig = new OutputConfig() {
+                @Override
+                public String formatOutput(String result) { 
+                    return null; 
+                }
+        
+                @Override
+                public String getFilePath() { 
+                    return ""; 
+                }
+            };
+    
+            WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
+            assertEquals(WriteResult.WriteResultStatus.FAILURE, failedResult.getStatus());
+        
+            OutputConfig validOutputConfig = new OutputConfig() {
+                @Override
+                public String formatOutput(String result) { 
+                    return result; 
+                }
+        
+                @Override
+                public String getFilePath() { 
+                    return "validPath.txt"; 
+                }
+            };
+        
+            Path tempFile = null;
+            try {
+                tempFile = Files.createFile(Paths.get("validPath.txt"));
+        
+                WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
+                assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
+            } catch (IOException e) {
+                fail("Test setup failed: " + e.getMessage());
+            } finally {
+                try {
+                    if (tempFile != null) Files.deleteIfExists(tempFile);
+                } catch (IOException ex) {
+                    System.err.println("Cleanup failed: " + ex.getMessage());
+                }
+            }
+        }
 }

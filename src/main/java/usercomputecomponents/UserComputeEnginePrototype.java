@@ -1,6 +1,21 @@
 package usercomputecomponents;
 
+import io.grpc.Grpc;
+import io.grpc.InsecureChannelCredentials;
+import io.grpc.ManagedChannel;
+
 import projectannotations.NetworkAPIPrototype;
+import datastorecomponents.DataStoreClient;
+import datastorecomponents.InputConfig;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.FileOutputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 

@@ -12,11 +12,10 @@ import datastorecomponents.WriteResult.WriteResultStatus;
 // Implementation for Data Store API
 public class DataProcessingImp implements DataProcessingAPI {
 
-    public DataProcessingImp(){
+    public DataProcessingImp() {
 
     }
-
-
+  
     @Override
     public ReadResult read(InputConfig input) {
         try {

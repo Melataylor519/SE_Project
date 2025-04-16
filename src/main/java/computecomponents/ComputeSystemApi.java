@@ -1,4 +1,3 @@
-
 package computecomponents;
 
 import java.lang.annotation.ElementType;
@@ -43,7 +42,7 @@ public class ComputeSystemApi {
 			//print response status
 			if (response.getStatus().isSuccess()) {
 				System.out.println("Operation Successful.");
-				System.out.println("Result: " + response.getResult());  // 결과 출력
+				System.out.println("Result: " + response.getResult());  
 	        } else {
 	            System.out.println("Computation failed: " + response.getFailureMessage());
 	        }

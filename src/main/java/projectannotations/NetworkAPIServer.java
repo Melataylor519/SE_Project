@@ -14,7 +14,7 @@ public class NetworkAPIServer {
 
         @Override
         public void processRequest(NetworkAPIProto.RequestMessage request,
-                                   StreamObserver<NetworkAPIProto.ResponseMessage> responseObserver) {
+                StreamObserver<NetworkAPIProto.ResponseMessage> responseObserver) {
 
             System.out.println("Received request: " + request.getRequestData());
 
@@ -33,12 +33,13 @@ public class NetworkAPIServer {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = ServerBuilder.forPort(9090)
+        int port = 50051;
+        Server server = ServerBuilder.forPort(port)
                 .addService(new NetworkAPIImpl())
                 .build();
 
         server.start();
-        System.out.println("gRPC Server is running on port 9090");
+        System.out.println("gRPC Server is running on port " + port);
         server.awaitTermination();
     }
 }

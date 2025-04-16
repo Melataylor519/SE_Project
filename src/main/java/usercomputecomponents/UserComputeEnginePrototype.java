@@ -1,21 +1,6 @@
 package usercomputecomponents;
 
 import projectannotations.NetworkAPIPrototype;
-import projectannotations.DataStoreClient;
-import datastorecomponents.FileInputConfig;
-import datastorecomponents.FileOutputConfig;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
-
-import io.grpc.Grpc;
-import io.grpc.InsecureChannelCredentials;
-import io.grpc.ManagedChannel;
-
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import java.util.concurrent.TimeUnit;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
@@ -91,7 +76,7 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             delimiters = DEFAULT_DELIMITERS;
         }
 
-        // Replace each delimiter with a standard delimiter (e.g., a single space)
+        // Replace each delimiter with a standard delimiter (like a single space)
         for (String delimiter : delimiters) {
             data = data.replace(delimiter, " ");
         }

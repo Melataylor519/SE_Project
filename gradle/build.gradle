@@ -70,3 +70,5 @@ protobuf {
         all()*.plugins { grpc {} }
     }
 }
+
+compileJava.dependsOn generateProto // add new

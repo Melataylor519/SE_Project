@@ -6,7 +6,6 @@ import java.util.concurrent.Future;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MultiThreadedNetworkAPI {
 
     private static final int THREAD_POOL_SIZE = 10; 

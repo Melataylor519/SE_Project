@@ -61,7 +61,8 @@ public class TestDataProcessingImp {
             }
         };
 
-        when(mockDataProcessingAPI.read(validInputConfig)).thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
+        when(mockDataProcessingAPI.read(validInputConfig))
+                .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
 
         Path tempFile = null;
         try {
@@ -112,7 +113,8 @@ public class TestDataProcessingImp {
             }
         };
 
-        when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ',')).thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
+        when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ','))
+                .thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
 
         Path tempFile = null;
         try {

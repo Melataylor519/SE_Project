@@ -1,25 +1,27 @@
 import usercomputecomponents.UserComputeEnginePrototype;
+import datastorecomponents.DataStoreClient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-//import static org.mockito.Mockito.*;
-//import static org.junit.jupiter.api.Assertions.*;
 
 class TestUserComputeEngine {
     private UserComputeEnginePrototype computeEngine;
+    private DataStoreClient mockClient;
+
     @BeforeEach
     void setUp() {
         computeEngine = Mockito.spy(new UserComputeEnginePrototype());
+        mockClient = mock(DataStoreClient.class);
     }
 
     @Test
@@ -30,13 +32,14 @@ class TestUserComputeEngine {
         final String[] DEFAULT_DELIMITERS = {",", ";", " "};
 
         // Mock readData to return a predefined string
-        doReturn("Sample,data;test").when(computeEngine).readData(inputSource);
+        doReturn("Sample,data;test")
+            .when(computeEngine).readData(any(DataStoreClient.class), eq(inputSource));
 
         // Act
-        computeEngine.processData(inputSource, outputSource, DEFAULT_DELIMITERS);
+        computeEngine.processData(mockClient, inputSource, outputSource, DEFAULT_DELIMITERS);
 
         // Verify process method is called correctly
-        verify(computeEngine).writeData(outputSource, "Sample data test");
+        verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("Sample data test"));
     }
 
     @Test
@@ -46,13 +49,14 @@ class TestUserComputeEngine {
         String outputSource = "output.txt";
 
         // Mock readData to return a predefined string
-        doReturn("Sample,data;test text").when(computeEngine).readData(inputSource);
+        doReturn("Sample,data;test text")
+            .when(computeEngine).readData(any(DataStoreClient.class), eq(inputSource));
 
         // Act
-        computeEngine.processData(inputSource, outputSource, null);
+        computeEngine.processData(mockClient, inputSource, outputSource, null);
 
         // Verify process method is called correctly
-        verify(computeEngine).writeData(outputSource, "Sample data test text");
+        verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("Sample data test text"));
     }
 
     @Test
@@ -77,7 +81,7 @@ class TestUserComputeEngine {
         }
 
         // Act
-        String result = computeEngine.readData(inputSource);
+        String result = computeEngine.readData(mockClient, inputSource);
 
         // Assert
         assertEquals("Sample data from input.txt", result);
@@ -99,6 +103,6 @@ class TestUserComputeEngine {
         }
 
         // Act & Verify
-        assertDoesNotThrow(() -> computeEngine.writeData(outputSource, data));
+        assertDoesNotThrow(() -> computeEngine.writeData(mockClient, outputSource, data));
     }
 }

@@ -1,5 +1,4 @@
 import usercomputecomponents.UserComputeEnginePrototype;
-import datastorecomponents.DataStoreClient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -7,7 +6,6 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,15 +16,23 @@ import java.io.File;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Arrays;
+import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+import datastorecomponents.WriteResultImp;
+import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
+import datastorecomponents.ReadResultImp;
 
 class TestUserComputeEngine {
     private UserComputeEnginePrototype computeEngine;
-    private DataStoreClient mockClient;
+    private DataProcessingAPI mockClient;
 
     @BeforeEach
     void setUp() {
         computeEngine = Mockito.spy(new UserComputeEnginePrototype());
-        mockClient = mock(DataStoreClient.class);
+        mockClient = mock(DataProcessingAPI.class);
     }
 
     @Test
@@ -37,14 +43,16 @@ class TestUserComputeEngine {
         final String[] DEFAULT_DELIMITERS = {",", ";", " "};
 
         // Mock readData to return a predefined string
-        doReturn("Sample,data;test")
-            .when(computeEngine).readData(any(DataStoreClient.class), eq(inputSource));
+        doReturn(new ReadResultImp(ReadResult.Status.SUCCESS, Arrays.asList(1,2,3))).when(mockClient).read(any(InputConfig.class));
 
-        // // Act
-        // computeEngine.processData(mockClient, inputSource, outputSource, DEFAULT_DELIMITERS);
+        doReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS)).when(mockClient)
+            .appendSingleResult(any(OutputConfig.class), any(String.class), any(char.class));   
 
-        // // Verify process method is called correctly
-        // verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("Sample data test"));
+        // Act
+        computeEngine.processData(mockClient, inputSource, outputSource, DEFAULT_DELIMITERS);
+
+        // Verify process method is called correctly
+        verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("1 2 3"));
     }
 
     @Test
@@ -54,14 +62,16 @@ class TestUserComputeEngine {
         String outputSource = "output.txt";
 
         // Mock readData to return a predefined string
-        doReturn("Sample,data;test text")
-            .when(computeEngine).readData(any(DataStoreClient.class), eq(inputSource));
+        doReturn(new ReadResultImp(ReadResult.Status.SUCCESS, Arrays.asList(1,2,3))).when(mockClient).read(any(InputConfig.class));
+
+        doReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS)).when(mockClient)
+            .appendSingleResult(any(OutputConfig.class), any(String.class), any(char.class));   
 
         // Act
-        // computeEngine.processData(mockClient, inputSource, outputSource, null);
+        computeEngine.processData(mockClient, inputSource, outputSource, null);
 
-        // // Verify process method is called correctly
-        // verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("Sample data test text"));
+        // Verify process method is called correctly
+        verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("1 2 3"));
     }
 
     @Test
@@ -85,11 +95,13 @@ class TestUserComputeEngine {
             e.printStackTrace();
         }
 
+        doReturn(new ReadResultImp(ReadResult.Status.SUCCESS, Arrays.asList(1,2,3))).when(mockClient).read(any(InputConfig.class));
+
         // Act
         String result = computeEngine.readData(mockClient, inputSource);
 
         // Assert
-        // assertEquals("Sample data from input.txt", result);
+        assertEquals("1 2 3", result);
     }
 
     @Test
@@ -107,7 +119,10 @@ class TestUserComputeEngine {
             e.printStackTrace();
         }
 
+        doReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS)).when(mockClient)
+            .appendSingleResult(any(OutputConfig.class), any(String.class), any(char.class));   
+
         // Act & Verify
-        // assertDoesNotThrow(() -> computeEngine.writeData(mockClient, outputSource, data));
+        assertDoesNotThrow(() -> computeEngine.writeData(mockClient, outputSource, data));
     }
 }

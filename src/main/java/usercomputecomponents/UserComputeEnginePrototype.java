@@ -16,6 +16,7 @@ import datastorecomponents.WriteResult;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import datastorecomponents.DataProcessingAPI;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
@@ -24,7 +25,7 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     @NetworkAPIPrototype
     @Override
-    public void processData(DataStoreClient client, String inputSource, String outputSource, String[] delimiters) {
+    public void processData(DataProcessingAPI client, String inputSource, String outputSource, String[] delimiters) {
         if (delimiters == null || delimiters.length == 0) {
             delimiters = DEFAULT_DELIMITERS;
         }
@@ -40,7 +41,7 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
     }
 
 
-    public String readData(DataStoreClient client, String source) {
+    public String readData(DataProcessingAPI client, String source) {
         System.out.println("Reading data from " + source);
 
         try {
@@ -63,7 +64,7 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
         
     }
 
-    public void writeData(DataStoreClient client, String destination, String data) {
+    public void writeData(DataProcessingAPI client, String destination, String data) {
         System.out.println("Writing to " + destination + ": " + data);
         OutputConfig output = new FileOutputConfig(destination);
 

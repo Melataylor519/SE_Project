@@ -19,6 +19,9 @@ import datastorecomponents.WriteResultImp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 
 public class DataStoreClient implements DataProcessingAPI {
     private final DataProcessingGrpc.DataProcessingBlockingStub blockingStub;
@@ -98,8 +101,15 @@ public class DataStoreClient implements DataProcessingAPI {
         try {
             DataStoreClient client = new DataStoreClient(channel);
 
+            // Create a temporary file to test with content "1;2;3;4;5"
+            String tempFilePath = "testfile.txt";
+            File tempFile = new File(tempFilePath);
+            tempFile.createNewFile();
+            tempFile.deleteOnExit();
+            Files.write(tempFile.toPath(), "1;2;3;4;5".getBytes(StandardCharsets.UTF_8));
+            System.out.println("Temporary file created at: " + tempFile.toString());
             // Example read
-            InputConfig input = new FileInputConfig("testfile.txt");
+            InputConfig input = new FileInputConfig(tempFile.toString());
             ReadResult readResult = client.read(input);
             System.out.println("Read Status: " + readResult.getStatus());
             if (readResult.getResults() != null) {
@@ -107,9 +117,11 @@ public class DataStoreClient implements DataProcessingAPI {
             }
 
             // Example append
-            OutputConfig output = new FileOutputConfig("testfile.txt");
-            WriteResult writeResult = client.appendSingleResult(output, "123", ',');
+            OutputConfig output = new FileOutputConfig(tempFile.toString());
+            WriteResult writeResult = client.appendSingleResult(output, "123", ';');
             System.out.println("Write Status: " + writeResult.getStatus());
+
+
 
         } finally {
             channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);

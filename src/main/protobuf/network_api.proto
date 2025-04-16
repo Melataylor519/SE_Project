@@ -6,7 +6,7 @@ option java_outer_classname = "NetworkAPIProto";
 package networkapi;
 
 service NetworkAPI {
-  rpc processRequest (RequestMessage) returns (ResponseMessage);
+  rpc ProcessRequest (RequestMessage) returns (ResponseMessage);
 }
 
 message RequestMessage {

@@ -40,58 +40,39 @@ public class IntegrationTestDataProcessingImp {
 
             @Override
             public String getFilePath() {
-                return "nonexistent_file.txt";
+                return "/invalid::path/doesnotexist.txt";  
             }
         };
-        
-        ReadResult result = dataProcessingImp.read(input);
-
-        assertEquals(ReadResult.Status.FAILURE, result.getStatus());
 
         try {
-            Files.deleteIfExists(Paths.get("nonexistent_file.txt"));
-        } catch (IOException e) {
-            System.err.println("Cleanup failed: " + e.getMessage());
-        }
+            ReadResult result = dataProcessingImp.read(input);
+            assertEquals(ReadResult.Status.FAILURE, result.getStatus());
+        } catch (Exception e) {
+            fail("FAILURE");
+        }    
     }
 
 
     @Test
     public void testAppendSingleResultExceptionHandling() {
-        OutputConfig validOutputConfig = new OutputConfig() {
-            @Override
-            public String getFilePath() {
-                return "validPath.txt";
-            }
+        OutputConfig output = new OutputConfig() {
+        @Override
+        public String formatOutput(String result) {
+            return result;
+        }
 
-            @Override
-            public String formatOutput(String result) {
-                return result;
-            }
-        };
+        @Override
+        public String getFilePath() {
+            return "/invalid::path/nowrite.txt"; 
+        }
+    };
 
-        doThrow(new RuntimeException("Test Exception")).when(mockDataProcessingAPI)
-                .appendSingleResult(validOutputConfig, "result", ',');
-
-        Path tempFile = null;
         try {
-            // Create a temporary file to pass the validation check
-            tempFile = Files.createFile(Paths.get("validPath.txt"));
-            WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
-
-            // Expect FAILURE
+            WriteResult result = dataProcessingImp.appendSingleResult(output, "data", ',');
             assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
-
         } catch (Exception e) {
-            fail("Exception should not be thrown for valid input");
-        } finally {
-            if (tempFile != null) {
-                try {
-                    Files.deleteIfExists(tempFile);
-                } catch (IOException e) {
-                    System.err.println("Failed to delete temp file: " + tempFile);
-                }
-            }
+            fail("FAILURE");
         }
     }
+
 }

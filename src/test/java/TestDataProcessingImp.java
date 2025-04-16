@@ -35,15 +35,11 @@ public class TestDataProcessingImp {
     @Test
     public void testReadValidation() {
         InputConfig invalidInputConfig = new InputConfig() {
-            @Override
-            public String getInputData() {
-                return " ";
-            }
+        @Override
+        public String getInputData() { return " "; }
 
-            @Override
-            public String getFilePath() {
-                return " ";
-            }
+        @Override
+        public String getFilePath() { return " "; }
         };
 
         ReadResult failedResult = dataProcessingImp.read(invalidInputConfig);
@@ -51,87 +47,65 @@ public class TestDataProcessingImp {
 
         InputConfig validInputConfig = new InputConfig() {
             @Override
-            public String getInputData() {
-                return "";
-            }
+            public String getInputData() { return ""; }
 
             @Override
-            public String getFilePath() {
-                return "validPath.txt";
-            }
+            public String getFilePath() { return "validPath.txt"; }
         };
-
-        when(mockDataProcessingAPI.read(validInputConfig))
-                .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
 
         Path tempFile = null;
         try {
-            // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
+
             ReadResult result = dataProcessingImp.read(validInputConfig);
-            assertEquals(ReadResult.Status.FAILURE, result.getStatus());
-        } catch (Exception e) {
-            fail("Exception should not be thrown for valid input");
+            assertEquals(ReadResult.Status.FAILURE, result.getStatus());  
+        } catch (IOException e) {
+            fail("Setup failed: " + e.getMessage());
         } finally {
-            if (tempFile != null) {
-                try {
-                    Files.deleteIfExists(tempFile);
-                } catch (IOException ex) {
-                    System.err.println("Failed to delete temp file: " + tempFile);
-                }
+            try {
+                if (tempFile != null) Files.deleteIfExists(tempFile);
+            } catch (IOException ex) {
+                System.err.println("Cleanup failed: " + ex.getMessage());
             }
         }
     }
-
-    @Test
-    public void testAppendSingleResultValidation() {
+    
+        @Test
+        public void testAppendSingleResultValidation() {
         OutputConfig invalidOutputConfig = new OutputConfig() {
             @Override
-            public String formatOutput(String result) {
-                return null;
-            }
-
+            public String formatOutput(String result) { return null; }
+    
             @Override
-            public String getFilePath() {
-                return "";
-            }
+            public String getFilePath() { return ""; }
         };
-
+    
         WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
-
         assertEquals(WriteResult.WriteResultStatus.FAILURE, failedResult.getStatus());
-
+    
         OutputConfig validOutputConfig = new OutputConfig() {
             @Override
-            public String formatOutput(String result) {
-                return result;
-            }
-
+            public String formatOutput(String result) { return result; }
+    
             @Override
-            public String getFilePath() {
-                return "validPath.txt";
-            }
+            public String getFilePath() { return "validPath.txt"; }
         };
-
-        when(mockDataProcessingAPI.appendSingleResult(validOutputConfig, "result", ','))
-                .thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
-
+    
         Path tempFile = null;
         try {
-            // Create a temporary file to pass the validation check
             tempFile = Files.createFile(Paths.get("validPath.txt"));
+    
             WriteResult result = dataProcessingImp.appendSingleResult(validOutputConfig, "result", ',');
-            assertEquals(WriteResult.WriteResultStatus.FAILURE, result.getStatus());
-        } catch (Exception e) {
-            fail("Exception should not be thrown for valid input");
+            assertEquals(WriteResult.WriteResultStatus.SUCCESS, result.getStatus());
+        } catch (IOException e) {
+            fail("Test setup failed: " + e.getMessage());
         } finally {
-            if (tempFile != null) {
-                try {
-                    Files.deleteIfExists(tempFile);
-                } catch (IOException ex) {
-                    System.err.println("Failed to delete temp file: " + tempFile);
-                }
+            try {
+                if (tempFile != null) Files.deleteIfExists(tempFile);
+            } catch (IOException ex) {
+                System.err.println("Cleanup failed: " + ex.getMessage());
             }
         }
     }
+
 }

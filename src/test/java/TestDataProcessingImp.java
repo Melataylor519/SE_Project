@@ -35,11 +35,15 @@ public class TestDataProcessingImp {
     @Test
     public void testReadValidation() {
         InputConfig invalidInputConfig = new InputConfig() {
-        @Override
-        public String getInputData() { return " "; }
-
-        @Override
-        public String getFilePath() { return " "; }
+            @Override
+            public String getInputData() { 
+                return " "; 
+            }
+    
+            @Override
+            public String getFilePath() { 
+                return " "; 
+            }
         };
 
         ReadResult failedResult = dataProcessingImp.read(invalidInputConfig);

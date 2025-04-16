@@ -51,10 +51,14 @@ public class TestDataProcessingImp {
 
         InputConfig validInputConfig = new InputConfig() {
             @Override
-            public String getInputData() { return ""; }
+            public String getInputData() { 
+                return ""; 
+            }
 
             @Override
-            public String getFilePath() { return "validPath.txt"; }
+            public String getFilePath() { 
+                return "validPath.txt"; 
+            }
         };
 
         Path tempFile = null;
@@ -66,22 +70,26 @@ public class TestDataProcessingImp {
         } catch (IOException e) {
             fail("Setup failed: " + e.getMessage());
         } finally {
-            try {
-                if (tempFile != null) Files.deleteIfExists(tempFile);
-            } catch (IOException ex) {
+                try {
+                    if (tempFile != null) Files.deleteIfExists(tempFile);
+                } catch (IOException ex) {
                 System.err.println("Cleanup failed: " + ex.getMessage());
+                }
             }
         }
-    }
     
         @Test
         public void testAppendSingleResultValidation() {
         OutputConfig invalidOutputConfig = new OutputConfig() {
             @Override
-            public String formatOutput(String result) { return null; }
+            public String formatOutput(String result) { 
+                return null; 
+            }
     
             @Override
-            public String getFilePath() { return ""; }
+            public String getFilePath() { 
+                return ""; 
+            }
         };
     
         WriteResult failedResult = dataProcessingImp.appendSingleResult(invalidOutputConfig, "result", ',');
@@ -89,10 +97,14 @@ public class TestDataProcessingImp {
     
         OutputConfig validOutputConfig = new OutputConfig() {
             @Override
-            public String formatOutput(String result) { return result; }
+            public String formatOutput(String result) { 
+                return result; 
+            }
     
             @Override
-            public String getFilePath() { return "validPath.txt"; }
+            public String getFilePath() { 
+                return "validPath.txt"; 
+            }
         };
     
         Path tempFile = null;

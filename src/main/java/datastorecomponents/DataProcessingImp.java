@@ -9,11 +9,15 @@ import java.util.List;
 import datastorecomponents.ReadResult.Status;
 import datastorecomponents.WriteResult.WriteResultStatus;
 
-// Implementation for Data Store API
 public class DataProcessingImp implements DataProcessingAPI {
+    private final DataProcessingAPI dataProcessAPI;
 
-    public DataProcessingImp() {
-
+    public DataProcessingImp(){
+        this(null);
+    }
+ 
+    public DataProcessingImp(DataProcessingAPI dataProcessAPI) {
+        this.dataProcessAPI = dataProcessAPI;
     }
   
     @Override

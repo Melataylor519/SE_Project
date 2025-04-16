@@ -24,33 +24,22 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     @NetworkAPIPrototype
     @Override
-    public void processData(String inputSource, String outputSource, String[] delimiters) {
-        // Use default delimiters if none are provided
+    @Override
+    public void processData(DataStoreClient client, String inputSource, String outputSource, String[] delimiters) {
         if (delimiters == null || delimiters.length == 0) {
             delimiters = DEFAULT_DELIMITERS;
         }
 
-        ManagedChannel channel = Grpc.newChannelBuilder(TARGET, InsecureChannelCredentials.create()).build();
-        DataStoreClient client = new DataStoreClient(channel);
-
-        try {
-            // Read data from datastore via gRPC
-            String rawData = readData(client, inputSource);
-
-            // Process data
-            String processedData = process(rawData, delimiters);
-
-            // Write processed data to datastore via gRPC
-            writeData(client, outputSource, processedData);
-
-        } finally {
-            try {
-                channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        String rawData = readData(client, inputSource);
+        if (rawData == null || rawData.isEmpty()) {
+            System.err.println("No data read. Skipping processing.");
+            return;
         }
+
+        String processedData = process(rawData, delimiters);
+        writeData(client, outputSource, processedData);
     }
+
 
     public String readData(DataStoreClient client, String source) {
         System.out.println("Reading data from " + source);

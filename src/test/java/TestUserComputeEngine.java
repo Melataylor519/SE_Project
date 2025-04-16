@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-//import static org.mockito.Mockito.*;
-//import static org.junit.jupiter.api.Assertions.*;
 
 class TestUserComputeEngine {
     private UserComputeEnginePrototype computeEngine;

@@ -24,7 +24,6 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     @NetworkAPIPrototype
     @Override
-    @Override
     public void processData(DataStoreClient client, String inputSource, String outputSource, String[] delimiters) {
         if (delimiters == null || delimiters.length == 0) {
             delimiters = DEFAULT_DELIMITERS;

@@ -2,6 +2,7 @@ package projectannotations;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import networkapi.NetworkAPIGrpc;
 import networkapi.NetworkAPIProto;
 
@@ -10,48 +11,58 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class NetworkAPIClient {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // choose input method
-        System.out.print("Enter numbers (comma-separated) OR type 'file:<path>': ");
-        String input = scanner.nextLine();
-
         String requestData;
+
+        // Input
+        System.out.print("Enter numbers (comma-separated) OR type 'file:<path>': ");
+        String input = scanner.nextLine().trim();
 
         if (input.startsWith("file:")) {
             String filePath = input.substring(5).trim();
             try {
-                requestData = Files.readString(new File(filePath).toPath());
+                requestData = Files.readString(new File(filePath).toPath()).trim();
             } catch (IOException e) {
-                System.out.println("Failed to read file: " + e.getMessage());
+                System.err.println("Failed to read input file: " + e.getMessage());
                 return;
             }
         } else {
-            requestData = input;
+            requestData = input.trim();
         }
 
-        // get output file path
+        // Output file path
         System.out.print("Enter output file path: ");
         String outputPath = scanner.nextLine().trim();
 
-        // choose Delimiter
+        // Overwrite confirmation
+        File outputFile = new File(outputPath);
+        if (outputFile.exists()) {
+            System.out.print("Output file exists. Do you want to overwrite it? (y/n): ");
+            if (!scanner.nextLine().trim().equalsIgnoreCase("y")) {
+                System.out.println("Removed");
+                return;
+            }
+        }
+
+        // Delimiter
         System.out.print("Enter output delimiter (or press Enter to use default ','): ");
         String delimiter = scanner.nextLine().trim();
         if (delimiter.isEmpty()) {
             delimiter = ",";
         }
 
-        // gRPC server connect
+        // Setup gRPC connection
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
                 .usePlaintext()
                 .build();
 
         NetworkAPIGrpc.NetworkAPIBlockingStub stub = NetworkAPIGrpc.newBlockingStub(channel);
 
-        // gRPC request and response
+        // Prepare and send request
         try {
             NetworkAPIProto.RequestMessage request = NetworkAPIProto.RequestMessage.newBuilder()
                     .setRequestData(requestData)
@@ -59,17 +70,27 @@ public class NetworkAPIClient {
 
             NetworkAPIProto.ResponseMessage response = stub.processRequest(request);
 
-            // save response
-            try (FileWriter writer = new FileWriter(outputPath)) {
+            // Save response to output file
+            try (FileWriter writer = new FileWriter(outputFile)) {
                 writer.write(response.getResponseData().replace(",", delimiter));
             }
 
-            System.out.println("Task complete! Result saved to: " + outputPath);
+            // Display response
+            System.out.println("Task complete");
+            System.out.println("Result: " + response.getResponseData());
+            System.out.println("Saved to: " + outputFile.getAbsolutePath());
 
-        } catch (Exception e) {
-            System.out.println("Error during RPC: " + e.getMessage());
+        } catch (StatusRuntimeException e) {
+            System.err.println("gRPC error: " + e.getStatus().getDescription());
+        } catch (IOException e) {
+            System.err.println("Error writing output: " + e.getMessage());
+        } finally {
+            // Shutdown
+            try {
+                channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                System.err.println("Channel shutdown interrupted: " + e.getMessage());
+            }
         }
-
-        channel.shutdown();
     }
 }

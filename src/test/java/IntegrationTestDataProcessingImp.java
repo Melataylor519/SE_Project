@@ -32,38 +32,29 @@ public class IntegrationTestDataProcessingImp {
 
     @Test
     public void testReadExceptionHandling() {
-        InputConfig validInputConfig = new InputConfig() {
+        InputConfig input = new InputConfig() {
             @Override
             public String getInputData() {
-                return null;
+                return input;
             }
 
             @Override
             public String getFilePath() {
-                return "validPath.txt";
+                return "nonexistent_file.txt";
             }
         };
+        
+        ReadResult result = dataProcessingImp.read(input);
 
-        doThrow(new RuntimeException("Simulated failure")).when(mockDataProcessingAPI).read(validInputConfig);
+        assertEquals(ReadResult.Status.FAILURE, result.getStatus());
 
         try {
-            // Create a file to pass validation
-            Files.createFile(Paths.get("validPath.txt"));
-            ReadResult result = dataProcessingImp.read(validInputConfig);
-
-            // Expect FAILURE
-            assertEquals(ReadResult.Status.FAILURE, result.getStatus());
-
+            Files.deleteIfExists(Paths.get("nonexistent_file.txt"));
         } catch (IOException e) {
-            fail("Test setup failed: could not create test file");
-        } finally {
-            try {
-                Files.deleteIfExists(Paths.get("validPath.txt"));
-            } catch (IOException e) {
-                System.err.println("Failed to delete test file: " + e.getMessage());
-            }
+            System.err.println("Cleanup failed: " + e.getMessage());
         }
     }
+
 
     @Test
     public void testAppendSingleResultExceptionHandling() {

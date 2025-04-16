@@ -1,23 +1,21 @@
 package datastorecomponents;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import datastorecomponents.ReadResult.Status;
 import datastorecomponents.WriteResult.WriteResultStatus;
 
 // Implementation for Data Store API
 public class DataProcessingImp implements DataProcessingAPI {
-    private final DataProcessingAPI dataProcessAPI;
 
-    public DataProcessingImp(){
-        this(null);
-    }
- 
-    public DataProcessingImp(DataProcessingAPI dataProcessAPI) {
-        this.dataProcessAPI = dataProcessAPI;
-    }
+    public DataProcessingImp() {
 
+    }
+  
     @Override
     public ReadResult read(InputConfig input) {
         try {
@@ -29,7 +27,22 @@ public class DataProcessingImp implements DataProcessingAPI {
             if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
                 throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
             }
-            return dataProcessAPI.read(input);
+            
+
+            String content = new String(Files.readAllBytes(Paths.get(input.getFilePath())), StandardCharsets.UTF_8);
+            String[] tokens = content.split(";");
+
+
+            List<Integer> results = new ArrayList<>();
+            for (String token : tokens) {
+                try {
+                    results.add(Integer.parseInt(token.trim()));
+                } catch (NumberFormatException e) {
+                    System.err.println("Skipping invalid integer: " + token);
+                }
+            }
+            
+            return new ReadResultImp(ReadResult.Status.SUCCESS, results);
             
         } catch (IllegalArgumentException e) {
             // Handle known exceptions
@@ -57,7 +70,11 @@ public class DataProcessingImp implements DataProcessingAPI {
             if (result == null) {
                 throw new IllegalArgumentException("Result cannot be null");
             }
-            return dataProcessAPI.appendSingleResult(output, result, delimiter);
+            String formattedResult = result + delimiter;
+            Files.write(Paths.get(output.getFilePath()), formattedResult.getBytes(StandardCharsets.UTF_8), 
+                         java.nio.file.StandardOpenOption.APPEND);
+
+            return new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS);
             
         } catch (IllegalArgumentException e) {
             // Handle known exceptions

@@ -7,15 +7,25 @@ import io.grpc.Grpc;
 import io.grpc.InsecureServerCredentials;
 import io.grpc.Server;
 import io.grpc.protobuf.services.ProtoReflectionService;
+import datastore.DataProcessingGrpc;
+import io.grpc.stub.StreamObserver;
+import datastore.DatastoreProto;
+import datastorecomponents.DataProcessingImp;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
+import datastorecomponents.InputConfig;
+import datastorecomponents.ReadResult;
+import datastorecomponents.WriteResult;
+import datastorecomponents.OutputConfig;
 
-public class DataStoreServer {
+public class DataStoreServer extends DataProcessingGrpc.DataProcessingImplBase {
     private Server server;
 
     private void start() throws IOException {
         int port = 50051;
 
         server = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create())
-                .addService(new DataStoreService())
+                .addService(this)
                 .addService(ProtoReflectionService.newInstance())
                 .build()
                 .start();
@@ -33,6 +43,65 @@ public class DataStoreServer {
             }
             System.err.println("*** Server shut down ***");
         }));
+    }
+
+    @Override
+    public void read(DatastoreProto.InputConfig request, StreamObserver<DatastoreProto.ReadResult> responseObserver) {
+        try {
+            // Convert proto InputConfig to custom InputConfig
+            InputConfig inputConfig = new FileInputConfig(request.getFilePath());
+
+            // Process the read operation
+            ReadResult readResult = new DataProcessingImp().read(inputConfig);
+
+            // Convert custom ReadResult to proto ReadResult
+            DatastoreProto.ReadResult.Builder protoResultBuilder = DatastoreProto.ReadResult.newBuilder()
+                    .setStatus(readResult.getStatus() == ReadResult.Status.SUCCESS
+                            ? DatastoreProto.ReadResult.Status.SUCCESS
+                            : DatastoreProto.ReadResult.Status.FAILURE)
+                    .addAllData(readResult.getResults());
+
+            // Send response
+            responseObserver.onNext(protoResultBuilder.build());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Send failure response
+            DatastoreProto.ReadResult.Builder protoResultBuilder = DatastoreProto.ReadResult.newBuilder()
+                    .setStatus(DatastoreProto.ReadResult.Status.FAILURE);
+            responseObserver.onNext(protoResultBuilder.build());
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void appendSingleResult(DatastoreProto.AppendRequest request, StreamObserver<DatastoreProto.WriteResult> responseObserver) {
+        try {
+            // Convert proto OutputConfig to custom OutputConfig
+            OutputConfig outputConfig = new FileOutputConfig(request.getOutput().getFilePath());
+
+            // Process the append operation
+            WriteResult writeResult = new DataProcessingImp().appendSingleResult(outputConfig, request.getResult(), request.getDelimiter().charAt(0));
+
+            // Convert custom WriteResult to proto WriteResult
+            DatastoreProto.WriteResult.Builder protoResultBuilder = DatastoreProto.WriteResult.newBuilder()
+                    .setStatus(writeResult.getStatus() == WriteResult.WriteResultStatus.SUCCESS
+                            ? DatastoreProto.WriteResult.WriteResultStatus.SUCCESS
+                            : DatastoreProto.WriteResult.WriteResultStatus.FAILURE);
+
+            // Send response
+            responseObserver.onNext(protoResultBuilder.build());
+            responseObserver.onCompleted();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Send failure response
+            DatastoreProto.WriteResult.Builder protoResultBuilder = DatastoreProto.WriteResult.newBuilder()
+                    .setStatus(DatastoreProto.WriteResult.WriteResultStatus.FAILURE);
+            responseObserver.onNext(protoResultBuilder.build());
+            responseObserver.onCompleted();
+        }
     }
 
     private void blockUntilShutdown() throws InterruptedException {

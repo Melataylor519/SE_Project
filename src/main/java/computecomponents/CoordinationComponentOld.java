@@ -1,6 +1,8 @@
 package computecomponents;
 
 import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
 import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
@@ -40,7 +42,7 @@ public class CoordinationComponentOld {
     	// create initial InputConfig
 
 
-    	InputConfig inputConfig = new DefaultInputConfig(""); 
+    	InputConfig inputConfig = new FileInputConfig(inputSource); 
 
     	// read data
     	ReadResult readResult = dataStorage.read(inputConfig);
@@ -63,7 +65,7 @@ public class CoordinationComponentOld {
     	    }
 
     	    // Set it up correctly using `DefaultInputConfig`
-    	    inputConfig = new DefaultInputConfig(inputDataString);
+    	    inputConfig = new FileInputConfig(inputDataString);
     	} else {
     	    return "Error: Failed to read input data.";
     	}
@@ -75,11 +77,8 @@ public class CoordinationComponentOld {
         }
 
         // Compute result
-        OutputConfig computeOutputConfig = new OutputConfig() {
+        OutputConfig computeOutputConfig = new FileOutputConfig(outputSource) {
             @Override
-            public String getFilePath() {
-                return "";
-            }
             public String formatOutput(String result) {
                 return result;
             }
@@ -93,16 +92,8 @@ public class CoordinationComponentOld {
         }
 
         // Write result to storage
-        OutputConfig annotationOutputConfig = new OutputConfig() {
-            public String formatOutput(String result) {
-                return result;
-            }
-            @Override
-            public String getFilePath() {
-                return System.getProperty("user.dir"); // return current dir
-            }
-
-        };
+        OutputConfig annotationOutputConfig = new FileOutputConfig(System.getProperty("user.dir")); // Current directory
+        annotationOutputConfig = new FileOutputConfig(outputSource); // Use the passed output source
         
         WriteResult writeResult = dataStorage.appendSingleResult(annotationOutputConfig, response.getResult(), ',');
 

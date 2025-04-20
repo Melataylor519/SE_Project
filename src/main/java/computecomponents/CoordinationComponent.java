@@ -1,6 +1,8 @@
 package computecomponents;
 
 import datastorecomponents.DataProcessingAPI;
+import datastorecomponents.FileInputConfig;
+import datastorecomponents.FileOutputConfig;
 import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
@@ -30,7 +32,7 @@ public class CoordinationComponent {
         }
 
         // Read input data from storage
-        InputConfig inputConfig = new DefaultInputConfig(""); // initial config
+        InputConfig inputConfig = new FileInputConfig(inputSource); // initial config
         ReadResult readResult = dataStorage.read(inputConfig);
 
         if (readResult.getStatus() == ReadResult.Status.SUCCESS) {
@@ -52,23 +54,13 @@ public class CoordinationComponent {
                 return "Error: No valid input data.";
             }
 
-            inputConfig = new DefaultInputConfig(inputDataString);
+            inputConfig = new FileInputConfig(inputDataString);
         } else {
             return "Error: Failed to read input data.";
         }
 
         // Prepare compute output config
-        OutputConfig computeOutputConfig = new OutputConfig() {
-            @Override
-            public String getFilePath() {
-                return "";
-            }
-
-            @Override
-            public String formatOutput(String result) {
-                return result;
-            }
-        };
+        OutputConfig computeOutputConfig = new FileOutputConfig(outputSource);
 
         // Run computation
         ComputeRequest request = new ComputeRequest(inputConfig, computeOutputConfig, ',');
@@ -79,17 +71,8 @@ public class CoordinationComponent {
         }
 
         // Step 4: Write the result
-        OutputConfig annotationOutputConfig = new OutputConfig() {
-            @Override
-            public String getFilePath() {
-                return System.getProperty("user.dir");
-            }
-
-            @Override
-            public String formatOutput(String result) {
-                return result;
-            }
-        };
+        OutputConfig annotationOutputConfig = new FileOutputConfig(System.getProperty("user.dir")); // Current directory
+        annotationOutputConfig = new FileOutputConfig(outputSource); // Use the passed output source
 
         WriteResult writeResult = dataStorage.appendSingleResult(annotationOutputConfig, response.getResult(), ',');
 

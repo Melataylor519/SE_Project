@@ -40,9 +40,11 @@ public class CoordinationComponent {
             StringBuilder inputDataBuilder = new StringBuilder();
             boolean first = true;
             for (int num : loadedData) {
-                if (!first) inputDataBuilder.append(",");
-                inputDataBuilder.append(num);
-                first = false;
+                if (!first) {
+                    inputDataBuilder.append(",");
+                    inputDataBuilder.append(num);
+                    first = false;
+                }
             }
             String inputDataString = inputDataBuilder.toString();
 

@@ -1,9 +1,9 @@
 package computecomponents;
 
-import usercomputecomponents.UserComputeEngineAPI;
 import datastorecomponents.DataProcessingAPI;
+import usercomputecomponents.UserComputeEngineAPI;
 
-public class ComputeSystemImpl implements ComputeSystem{
+public class ComputeSystemImpl implements ComputeSystem {
 	
 	private DataProcessingAPI dp;
 	private UserComputeEngineAPI uce;

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import datastorecomponents.DataProcessingAPI;
 import datastorecomponents.DataProcessingImp;
+import datastorecomponents.FileDataProcessing;
 import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
@@ -57,7 +58,7 @@ public class TestDataProcessingImp {
 
             @Override
             public String getFilePath() {
-                return "validPath.txt";
+                return " ";
             }
         };
 
@@ -67,7 +68,7 @@ public class TestDataProcessingImp {
         Path tempFile = null;
         try {
             // Create a temporary file to pass the validation check
-            tempFile = Files.createFile(Paths.get("validPath.txt"));
+            tempFile = Files.createFile(Paths.get(" "));
             ReadResult result = dataProcessingImp.read(validInputConfig);
             assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
         } catch (Exception e) {

@@ -7,30 +7,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileDataProcessing implements DataProcessingAPI {
-
-    // @Override
-    // public ReadResult read(InputConfig input) {
-    //     if (!(input instanceof FileInputConfig)) {
-    //         return new ReadResultImp(ReadResult.Status.FAILURE, null);
-    //     }
-
-    //     String filePath = input.getFilePath();
-    //     if (filePath == null || filePath.trim().isEmpty()) {
-    //         throw new IllegalArgumentException("File path cannot be null or empty");
-    //     }
-
-    //     try {
-    //         List<String> lines = Files.readAllLines(Paths.get(filePath));
-    //         List<Integer> data = lines.stream()
-    //                                   .map(Integer::parseInt)
-    //                                   .collect(Collectors.toList());
-    //         return new ReadResultImp(ReadResult.Status.SUCCESS, data);
-    //     } catch (IOException | NumberFormatException e) {
-    //         e.printStackTrace();
-    //         return new ReadResultImp(ReadResult.Status.FAILURE, null);
-    //     }
-    // }
+public class FileDataProcessingOld implements DataProcessingAPI {
 
     @Override
     public ReadResult read(InputConfig input) {
@@ -43,20 +20,43 @@ public class FileDataProcessing implements DataProcessingAPI {
             throw new IllegalArgumentException("File path cannot be null or empty");
         }
 
-        try (var reader = Files.newBufferedReader(Paths.get(filePath))) {
-            List<Integer> data = reader.lines()
-                                    .map(String::trim)
-                                    .filter(line -> !line.isEmpty())
-                                    .mapToInt(Integer::parseInt)
-                                    .boxed()
-                                    .collect(Collectors.toList());
-
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            List<Integer> data = lines.stream()
+                                      .map(Integer::parseInt)
+                                      .collect(Collectors.toList());
             return new ReadResultImp(ReadResult.Status.SUCCESS, data);
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
             return new ReadResultImp(ReadResult.Status.FAILURE, null);
         }
     }
+
+    // @Override
+    // public ReadResult read(InputConfig input) {
+    //     if (!(input instanceof FileInputConfig)) {
+    //         return new ReadResultImp(ReadResult.Status.FAILURE, null);
+    //     }
+
+    //     String filePath = input.getFilePath();
+    //     if (filePath == null || filePath.trim().isEmpty()) {
+    //         throw new IllegalArgumentException("File path cannot be null or empty");
+    //     }
+
+    //     try (var reader = Files.newBufferedReader(Paths.get(filePath))) {
+    //         List<Integer> data = reader.lines()
+    //                                 .map(String::trim)
+    //                                 .filter(line -> !line.isEmpty())
+    //                                 .mapToInt(Integer::parseInt)
+    //                                 .boxed()
+    //                                 .collect(Collectors.toList());
+
+    //         return new ReadResultImp(ReadResult.Status.SUCCESS, data);
+    //     } catch (IOException | NumberFormatException e) {
+    //         e.printStackTrace();
+    //         return new ReadResultImp(ReadResult.Status.FAILURE, null);
+    //     }
+    // }
 
 
     @Override

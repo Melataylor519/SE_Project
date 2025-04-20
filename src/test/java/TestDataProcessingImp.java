@@ -38,40 +38,43 @@ public class TestDataProcessingImp {
         InputConfig invalidInputConfig = new InputConfig() {
             @Override
             public String getInputData() {
-                return " ";
+                return "";
             }
 
             @Override
             public String getFilePath() {
-                return " ";
+                return "";
             }
         };
 
         ReadResult failedResult = dataProcessingImp.read(invalidInputConfig);
         assertEquals(ReadResult.Status.FAILURE, failedResult.getStatus());
 
-        InputConfig validInputConfig = new InputConfig() {
-            @Override
-            public String getInputData() {
-                return "";
-            }
-
-            @Override
-            public String getFilePath() {
-                return " ";
-            }
-        };
-
-        when(mockDataProcessingAPI.read(validInputConfig))
-                .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
-
         Path tempFile = null;
         try {
-            // Create a temporary file to pass the validation check
-            tempFile = Files.createFile(Paths.get(" "));
+            // Create a temporary file with some content
+            tempFile = Files.createFile(Paths.get("tempFile.tmp"));
+            Files.write(tempFile, "1;2;3".getBytes());
+
+            final Path finalTempFile = tempFile;
+            InputConfig validInputConfig = new InputConfig() {
+                @Override
+                public String getInputData() {
+                    return " ";
+                }
+
+                @Override
+                public String getFilePath() {
+                    return finalTempFile.toString();
+                }
+            };
+
+            when(mockDataProcessingAPI.read(validInputConfig))
+                    .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, null));
+
             ReadResult result = dataProcessingImp.read(validInputConfig);
             assertEquals(ReadResult.Status.SUCCESS, result.getStatus());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown for valid input");
         } finally {
             if (tempFile != null) {

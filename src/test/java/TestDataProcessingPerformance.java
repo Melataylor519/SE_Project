@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -52,30 +53,37 @@ public class TestDataProcessingPerformance {
         oldVersion.read(input);
         newVersion.read(input);
 
-        // Time old version
-        long startOld = System.nanoTime();
-        ReadResult oldResult = oldVersion.read(input);
-        long endOld = System.nanoTime();
+        try {
+            generateLargeTestFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("Failed to generate large test file");
+        } finally {
+            // Time old version
+            long startOld = System.nanoTime();
+            ReadResult oldResult = oldVersion.read(input);
+            long endOld = System.nanoTime();
 
-        // Time new version
-        long startNew = System.nanoTime();
-        ReadResult newResult = newVersion.read(input);
-        long endNew = System.nanoTime();
+            // Time new version
+            long startNew = System.nanoTime();
+            ReadResult newResult = newVersion.read(input);
+            long endNew = System.nanoTime();
 
-        // Validate data consistency
-        assertEquals(oldResult.getStatus(), ReadResult.Status.SUCCESS);
-        assertEquals(newResult.getStatus(), ReadResult.Status.SUCCESS);
-        // assertEquals(oldResult.getData(), newResult.getData());
+            // Validate data consistency
+            assertEquals(oldResult.getStatus(), ReadResult.Status.SUCCESS);
+            assertEquals(newResult.getStatus(), ReadResult.Status.SUCCESS);
+            // assertEquals(oldResult.getData(), newResult.getData());
 
-        // Compare times
-        long oldTime = endOld - startOld;
-        long newTime = endNew - startNew;
+            // Compare times
+            long oldTime = endOld - startOld;
+            long newTime = endNew - startNew;
 
-        double improvement = ((double)(oldTime - newTime) / oldTime) * 100;
+            double improvement = ((double)(oldTime - newTime) / oldTime) * 100;
 
-        System.out.printf("Old: %d ns, New: %d ns, Improvement: %.2f%%\n", oldTime, newTime, improvement);
+            System.out.printf("Old: %d ns, New: %d ns, Improvement: %.2f%%\n", oldTime, newTime, improvement);
 
-        // Verify performance gain
-        assertTrue(improvement >= 10, "Expected at least 10% improvement, but got " + improvement + "%");
+            // Verify performance gain
+            assertTrue(improvement >= 10, "Expected at least 10% improvement, but got " + improvement + "%" + "oldTime: " + oldTime + ", newTime: " + newTime);
+        }
     }
 }

@@ -1,69 +1,80 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
 
 import computecomponents.CoordinationComponent;
 import computecomponents.CoordinationComponentOld;
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.ReadResultImp;
-import datastorecomponents.WriteResult;
-import datastorecomponents.WriteResultImp;
-import usercomputecomponents.UserComputeEngineAPI;
+import datastorecomponents.*;
+
+import usercomputecomponents.UserComputeEnginePrototype;
 
 public class TestCoordinationComponentPerformance {
 
-    private static final int REPEAT = 5;
+    private static final int REPEAT = 30;
     private static final int TEST_DATA_SIZE = 5_000_000;
 
-    private static DataProcessingAPI mockDataStorage;
-    private static UserComputeEngineAPI mockUserComputeEngine;
-    private static Iterable<Integer> testData;
+    private static Path inputFilePath;
+    private static Path outputFilePathOld;
+    private static Path outputFilePathNew;
 
     @BeforeAll
-    public static void setUp() {
-        List<Integer> data = new ArrayList<>();
-        for (int i = 0; i < TEST_DATA_SIZE; i++) {
-            data.add(i);
-        }
-        testData = data;
+    public static void setUp() throws IOException {
+        // Generate large test input data
+        String inputData = IntStream.range(0, TEST_DATA_SIZE)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining(";"));
 
-        mockDataStorage = Mockito.mock(DataProcessingAPI.class);
-        mockUserComputeEngine = Mockito.mock(UserComputeEngineAPI.class);
+        inputFilePath = Files.createTempFile("test_input", ".txt");
+        Files.writeString(inputFilePath, inputData, StandardOpenOption.TRUNCATE_EXISTING);
 
-        Mockito.when(mockDataStorage.read(Mockito.any(InputConfig.class)))
-                .thenReturn(new ReadResultImp(ReadResult.Status.SUCCESS, testData));
+        outputFilePathOld = Files.createTempFile("test_output_old", ".txt");
+        Files.writeString(outputFilePathOld, "", StandardOpenOption.TRUNCATE_EXISTING);
 
-        Mockito.when(mockDataStorage.appendSingleResult(
-                Mockito.any(OutputConfig.class),
-                Mockito.anyString(),
-                Mockito.anyChar()))
-                .thenReturn(new WriteResultImp(WriteResult.WriteResultStatus.SUCCESS));
+        outputFilePathNew = Files.createTempFile("test_output_new", ".txt");
+        Files.writeString(outputFilePathNew, "", StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    @AfterAll
+    public static void tearDown() throws IOException {
+        Files.deleteIfExists(inputFilePath);
+        Files.deleteIfExists(outputFilePathOld);
+        Files.deleteIfExists(outputFilePathNew);
     }
 
     @Test
-    public void testPerformanceImprovement() {
+    public void testPerformanceImprovement() throws IOException {
+        DataProcessingAPI dataStoreOld = new DataProcessingImp();
+        DataProcessingAPI dataStoreNew = new DataProcessingImp();
+        UserComputeEnginePrototype userComputeEngine = new UserComputeEnginePrototype();
+
         CoordinationComponentOld oldComponent =
-                new CoordinationComponentOld(mockUserComputeEngine, mockDataStorage);
+                new CoordinationComponentOld(userComputeEngine, dataStoreOld);
         CoordinationComponent newComponent =
-                new CoordinationComponent(mockUserComputeEngine, mockDataStorage);
+                new CoordinationComponent(userComputeEngine, dataStoreNew);
 
         long totalOld = 0;
         long totalNew = 0;
 
         for (int i = 0; i < REPEAT; i++) {
+            // Reset output files
+            Files.writeString(outputFilePathOld, "", StandardOpenOption.TRUNCATE_EXISTING);
+            Files.writeString(outputFilePathNew, "", StandardOpenOption.TRUNCATE_EXISTING);
+
+            String inputPath = inputFilePath.toString();
+            String outputPathOld = outputFilePathOld.toString();
+            String outputPathNew = outputFilePathNew.toString();
+
             long startOld = System.nanoTime();
-            oldComponent.handleComputation("input", "output");
+            oldComponent.handleComputation(inputPath, outputPathOld);
             long endOld = System.nanoTime();
 
             long startNew = System.nanoTime();
-            newComponent.handleComputation("input", "output");
+            newComponent.handleComputation(inputPath, outputPathNew);
             long endNew = System.nanoTime();
 
             long timeOld = (endOld - startOld) / 1_000_000;
@@ -93,4 +104,3 @@ public class TestCoordinationComponentPerformance {
         return ((double) (oldTime - newTime) / oldTime) * 100;
     }
 }
-

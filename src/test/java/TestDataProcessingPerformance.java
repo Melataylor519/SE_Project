@@ -84,5 +84,6 @@ public class TestDataProcessingPerformance {
 
         // Verify performance gain
         //assertTrue(improvement >= 10, "Expected at least 10% improvement, but got " + improvement + "%");
+        }
     }
 }

@@ -13,3 +13,8 @@ Multi-threaded Implementation of NetworkAPI:
 
 The upper bound for the number of threads is set to 10. This ensures efficient parallel execution without overwhelming system resources.
 The thread pool is managed using a fixed thread pool from ExecutorService, which means at most 10 requests can be processed concurrently.
+
+## Benchmark Report
+
+Check out the performance optimization results:  
+👉 [Benchmark Results](./benchmark.md)

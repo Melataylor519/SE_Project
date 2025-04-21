@@ -43,7 +43,7 @@ public class TestDataProcessingPerformance {
     public void testCompareOldAndNewPerformance() {
         InputConfig input = createInputConfig();
 
-        // Simulate "old" version (you can rename or copy your old class)
+        // Simulate "old" version 
         FileDataProcessingOld oldVersion = new FileDataProcessingOld();
 
         // Optimized version with streaming

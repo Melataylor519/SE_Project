@@ -81,4 +81,10 @@ public class TestMultiUser {
         }
         return result;
     }
+
+    @AfterEach
+    public void shutdown() {
+    	MultiThreadedNetworkAPI.shutdown(); 
+    }
+
 }

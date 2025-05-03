@@ -1,28 +1,29 @@
 import java.io.File;
-import usercomputecomponents.UserComputeEngineAPI;
-import datastorecomponents.DataStoreClient;
+
+import FileBasedInputConfig;
 
 public class TestUser {
-	
+
 	// TODO 3: change the type of this variable to the name you're using for your
 	// @NetworkAPI interface; also update the parameter passed to the constructor
-	private final UserComputeEngineAPI coordinator;
+	private final ComputationCoordinator coordinator;
 
-	public TestUser(UserComputeEngineAPI coordinator) {
+	public TestUser(ComputationCoordinator coordinator) {
 		this.coordinator = coordinator;
 	}
 
 	public void run(String outputPath) {
 		char delimiter = ';';
 		String inputPath = "test" + File.separatorChar + "testInputFile.test";
-		DataStoreClient client = DataStoreClient.connect("localhost:50051");
-		
-		// TODO 4: Call the appropriate method(s) on the coordinator to get it to 
-		// run the compute job specified by inputPath, outputPath, and delimiter
-		// processData() receives delimiter as a String array, so convert it to an array
-		String[] delimiters = {String.valueOf(delimiter)};
 
-		// data process
-		coordinator.processData(client, inputPath, outputPath, delimiters);
+		// TODO 4: Call the appropriate method(s) on the coordinator to get it to
+		// run the compute job specified by inputPath, outputPath, and delimiter
+
+		InputConfig inputConfig = new FileBasedInputConfig(inputPath); // you'll implement this
+		OutputConfig outputConfig = new FileBasedOutputConfig(outputPath); // you'll implement this
+
+		ComputeRequest request = new ComputeRequest(inputConfig, outputConfig, delimiter);
+		coordinator.compute(request);
 	}
+
 }

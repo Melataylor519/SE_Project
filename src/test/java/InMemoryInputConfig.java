@@ -1,29 +1,24 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import datastorecomponents.InputConfig;
 
 public class InMemoryInputConfig implements InputConfig {
-	
-	private List<Integer> input = new ArrayList<>();
-	
-	
-	public InMemoryInputConfig(List<Integer> input) {
-		this.input.addAll(input);
-	}
-	
-	public List<Integer> getInput() {
-		return input;
-	}
+    private final List<Integer> inputs = new ArrayList<>();
 
-	@Override
-	public String getInputData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getFilePath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public InMemoryInputConfig(int... inputs) { 
+    	for (int i : inputs) 
+    		this.inputs.add(i); 
+    	}
+    public InMemoryInputConfig(Collection<Integer> inputs) { 
+    	this.inputs.addAll(inputs); 
+    }
+    
+    public List<Integer> getInputs() {
+    	return inputs; 
+    }
+    
+    @Override
+    public int getValue() { 
+    	throw new UnsupportedOperationException("Use getInputs() instead for InMemoryInputConfig.");
+    }
 }

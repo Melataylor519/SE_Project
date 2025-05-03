@@ -4,19 +4,30 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryDataStore implements DataStore {
-    private final Map<String, List<String>> storage = new HashMap<>();
-
     @Override
     public DataStoreReadResult read(InputConfig input) {
-        return new DataStoreReadResult(DataStoreReadResult.Status.SUCCESS, List.of(input.getValue()));
+        if (!(input instanceof InMemoryInputConfig inMemoryInput)) {
+            throw new IllegalArgumentException("Unsupported InputConfig type: "
+                + input.getClass().getSimpleName());
+        }
+        List<Integer> inputData = inMemoryInput.getInputs();
+        return new DataStoreReadResult(DataStoreReadResult.Status.SUCCESS, inputData);
+        
     }
 
     @Override
     public WriteResult appendSingleResult(OutputConfig output, String result, char delimiter) {
-    	if (output == null || result == null) {
-    	    return new SimpleWriteResult(WriteResult.WriteResultStatus.FAILURE);
-    	}
-    	storage.computeIfAbsent(output.getUserId(), k -> new ArrayList<>()).add(result);
+    	if (!(output instanceof InMemoryOutputConfig)) {
+            throw new IllegalArgumentException("Unsupported OutputConfig type: "
+                + output.getClass().getSimpleName());
+        }
+    
+        if (result == null) {
+            return new SimpleWriteResult(WriteResult.WriteResultStatus.FAILURE);
+        }
+    
+        InMemoryOutputConfig memoryOutput = (InMemoryOutputConfig) output;
+        memoryOutput.getOutputMutable().add(result);
         return new SimpleWriteResult(WriteResult.WriteResultStatus.SUCCESS);
     }
 }

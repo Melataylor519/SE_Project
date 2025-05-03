@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service EngineService {
+  rpc Compute (EngineRequest) returns (EngineResponse);
+}
+
+message EngineRequest {
+  int32 value = 1;
+}
+
+message EngineResponse {
+  string result = 1;
+}

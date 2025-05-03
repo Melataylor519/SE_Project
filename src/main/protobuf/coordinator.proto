@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service CoordinatorService {
+  rpc Compute (ComputeRequest) returns (ComputeResponse);
+}
+
+message ComputeRequest {
+  int32 value = 1;
+}
+
+message ComputeResponse {
+  string result = 1;
+}

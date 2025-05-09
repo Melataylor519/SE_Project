@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class NetworkAPIServer {
 
-    static class NetworkAPIImpl extends NetworkAPIGrpc.NetworkAPIImplBase {
+    static class NetworkAPIImpl extends NetworkAPIGrpc.NetworkAPIImplBase implements GrpcNetworkAPI {
 
         @Override
         public void processRequest(NetworkAPIProto.RequestMessage request,

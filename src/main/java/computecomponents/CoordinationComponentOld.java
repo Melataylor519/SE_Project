@@ -9,7 +9,7 @@ import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
 import usercomputecomponents.UserComputeEngineAPI; 
 
-public class CoordinationComponentOld {
+public class CoordinationComponentOld implements CoordinationAPI {
     //private final UserComputeEngineAPI userComputeEngine;
     private final DataProcessingAPI dataStorage;
     private final ComputeSystem computeSystem;

@@ -1,8 +1,8 @@
 package datastorecomponents;
 
-import projectannotations.ProcessAPI;
+import projectannotations.StorageAPI;
 
-@ProcessAPI
+@StorageAPI
 public interface DataProcessingAPI {
     ReadResult read(InputConfig input);
     WriteResult appendSingleResult(OutputConfig output, String result, char delimiter);

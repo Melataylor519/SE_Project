@@ -1,9 +1,9 @@
 package usercomputecomponents;
 
-import projectannotations.NetworkAPI;
+import projectannotations.ProcessAPI;
 import datastorecomponents.DataProcessingAPI;
 
-@NetworkAPI
+@ProcessAPI
 public interface UserComputeEngineAPI {
     void processData(DataProcessingAPI client, String inputSource, String outputSource, String[] delimiters);
 }

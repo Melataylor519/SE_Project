@@ -94,7 +94,7 @@ public class DataStoreClient implements DataProcessingAPI {
     }
 
     public static void main(String[] args) throws Exception {
-        String target = "localhost:50051";  // TODO: Ensure this matches your server port
+        String target = "localhost:50052";  // TODO: Ensure this matches your server port
 
         ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
                 .build();

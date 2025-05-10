@@ -1,9 +1,9 @@
 package usercomputecomponents;
 
-import projectannotations.NetworkAPI;
+
 import datastorecomponents.DataProcessingAPI;
 
-@NetworkAPI
+
 public class UserComputeEngineImpl implements UserComputeEngineAPI {
 
     @Override

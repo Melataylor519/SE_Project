@@ -11,7 +11,7 @@ import io.grpc.protobuf.services.ProtoReflectionService;
 public class DataStoreServer {
     private Server server;
     private void start() throws IOException {
-        int port = 50051;
+        int port = 50052;
 
         server = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create())
                 .addService(new DataStoreService())

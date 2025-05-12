@@ -9,12 +9,12 @@ import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
 import usercomputecomponents.UserComputeEngineAPI;
 
-public class CoordinationComponentOld implements CoordinationAPI {
+public class CoordinationComponent implements CoordinationAPI {
 
     private final DataProcessingAPI dataStorage;
     private final ComputeSystem computeSystem;
 
-    public CoordinationComponentOld(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
+    public CoordinationComponent(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
         if (userComputeEngine == null || dataStorage == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }

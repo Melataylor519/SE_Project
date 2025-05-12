@@ -12,7 +12,6 @@ import datastorecomponents.WriteResult.WriteResultStatus;
 public class DataProcessingImp implements DataProcessingAPI {
 
     public DataProcessingImp() {
-
     }
   
     @Override

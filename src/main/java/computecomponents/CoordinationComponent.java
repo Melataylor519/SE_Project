@@ -39,9 +39,10 @@ public class CoordinationComponent implements CoordinationAPI {
             return "Error: Failed to read input data. Status: " + readResult.getStatus();
         }
 
-        Iterable<Integer> loadedData = readResult.getResults();
+        // Optimize handling of primitives instead of boxed Integers
+        int[] loadedData = readResult.getPrimitiveResults();
 
-        // Step 2: Optimized string construction using StringBuilder
+        // Step 2: Build input data string
         StringBuilder inputDataBuilder = new StringBuilder();
         for (int num : loadedData) {
             inputDataBuilder.append(num).append(",");

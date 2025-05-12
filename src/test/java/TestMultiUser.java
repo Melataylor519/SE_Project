@@ -4,24 +4,20 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import projectannotations.MultiThreadedNetworkAPI;
 import usercomputecomponents.UserComputeEngineAPI;
 import usercomputecomponents.UserComputeEnginePrototype;
 
 public class TestMultiUser {
-    // Use UserComputeEngineAPI for the coordinator
     private UserComputeEngineAPI coordinator;
 
     @BeforeEach
     public void initializeComputeEngine() {
-        // Initialize UserComputeEngineAPI
         coordinator = new UserComputeEnginePrototype();
-    } 
+    }
 
     @Test
     public void compareMultiAndSingleThreaded() throws Exception {
@@ -31,42 +27,32 @@ public class TestMultiUser {
             testUsers.add(new TestUser(coordinator));
         }
 
+        // Fix input wiring
+        String inputFilePath = "input/test_input.txt";
+        Files.writeString(new File(inputFilePath).toPath(), "1;2;3;4");
+
         // Run single-threaded
-        String singleThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.singleThreadOut.tmp";
+        String singleThreadFilePrefix = "output/singleThreadOutput";
         for (int i = 0; i < numThreads; i++) {
-            File singleThreadedOut = new File(singleThreadFilePrefix + i);
-            singleThreadedOut.createNewFile();
-            singleThreadedOut.deleteOnExit();
-            testUsers.get(i).run(singleThreadedOut.getCanonicalPath());
+            String outputPath = singleThreadFilePrefix + i + ".txt";
+            testUsers.get(i).run(inputFilePath, outputPath);
         }
 
         // Run multi-threaded using MultiThreadedNetworkAPI
         List<Runnable> tasks = new ArrayList<>();
-        String multiThreadFilePrefix = "testMultiUser.compareMultiAndSingleThreaded.test.multiThreadOut.tmp";
+        String multiThreadFilePrefix = "output/multiThreadOutput";
         for (int i = 0; i < numThreads; i++) {
-            File multiThreadedOut = new File(multiThreadFilePrefix + i);
-            multiThreadedOut.createNewFile();        
-            multiThreadedOut.deleteOnExit();
-            String multiThreadOutputPath = multiThreadedOut.getCanonicalPath();
+            String outputPath = multiThreadFilePrefix + i + ".txt";
             TestUser testUser = testUsers.get(i);
-            
-            tasks.add(() -> {
-                testUser.run(multiThreadOutputPath);
-            });
+            tasks.add(() -> testUser.run(inputFilePath, outputPath));
         }
 
         List<Future<?>> results = MultiThreadedNetworkAPI.runMultiThreaded(tasks);
+        for (Future<?> future : results) {
+            future.get();
+        }
 
-        // Wait for all threads to finish
-        results.forEach(future -> {
-			try {
-				future.get();
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		});
-        
-        // Check that the output is the same for multi-threaded and single-threaded
+        // Verify outputs
         List<String> singleThreaded = loadAllOutput(singleThreadFilePrefix, numThreads);
         List<String> multiThreaded = loadAllOutput(multiThreadFilePrefix, numThreads);
         Assert.assertEquals(singleThreaded, multiThreaded);
@@ -75,9 +61,7 @@ public class TestMultiUser {
     private List<String> loadAllOutput(String prefix, int numThreads) throws IOException {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < numThreads; i++) {
-            File multiThreadedOut =
-                    new File(prefix + i);
-            result.addAll(Files.readAllLines(multiThreadedOut.toPath()));
+            result.addAll(Files.readAllLines(new File(prefix + i + ".txt").toPath()));
         }
         return result;
     }

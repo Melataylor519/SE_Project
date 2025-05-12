@@ -21,7 +21,7 @@ public class TestMultiUser {
     public void initializeComputeEngine() {
         // Initialize UserComputeEngineAPI
         coordinator = new UserComputeEnginePrototype();
-    }
+    } 
 
     @Test
     public void compareMultiAndSingleThreaded() throws Exception {

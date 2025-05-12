@@ -21,7 +21,7 @@ import datastorecomponents.DataProcessingAPI;
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
-    private static final String TARGET = "localhost:50051";
+    private static final String TARGET = "localhost:50052";
 
     @NetworkAPIPrototype
     @Override

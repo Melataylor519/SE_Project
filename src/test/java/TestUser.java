@@ -16,7 +16,13 @@ public class TestUser {
 		char delimiter = ';';
 		String inputPath = "src/test/java/TestInputFile.test";
 		DataStoreClient client = DataStoreClient.connect("localhost:50052");
-		
+
+	     	File inputFile = new File(inputPath);
+	     	if (!inputFile.exists()) {
+         		System.err.println("Input file does not exist: " + inputPath);
+	       		return;
+	   	}
+
 		// TODO 4: Call the appropriate method(s) on the coordinator to get it to 
 		// run the compute job specified by inputPath, outputPath, and delimiter
 		// processData() receives delimiter as a String array, so convert it to an array
@@ -24,5 +30,6 @@ public class TestUser {
 
 		// data process
 		coordinator.processData(client, inputPath, outputPath, delimiters);
+		System.out.println("Computation completed. Output written to: " + outputPath);
 	}
 }

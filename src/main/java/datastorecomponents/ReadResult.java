@@ -1,13 +1,23 @@
 package datastorecomponents;
 
-public interface ReadResult {
-	public static enum Status {
-	    SUCCESS,
-	    FAILURE;
-	}
+public class ReadResult {
+    public enum Status {
+        SUCCESS, FAILURE
+    }
 
-	public Iterable<Integer> getResults();
-	    
-	public Status getStatus();
+    private final Status status;
+    private final int[] results;
 
+    public ReadResult(Status status, int[] results) {
+        this.status = status;
+        this.results = results;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public int[] getResults() {
+        return results;
+    }
 }

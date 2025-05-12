@@ -31,53 +31,47 @@ public class CoordinationComponent implements CoordinationAPI {
             return "Error: inputSource cannot be null or empty.";
         }
 
-        // Read input data from storage
-        InputConfig inputConfig = new FileInputConfig(inputSource); // initial config
+        // Step 1: Read input data from storage
+        InputConfig inputConfig = new FileInputConfig(inputSource);
         ReadResult readResult = dataStorage.read(inputConfig);
 
-        if (readResult.getStatus() == ReadResult.Status.SUCCESS) {
-            Iterable<Integer> loadedData = readResult.getResults();
-
-            // Optimized String construction using StringBuilder 
-            StringBuilder inputDataBuilder = new StringBuilder();
-            boolean first = true;
-            for (int num : loadedData) {
-                if (!first) {
-                    inputDataBuilder.append(",");
-                    inputDataBuilder.append(num);
-                    first = false;
-                }
-            }
-            String inputDataString = inputDataBuilder.toString();
-
-            if (inputDataString.isEmpty()) {
-                return "Error: No valid input data.";
-            }
-
-            inputConfig = new FileInputConfig(inputDataString);
-        } else {
-            return "Error: Failed to read input data.";
+        if (readResult.getStatus() != ReadResult.Status.SUCCESS) {
+            return "Error: Failed to read input data. Status: " + readResult.getStatus();
         }
 
-        // Prepare compute output config
+        Iterable<Integer> loadedData = readResult.getResults();
+
+        // Step 2: Optimized string construction using StringBuilder
+        StringBuilder inputDataBuilder = new StringBuilder();
+        for (int num : loadedData) {
+            inputDataBuilder.append(num).append(",");
+        }
+
+        // Remove trailing comma if data exists
+        if (inputDataBuilder.length() > 0) {
+            inputDataBuilder.setLength(inputDataBuilder.length() - 1);
+        }
+        String inputDataString = inputDataBuilder.toString();
+
+        if (inputDataString.isEmpty()) {
+            return "Error: No valid input data.";
+        }
+
+        // Step 3: Prepare compute output config
         OutputConfig computeOutputConfig = new FileOutputConfig(outputSource);
 
-        // Run computation
-        ComputeRequest request = new ComputeRequest(inputConfig, computeOutputConfig, ',');
+        // Step 4: Run computation
+        ComputeRequest request = new ComputeRequest(new FileInputConfig(inputDataString), computeOutputConfig, ',');
         ComputeResponse response = computeSystem.compute(request);
 
         if (!response.getStatus().isSuccess()) {
             return "Computation failed: " + response.getFailureMessage();
         }
 
-        // Step 4: Write the result
-        OutputConfig annotationOutputConfig = new FileOutputConfig(System.getProperty("user.dir")); // Current directory
-        annotationOutputConfig = new FileOutputConfig(outputSource); // Use the passed output source
-
-        WriteResult writeResult = dataStorage.appendSingleResult(annotationOutputConfig, response.getResult(), ',');
-
+        // Step 5: Write the result
+        WriteResult writeResult = dataStorage.appendSingleResult(computeOutputConfig, response.getResult(), ',');
         if (writeResult.getStatus() != WriteResult.WriteResultStatus.SUCCESS) {
-            return "Error: Failed to write output data.";
+            return "Error: Failed to write output data. Status: " + writeResult.getStatus();
         }
 
         return "Computation successful. Result: " + response.getResult();

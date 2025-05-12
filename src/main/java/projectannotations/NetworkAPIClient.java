@@ -3,37 +3,28 @@ package projectannotations;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import io.grpc.stub.StreamObserver;
 import networkapi.NetworkAPIGrpc;
 import networkapi.NetworkAPIProto;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class NetworkAPIClient {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         try {
-            String requestData;
-
             // Input
             System.out.print("Enter numbers (comma-separated) OR type 'file:<path>': ");
             String input = scanner.nextLine().trim();
-
-            if (input.startsWith("file:")) {
-                String filePath = input.substring(5).trim();
-                try {
-                    requestData = Files.readString(new File(filePath).toPath()).trim();
-                } catch (IOException e) {
-                    System.err.println("Failed to read input file: " + e.getMessage());
-                    return;
-                }
-            } else {
-                requestData = input.trim();
-            }
 
             // Output file path
             System.out.print("Enter output file path: ");
@@ -44,7 +35,7 @@ public class NetworkAPIClient {
             if (outputFile.exists()) {
                 System.out.print("Output file exists. Do you want to overwrite it? (y/n): ");
                 if (!scanner.nextLine().trim().equalsIgnoreCase("y")) {
-                    System.out.println("Removed");
+                    System.out.println("Operation canceled.");
                     return;
                 }
             }
@@ -61,40 +52,116 @@ public class NetworkAPIClient {
                     .usePlaintext()
                     .build();
 
-            NetworkAPIGrpc.NetworkAPIBlockingStub stub = NetworkAPIGrpc.newBlockingStub(channel);
+            NetworkAPIGrpc.NetworkAPIStub asyncStub = NetworkAPIGrpc.newStub(channel);
 
-            // Prepare and send request
             try {
-                NetworkAPIProto.RequestMessage request = NetworkAPIProto.RequestMessage.newBuilder()
-                        .setRequestData(requestData)
-                        .build();
+                // Stream data if input is a file
+                if (input.startsWith("file:")) {
+                    String filePath = input.substring(5).trim();
+                    File inputFile = new File(filePath);
+                    if (!inputFile.exists()) {
+                        System.err.println("Input file does not exist.");
+                        return;
+                    }
 
-                NetworkAPIProto.ResponseMessage response = stub.processRequest(request);
-
-                // Save response to output file
-                try (FileWriter writer = new FileWriter(outputFile)) {
-                    writer.write(response.getResponseData().replace(",", delimiter));
+                    processFileInChunks(inputFile, outputFile, delimiter, asyncStub);
+                } else {
+                    // Process direct input
+                    processDirectInput(input, outputFile, delimiter, asyncStub);
                 }
-
-                // Display response
-                System.out.println("Task complete");
-                System.out.println("Result: " + response.getResponseData());
-                System.out.println("Saved to: " + outputFile.getAbsolutePath());
-
-            } catch (StatusRuntimeException e) {
-                System.err.println("gRPC error: " + e.getStatus().getDescription());
-            } catch (IOException e) {
-                System.err.println("Error writing output: " + e.getMessage());
             } finally {
                 // Shutdown
-                try {
-                    channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
-                } catch (InterruptedException e) {
-                    System.err.println("Channel shutdown interrupted: " + e.getMessage());
-                }
+                channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
             }
         } finally {
             scanner.close();
+        }
+    }
+
+    private static void processFileInChunks(File inputFile, File outputFile, String delimiter, NetworkAPIGrpc.NetworkAPIStub asyncStub) {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            StreamObserver<NetworkAPIProto.RequestMessage> requestObserver = asyncStub.processLargeFile(new StreamObserver<>() {
+                @Override
+                public void onNext(NetworkAPIProto.ResponseMessage response) {
+                    try {
+                        writer.write(response.getResponseData().replace(",", delimiter));
+                        writer.newLine();
+                    } catch (IOException e) {
+                        System.err.println("Error writing output: " + e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    System.err.println("gRPC error: " + t.getMessage());
+                    latch.countDown();
+                }
+
+                @Override
+                public void onCompleted() {
+                    System.out.println("Task complete. Output saved to: " + outputFile.getAbsolutePath());
+                    latch.countDown();
+                }
+            });
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                NetworkAPIProto.RequestMessage request = NetworkAPIProto.RequestMessage.newBuilder()
+                        .setRequestData(line)
+                        .build();
+                requestObserver.onNext(request);
+            }
+
+            // Signal completion
+            requestObserver.onCompleted();
+            latch.await();
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void processDirectInput(String input, File outputFile, String delimiter, NetworkAPIGrpc.NetworkAPIStub asyncStub) {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+            StreamObserver<NetworkAPIProto.RequestMessage> requestObserver = asyncStub.processLargeFile(new StreamObserver<>() {
+                @Override
+                public void onNext(NetworkAPIProto.ResponseMessage response) {
+                    try {
+                        writer.write(response.getResponseData().replace(",", delimiter));
+                        writer.newLine();
+                    } catch (IOException e) {
+                        System.err.println("Error writing output: " + e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    System.err.println("gRPC error: " + t.getMessage());
+                    latch.countDown();
+                }
+
+                @Override
+                public void onCompleted() {
+                    System.out.println("Task complete. Output saved to: " + outputFile.getAbsolutePath());
+                    latch.countDown();
+                }
+            });
+
+            // Send single request
+            NetworkAPIProto.RequestMessage request = NetworkAPIProto.RequestMessage.newBuilder()
+                    .setRequestData(input)
+                    .build();
+            requestObserver.onNext(request);
+
+            // Signal completion
+            requestObserver.onCompleted();
+            latch.await();
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Error: " + e.getMessage());
         }
     }
 }

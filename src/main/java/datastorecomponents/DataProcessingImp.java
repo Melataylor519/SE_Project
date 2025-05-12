@@ -9,7 +9,6 @@ import java.util.List;
 import datastorecomponents.ReadResult.Status;
 import datastorecomponents.WriteResult.WriteResultStatus;
 
-// Implementation for Data Store API
 public class DataProcessingImp implements DataProcessingAPI {
 
     public DataProcessingImp() {
@@ -17,42 +16,14 @@ public class DataProcessingImp implements DataProcessingAPI {
     }
   
     @Override
-    public ReadResult read(InputConfig input) {
-        try {
-            if (input == null || input.getFilePath() == null || input.getFilePath().isEmpty()) {
-                throw new IllegalArgumentException("InputConfig or file path cannot be null or empty");
-            }
-
-            // Validate that the file exists and is readable
-            if (!Files.exists(Paths.get(input.getFilePath())) || !Files.isReadable(Paths.get(input.getFilePath()))) {
-                throw new IllegalArgumentException("File does not exist or is not readable: " + input.getFilePath());
-            }
-            
-
-            String content = new String(Files.readAllBytes(Paths.get(input.getFilePath())), StandardCharsets.UTF_8);
-            String[] tokens = content.split(";");
-
-
-            List<Integer> results = new ArrayList<>();
-            for (String token : tokens) {
-                try {
-                    results.add(Integer.parseInt(token.trim()));
-                } catch (NumberFormatException e) {
-                    System.err.println("Skipping invalid integer: " + token);
-                }
-            }
-            
-            return new ReadResultImp(ReadResult.Status.SUCCESS, results);
-            
-        } catch (IllegalArgumentException e) {
-            // Handle known exceptions
+    public ReadResult read(InputConfig inputConfig) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(inputConfig.getSource()))) {
+            Stream<String> lines = reader.lines();
+            int[] data = lines.mapToInt(Integer::parseInt).toArray();
+            return new ReadResult(ReadResult.Status.SUCCESS, data);
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
-            return new ReadResultImp(ReadResult.Status.FAILURE, null);
-            
-        } catch (Exception e) {
-            // Handle unexpected exceptions
-            e.printStackTrace();
-            return new ReadResultImp(ReadResult.Status.FAILURE, null);
+            return new ReadResult(ReadResult.Status.FAILURE, null);
         }
     }
 

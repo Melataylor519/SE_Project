@@ -67,4 +67,4 @@ public class CoordinationComponentOld implements CoordinationAPI {
         return "Computation successful. Result: " + response.getResult();
     }
 }
-}
+

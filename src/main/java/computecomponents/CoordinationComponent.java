@@ -9,34 +9,6 @@ import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
 import usercomputecomponents.UserComputeEngineAPI;
 
-public class CoordinationComponent implements CoordinationAPI {
-
-    private final DataProcessingAPI dataStorage;
-    private final ComputeSystem computeSystem;
-
-    public CoordinationComponent(UserComputeEngineAPI userComputeEngine, DataProcessingAPI dataStorage) {
-        if (userComputeEngine == null) {
-            throw new IllegalArgumentException("UserComputeEngineAPI cannot be null");
-        }
-        if (dataStorage == null) {
-            throw new IllegalArgumentException("DataProcessingAPI cannot be null");
-        }
-
-        this.dataStorage = dataStorage;
-        this.computeSystem = new ComputeSystemImpl(dataStorage, userComputeEngine);
-    }
-
-   package computecomponents;
-
-import datastorecomponents.DataProcessingAPI;
-import datastorecomponents.FileInputConfig;
-import datastorecomponents.FileOutputConfig;
-import datastorecomponents.InputConfig;
-import datastorecomponents.OutputConfig;
-import datastorecomponents.ReadResult;
-import datastorecomponents.WriteResult;
-import usercomputecomponents.UserComputeEngineAPI;
-
 public class CoordinationComponentOld implements CoordinationAPI {
 
     private final DataProcessingAPI dataStorage;

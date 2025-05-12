@@ -36,7 +36,7 @@ class TestUserComputeEngine {
     }
 
     @Test
-    void testProcessData_withDefaultDelimiters() {
+    void testProcessData_withDefaultDelimiters() throws InterruptedException {
         // Given
         String inputSource = "input.txt";
         String outputSource = "output.txt";
@@ -50,13 +50,15 @@ class TestUserComputeEngine {
 
         // Act
         computeEngine.processData(mockClient, inputSource, outputSource, DEFAULT_DELIMITERS);
+        
+        Thread.sleep(500);
 
         // Verify process method is called correctly
         verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("1 2 3"));
     }
 
     @Test
-    void testProcessData_withUserDelimiters() {
+    void testProcessData_withUserDelimiters() throws InterruptedException {
         // Given
         String inputSource = "input.txt";
         String outputSource = "output.txt";
@@ -69,6 +71,8 @@ class TestUserComputeEngine {
 
         // Act
         computeEngine.processData(mockClient, inputSource, outputSource, null);
+        
+        Thread.sleep(500);
 
         // Verify process method is called correctly
         verify(computeEngine).writeData(eq(mockClient), eq(outputSource), eq("1 2 3"));

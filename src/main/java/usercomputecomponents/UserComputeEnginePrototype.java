@@ -55,7 +55,7 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             if (result.getStatus() == ReadResult.Status.SUCCESS && result.getResults() != null) {
                 return StreamSupport.stream(result.getResults().spliterator(), false)
                         .map(String::valueOf)
-                        .collect(Collectors.joining("\n"));
+                        .collect(Collectors.joining(" "));
             } else {
                 System.err.println("Failed to read data or file not found: " + source);
                 return "";

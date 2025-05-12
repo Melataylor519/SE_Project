@@ -7,7 +7,7 @@ import datastorecomponents.InputConfig;
 import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
-import usercomputecomponents.UserComputeEngineAPI; 
+import usercomputecomponents.UserComputeEngineAPI;
 
 public class CoordinationComponent implements CoordinationAPI {
 

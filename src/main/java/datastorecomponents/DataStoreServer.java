@@ -1,11 +1,14 @@
-package datastorecomponents;
+package projectannotations;
 
 import io.grpc.Grpc;
 import io.grpc.InsecureServerCredentials;
 import io.grpc.Server;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class DataStoreServer {
     private Server server;
@@ -30,6 +33,11 @@ public class DataStoreServer {
                 e.printStackTrace();
             }
         }));
+    }
+
+    private Iterable<Integer> convertIntArrayToIterable(int[] array) {
+        // Convert int[] to List<Integer> (which implements Iterable)
+        return IntStream.of(array).boxed().collect(Collectors.toList());
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

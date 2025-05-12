@@ -1,11 +1,7 @@
 package usercomputecomponents;
 
-import io.grpc.Grpc;
-import io.grpc.InsecureChannelCredentials;
-import io.grpc.ManagedChannel;
-
 import projectannotations.NetworkAPIPrototype;
-import datastorecomponents.DataStoreClient;
+import datastorecomponents.DataProcessingAPI;
 import datastorecomponents.InputConfig;
 import datastorecomponents.FileInputConfig;
 import datastorecomponents.OutputConfig;
@@ -13,19 +9,27 @@ import datastorecomponents.FileOutputConfig;
 import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import datastorecomponents.DataProcessingAPI;
 
 public class UserComputeEnginePrototype implements UserComputeEngineAPI {
 
     private static final String[] DEFAULT_DELIMITERS = {",", ";", " "};
-    private static final String TARGET = "localhost:50051";
+    private static final String TARGET = "localhost:50052";
+
+    private final ExecutorService userThreadPool = Executors.newFixedThreadPool(10);
 
     @NetworkAPIPrototype
     @Override
     public void processData(DataProcessingAPI client, String inputSource, String outputSource, String[] delimiters) {
+        userThreadPool.submit(() -> handleDataProcessing(client, inputSource, outputSource, delimiters));
+    }
+
+    private void handleDataProcessing(DataProcessingAPI client, String inputSource, String outputSource, String[] delimiters) {
         if (delimiters == null || delimiters.length == 0) {
             delimiters = DEFAULT_DELIMITERS;
         }
@@ -36,14 +40,14 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             return;
         }
 
-        String processedData = process(rawData, delimiters);
+        // Parallel processing stage
+        String processedData = processParallel(rawData, delimiters);
+
         writeData(client, outputSource, processedData);
     }
 
-
     public String readData(DataProcessingAPI client, String source) {
         System.out.println("Reading data from " + source);
-
         try {
             InputConfig input = new FileInputConfig(source);
             ReadResult result = client.read(input);
@@ -61,7 +65,6 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
             e.printStackTrace();
             return "";
         }
-        
     }
 
     public void writeData(DataProcessingAPI client, String destination, String data) {
@@ -74,17 +77,29 @@ public class UserComputeEnginePrototype implements UserComputeEngineAPI {
         }
     }
 
-    private String process(String data, String[] delimiters) {
-        // If delimiters are not provided, use default delimiters
-        if (delimiters == null || delimiters.length == 0) {
-            delimiters = DEFAULT_DELIMITERS;
-        }
+    // Split data into lines and process in parallel
+    private String processParallel(String data, String[] delimiters) {
+        return List.of(data.split("\n")).parallelStream()
+                .map(line -> process(line, delimiters))
+                .collect(Collectors.joining(" "));
+    }
 
-        // Replace each delimiter with a standard delimiter (like a single space)
+    // Simple processor: replaces delimiters with space
+    private String process(String data, String[] delimiters) {
         for (String delimiter : delimiters) {
             data = data.replace(delimiter, " ");
         }
-
         return data.trim();
+    }
+
+    public void shutdown() {
+        userThreadPool.shutdown();
+        try {
+            if (!userThreadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+                userThreadPool.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            userThreadPool.shutdownNow();
+        }
     }
 }

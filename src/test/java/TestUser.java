@@ -14,8 +14,8 @@ public class TestUser {
 
 	public void run(String outputPath) {
 		char delimiter = ';';
-		String inputPath = "test" + File.separatorChar + "testInputFile.test";
-		DataStoreClient client = DataStoreClient.connect("localhost:50051");
+		String inputPath = "src/test/java/TestInputFile.test";
+		DataStoreClient client = DataStoreClient.connect("localhost:50052");
 		
 		// TODO 4: Call the appropriate method(s) on the coordinator to get it to 
 		// run the compute job specified by inputPath, outputPath, and delimiter

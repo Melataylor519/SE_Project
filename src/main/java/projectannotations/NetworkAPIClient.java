@@ -1,11 +1,5 @@
 package projectannotations;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.StatusRuntimeException;
-import networkapi.NetworkAPIGrpc;
-import networkapi.NetworkAPIProto;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,10 +7,19 @@ import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
+import networkapi.NetworkAPIGrpc;
+import networkapi.NetworkAPIProto;
+
 public class NetworkAPIClient {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         try {
+            String host = args.length > 0 ? args[0] : "localhost";
+            int port = args.length > 1 ? Integer.parseInt(args[1]) : 50051;
+
             String requestData;
 
             // Input
@@ -35,6 +38,11 @@ public class NetworkAPIClient {
                 requestData = input.trim();
             }
 
+            if (requestData.isEmpty()) {
+                System.err.println("Error: Input data cannot be empty.");
+                return;
+            }
+
             // Output file path
             System.out.print("Enter output file path: ");
             String outputPath = scanner.nextLine().trim();
@@ -44,7 +52,7 @@ public class NetworkAPIClient {
             if (outputFile.exists()) {
                 System.out.print("Output file exists. Do you want to overwrite it? (y/n): ");
                 if (!scanner.nextLine().trim().equalsIgnoreCase("y")) {
-                    System.out.println("Removed");
+                    System.out.println("Operation canceled.");
                     return;
                 }
             }
@@ -54,10 +62,13 @@ public class NetworkAPIClient {
             String delimiter = scanner.nextLine().trim();
             if (delimiter.isEmpty()) {
                 delimiter = ",";
+            } else if (delimiter.length() > 1) {
+                System.err.println("Error: Delimiter must be a single character.");
+                return;
             }
 
             // Setup gRPC connection
-            ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
+            ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port)
                     .usePlaintext()
                     .build();
 
@@ -83,6 +94,7 @@ public class NetworkAPIClient {
 
             } catch (StatusRuntimeException e) {
                 System.err.println("gRPC error: " + e.getStatus().getDescription());
+                System.err.println("Please ensure the NetworkAPIServer is running and reachable.");
             } catch (IOException e) {
                 System.err.println("Error writing output: " + e.getMessage());
             } finally {

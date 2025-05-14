@@ -3,26 +3,26 @@ package projectannotations;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import io.grpc.Grpc;
-import io.grpc.InsecureServerCredentials;
-import io.grpc.Server;
-import io.grpc.protobuf.services.ProtoReflectionService;
 import datastore.DataProcessingGrpc;
-import io.grpc.stub.StreamObserver;
 import datastore.DatastoreProto;
 import datastorecomponents.DataProcessingImp;
 import datastorecomponents.FileInputConfig;
 import datastorecomponents.FileOutputConfig;
 import datastorecomponents.InputConfig;
+import datastorecomponents.OutputConfig;
 import datastorecomponents.ReadResult;
 import datastorecomponents.WriteResult;
-import datastorecomponents.OutputConfig;
+import io.grpc.Grpc;
+import io.grpc.InsecureServerCredentials;
+import io.grpc.Server;
+import io.grpc.protobuf.services.ProtoReflectionService;
+import io.grpc.stub.StreamObserver;
 
 public class DataStoreServer extends DataProcessingGrpc.DataProcessingImplBase {
     private Server server;
 
     private void start() throws IOException {
-        int port = 50051;
+        int port = 50052;
 
         server = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create())
                 .addService(this)
@@ -116,3 +116,4 @@ public class DataStoreServer extends DataProcessingGrpc.DataProcessingImplBase {
         server.blockUntilShutdown();
     }
 }
+

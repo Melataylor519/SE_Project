@@ -24,7 +24,7 @@ Sequential Processing:
   - 98765 → largest prime factor = 197
 Output: max(29, 823, 197) = 823
 
-Parallel Flow:
+Parallel Flow: (You can see in our CoordinationComponentParallel.java file)
 Input: [13195, 12345, 98765]
 Parallel Processing (4 threads):
   - Thread 1: 13195 → 29

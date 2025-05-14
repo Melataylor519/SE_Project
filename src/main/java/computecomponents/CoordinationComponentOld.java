@@ -28,36 +28,24 @@ public class CoordinationComponentOld implements CoordinationAPI {
     }
 
     public String handleComputation(String inputSource, String outputSource) {
-      
-
-
     	if (inputSource == null || inputSource.trim().isEmpty()) {
             return "Error: inputSource cannot be null or empty.";
         }
-
-    	
-    	
-
-      // Read input data from storage
+        // Read input data from storage
     	// create initial InputConfig
-
 
     	InputConfig inputConfig = new FileInputConfig(inputSource); 
 
-    	// read data
+    	// Read data
     	ReadResult readResult = dataStorage.read(inputConfig);
     	if (readResult.getStatus() == ReadResult.Status.SUCCESS) {
     	    Iterable<Integer> loadedData = readResult.getResults(); // get Iterable<Integer>
     	    StringBuilder inputData = new StringBuilder();
-    	    
     	    for (int num : loadedData) {
-
     	        inputData.append(num).append(",");  // Convert integers to strings separated by commas (,)
-
-
     	    }
     	    
-    	    // delete last comma
+    	    // Delete last comma
     	    String inputDataString = inputData.length() > 0 ? inputData.substring(0, inputData.length() - 1) : "";
 
     	    if (inputDataString.isEmpty()) {
@@ -69,7 +57,6 @@ public class CoordinationComponentOld implements CoordinationAPI {
     	} else {
     	    return "Error: Failed to read input data.";
     	}
-
 
         // Check for valid input
         if (inputConfig.getInputData() == null) {

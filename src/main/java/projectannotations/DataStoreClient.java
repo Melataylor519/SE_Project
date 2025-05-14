@@ -1,11 +1,14 @@
 package projectannotations;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import datastore.DataProcessingGrpc;
 import datastore.DatastoreProto;
-import io.grpc.Grpc;
-import io.grpc.InsecureChannelCredentials;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import datastorecomponents.DataProcessingAPI;
 import datastorecomponents.FileInputConfig;
 import datastorecomponents.FileOutputConfig;
@@ -15,13 +18,10 @@ import datastorecomponents.ReadResult;
 import datastorecomponents.ReadResultImp;
 import datastorecomponents.WriteResult;
 import datastorecomponents.WriteResultImp;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.charset.StandardCharsets;
+import io.grpc.Grpc;
+import io.grpc.InsecureChannelCredentials;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 public class DataStoreClient implements DataProcessingAPI {
     private final DataProcessingGrpc.DataProcessingBlockingStub blockingStub;
@@ -94,7 +94,7 @@ public class DataStoreClient implements DataProcessingAPI {
     }
 
     public static void main(String[] args) throws Exception {
-        String target = "localhost:50052";  // TODO: Ensure this matches your server port
+        String target = "localhost:50052";  
 
         ManagedChannel channel = Grpc.newChannelBuilder(target, InsecureChannelCredentials.create())
                 .build();
